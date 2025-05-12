@@ -10,9 +10,9 @@ function CreateLesson() {
         dayOfWeek: "",
         startTime: "",
         endTime: "",
-        classRoomName: "",
-        teacherId: ""
+        classRoomName: ""
     });
+    const [teacherId,setTeacherId]=useState("")
 
     const [teacher, setTeacher] = useState(null);
     const [submitMessage, setSubmitMessage] = useState("");
@@ -52,6 +52,7 @@ function CreateLesson() {
             ...prev,
             [name]: value
         }));
+
     };
 
     useEffect(() => {
@@ -70,7 +71,7 @@ function CreateLesson() {
     }, [user?.userId]);
 
     const fetchTeacher = async () => {
-        if (!formData.teacherId) {
+        if (!teacherId) {
             setErrorMessage("יש להזין תעודת זהות של מורה");
             return;
         }
@@ -79,7 +80,7 @@ function CreateLesson() {
         setErrorMessage("");
         try {
             const response = await axios.get(
-                `http://localhost:8080/Learning-App/School-Manager/get-teacher-DTO?teacherId=${formData.teacherId}&schoolCode=${schoolCode}`,
+                `http://localhost:8080/Learning-App/School-Manager/get-teacher-DTO?teacherId=${teacherId}&schoolCode=${schoolCode}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -103,14 +104,20 @@ function CreateLesson() {
 
     const handleSubmit = async () => {
 
-        if (formData.endTime <= formData.startTime) {
+        const { subject, dayOfWeek, startTime, endTime, classRoomName} = formData;
+        if (!subject || !dayOfWeek || !startTime || !endTime || !classRoomName ) {
+            setSubmitMessage("יש למלא את כל השדות");
+             return;
+        }
+
+        if (endTime <= startTime) {
             setSubmitMessage("שעת סיום חייבת להיות לאחר שעת ההתחלה");
             return;
         }
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/add-lesson-to-teacher?teacherId=${formData.teacherId}`,
+                `http://localhost:8080/Learning-App/School-Manager/add-lesson-to-teacher?teacherId=${teacherId}`,
                 formData,
                 {
                     headers: {
@@ -120,6 +127,19 @@ function CreateLesson() {
             );
 
             if(response.data.success){
+                setSubmitMessage(response.data.errorCode);
+                // setFormData({
+                //     subject: "",
+                //     dayOfWeek: "",
+                //     startTime: "",
+                //     endTime: "",
+                //     classRoomName: ""
+                // });
+                // setTeacher(null);
+
+
+            }
+            else {
                 setSubmitMessage(response.data.errorCode);
             }
         } catch (error) {
@@ -136,8 +156,8 @@ function CreateLesson() {
             <input
                 type="text"
                 name="teacherId"
-                value={formData.teacherId}
-                onChange={handleChange}
+                value={teacherId}
+                onChange={(e)=>setTeacherId(e.target.value)}
                 required
             />
             <button onClick={fetchTeacher}>בדוק מורה</button>
