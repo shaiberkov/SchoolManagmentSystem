@@ -21,6 +21,9 @@ import AddAdditionalClassToGrade from "../pages/manager/AddAdditionalClassToGrad
 import AddTeachingSubjectToTeacher from "../pages/manager/AddTeachingSubjectToTeacher.jsx";
 import RemoveTeachingSubjectFromTeacher from "../pages/manager/RemoveTeachingSubjectFromTeacher.jsx";
 import SendMessage from "../components/messages/SendMessage.jsx";
+import CreateLesson from "../pages/manager/CreateLesson.jsx";
+import AsignTeacherToClassRoom from "../pages/manager/AsignTeacherToClassRooms.jsx";
+import AsignTeacherToClassRooms from "../pages/manager/AsignTeacherToClassRooms.jsx";
 export default function AppRoutes() {
     // const cookies = new Cookies();
     // const token = cookies.get('token');
@@ -28,11 +31,8 @@ export default function AppRoutes() {
     return (
 
         <>
-
-
                      <SideBar/>
                  <Routes>
-
                      <Route element={<PublicOnlyRoutesLayout />}>
                          <Route path="/login" element={<Login />} />
                          <Route path="/register" element={<Register />} />
@@ -60,6 +60,8 @@ export default function AppRoutes() {
                              <Route path="/add-teaching-subject-to-teacher" element={<AddTeachingSubjectToTeacher/>} />
                              <Route path="/remove-teaching-subject-to-teacher" element={<RemoveTeachingSubjectFromTeacher/>} />
                              <Route path="/send-message" element={<SendMessage/>} />
+                             <Route path="/asign-lesson-to-teacher" element={<CreateLesson/>} />
+                             <Route path="/asign-teacher-to-classs" element={<AsignTeacherToClassRooms/>} />
 
 
                          </>

@@ -49,6 +49,8 @@ function SideBar() {
                                 <li><Link to="add-teaching-subject-to-teacher">הוספת מיקצוע למורה</Link></li>
                                 <li><Link to="remove-teaching-subject-to-teacher">הסרת מיקצוע ממורה</Link></li>
                                 <li><Link to="send-message">שליחת הודעה</Link></li>
+                                <li><Link to="asign-lesson-to-teacher"> שיבוץ מורה לשיעור</Link></li>
+                                <li><Link to="asign-teacher-to-classs"> שיבוץ מורה לכיתות</Link></li>
 
 
                                 <li>
