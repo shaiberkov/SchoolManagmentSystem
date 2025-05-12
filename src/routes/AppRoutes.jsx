@@ -1,0 +1,73 @@
+import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
+import Register from "../features/auth/Register.jsx";
+import Login from "../features/auth/Login.jsx";
+import TwoFactorAuthForm from "../features/auth/TwoFactorAuthForm.jsx";
+import {UserContext, UserProvider} from "../context/UserContext.jsx";
+import ProtectedRoute from "../components/ProtectedRoute.jsx";
+import SideBar from "../components/SideBar.jsx";
+import PublicOnlyRoutesLayout from "../components/PublicOnlyRoutesLayout.jsx";
+import ResetPassword from "../features/auth/ResetPassword.jsx";
+import SchoolRegistration from "../pages/admin/SchoolRegistration.jsx";
+import RemoveSchoolManager from "../pages/admin/RemoveSchoolManager.jsx";
+import {useContext} from "react";
+import SystemAdminDashboard from "../pages/admin/SystemAdminDashboard.jsx";
+import AssignTeacher from "../pages/manager/AssignTeacher.jsx";
+import SchoolManagerDashboard from "../pages/manager/SchoolManagerDashboard.jsx";
+import AddSchoolGrades from "../pages/manager/AddSchoolGrades.jsx";
+import RemoveSchoolGrades from "../pages/manager/RemoveSchoolGrades.jsx";
+import RemoveTeacherFromSchool from "../pages/manager/RemoveTeacherFromSchool.jsx";
+import AddClassesToGrade from "../pages/manager/AddClassesToGrade.jsx";
+import AddAdditionalClassToGrade from "../pages/manager/AddAdditionalClassToGrade.jsx";
+import AddTeachingSubjectToTeacher from "../pages/manager/AddTeachingSubjectToTeacher.jsx";
+import RemoveTeachingSubjectFromTeacher from "../pages/manager/RemoveTeachingSubjectFromTeacher.jsx";
+import SendMessage from "../components/messages/SendMessage.jsx";
+export default function AppRoutes() {
+    // const cookies = new Cookies();
+    // const token = cookies.get('token');
+    const {user}=useContext(UserContext)
+    return (
+
+        <>
+
+
+                     <SideBar/>
+                 <Routes>
+
+                     <Route element={<PublicOnlyRoutesLayout />}>
+                         <Route path="/login" element={<Login />} />
+                         <Route path="/register" element={<Register />} />
+                         <Route path="/two-factor-auth" element={<TwoFactorAuthForm />} />
+                         <Route path="/reset-password" element={<ResetPassword/>}/>
+                     </Route>
+
+                     {user?.role==='SYSTEM_ADMIN' &&(
+                         <>
+                             <Route path="/system-admin-dashboard" element={<SystemAdminDashboard />} />
+                             <Route path="/school-registration" element={<SchoolRegistration />} />
+                             <Route path="/remove-manager-from-school" element={<RemoveSchoolManager />} />
+                             <Route path="/send-message" element={<SendMessage/>} />
+                         </>
+                     )}
+                     {user?.role==='SCHOOLMANAGER' &&(
+                         <>
+                             <Route path="/school-mananger-dashboard" element={<SchoolManagerDashboard />} />
+                             <Route path="/assign-teacher" element={<AssignTeacher />} />
+                             <Route path="/remove-teacher" element={<RemoveTeacherFromSchool />} />
+                             <Route path="/add-school-grades" element={<AddSchoolGrades />} />
+                             <Route path="/remove-school-grades" element={<RemoveSchoolGrades />} />
+                             <Route path="/add-classes-to-grade" element={<AddClassesToGrade />} />
+                             <Route path="/add-additional-class-to-grade" element={<AddAdditionalClassToGrade/>} />
+                             <Route path="/add-teaching-subject-to-teacher" element={<AddTeachingSubjectToTeacher/>} />
+                             <Route path="/remove-teaching-subject-to-teacher" element={<RemoveTeachingSubjectFromTeacher/>} />
+                             <Route path="/send-message" element={<SendMessage/>} />
+
+
+                         </>
+                     )}
+
+                     {/*<Route path="/unauthorized" element={<UnauthorizedPage />} />*/}
+                 </Routes>
+        </>
+
+    );
+    }

@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* איפוס סגנונות ברירת מחדל של הדפדפן כדי לתפוס את כל המסך */
+html,
+body {
+  height: 100vh; /* שימוש ב-100vh במקום 100% */
+  width: 100vw; /* שימוש ב-100vw במקום 100% */
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* הוספה של overflow: hidden; */
+}
+
+body {
+  @apply bg-blue-100;
+  display: flex;
+  flex-direction: column;
+}
