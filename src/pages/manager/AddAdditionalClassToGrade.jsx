@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { UserContext } from '../../context/UserContext.jsx';
-import { getManagerSchoolCode } from '../../Api/getManagerSchoolCode.js';
 
 function AddAdditionalClassToGrade() {
     const [schoolCode, setSchoolCode] = useState('');
@@ -19,11 +18,9 @@ function AddAdditionalClassToGrade() {
         const fetchSchoolCodeAndGrades = async () => {
             if (user?.userId) {
                 try {
-                    const code = await getManagerSchoolCode(user.userId, token);
-                    setSchoolCode(code);
 
                     const gradesResponse = await axios.get(
-                        `http://localhost:8080/Learning-App/School-Manager/grades?schoolCode=${code}`,
+                        `http://localhost:8080/Learning-App/School-Manager/grades?schoolCode=${user.schoolCode}`,
                         {
                             headers: {
                                 Authorization: `Bearer ${token}`
@@ -56,7 +53,7 @@ function AddAdditionalClassToGrade() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/add-additional-class-to-grade?schoolCode=${schoolCode}&gradeName=${selectedGrade}&className=${className}`,
+                `http://localhost:8080/Learning-App/School-Manager/add-additional-class-to-grade?schoolCode=${user.schoolCode}&gradeName=${selectedGrade}&className=${className}`,
                 {},
                 {
                     headers: {

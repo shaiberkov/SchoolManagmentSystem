@@ -1,7 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import {getManagerSchoolCode} from "../../Api/getManagerSchoolCode.js";
 import {UserContext} from "../../context/UserContext.jsx";
 
 function CreateLesson() {
@@ -13,12 +12,10 @@ function CreateLesson() {
         classRoomName: ""
     });
     const [teacherId,setTeacherId]=useState("")
-
     const [teacher, setTeacher] = useState(null);
     const [submitMessage, setSubmitMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [loadingTeacher, setLoadingTeacher] = useState(false);
-    const [schoolCode,setSchoolCode]=useState("")
     const { user } = useContext(UserContext);
 
     const cookies = new Cookies();
@@ -55,20 +52,6 @@ function CreateLesson() {
 
     };
 
-    useEffect(() => {
-        const fetchSchoolCode = async () => {
-            if (user?.userId) {
-                try {
-                    const code = await getManagerSchoolCode(user.userId, token);
-                    setSchoolCode(code);
-                    console.log(code);
-                } catch (err) {
-                }
-            }
-        };
-
-        fetchSchoolCode();
-    }, [user?.userId]);
 
     const fetchTeacher = async () => {
         if (!teacherId) {
@@ -80,7 +63,7 @@ function CreateLesson() {
         setErrorMessage("");
         try {
             const response = await axios.get(
-                `http://localhost:8080/Learning-App/School-Manager/get-teacher-DTO?teacherId=${teacherId}&schoolCode=${schoolCode}`,
+                `http://localhost:8080/Learning-App/School-Manager/get-teacher-DTO?teacherId=${teacherId}&schoolCode=${user.schoolCode}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

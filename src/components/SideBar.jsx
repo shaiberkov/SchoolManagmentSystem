@@ -3,6 +3,8 @@ import {UserContext} from "../context/UserContext.jsx";
 import {useContext} from "react";
 import Cookies from "universal-cookie";
 import RemoveTeachingSubjectFromTeacher from "../pages/manager/RemoveTeachingSubjectFromTeacher.jsx";
+import AssignStudentToClass from "../pages/manager/AssignStudentToClass.jsx";
+import StudentWeeklySchedule from "../pages/student/StudentWeeklySchedule.jsx";
 
 function SideBar() {
     const { user,setUser } = useContext(UserContext);
@@ -49,10 +51,35 @@ function SideBar() {
                                 <li><Link to="add-teaching-subject-to-teacher">הוספת מיקצוע למורה</Link></li>
                                 <li><Link to="remove-teaching-subject-to-teacher">הסרת מיקצוע ממורה</Link></li>
                                 <li><Link to="send-message">שליחת הודעה</Link></li>
-                                <li><Link to="asign-lesson-to-teacher"> שיבוץ מורה לשיעור</Link></li>
-                                <li><Link to="asign-teacher-to-classs"> שיבוץ מורה לכיתות</Link></li>
+                                <li><Link to="assign-lesson-to-teacher"> שיבוץ מורה לשיעור</Link></li>
+                                <li><Link to="assign-teacher-to-class"> שיבוץ מורה לכיתות</Link></li>
+                                <li><Link to="assign-student-to-class">שיבוץ תלמיד לכיתה</Link></li>
+                                <li><Link to="classes-weekly-schedule">מערכת שעות לפי כיתה</Link></li>
 
 
+                                <li>
+                                    <button onClick={handleLogout}>התנתק</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    )}
+
+                    {user.role === 'TEACHER' && (
+                        <nav style={{width: '200px'}}>
+                            <ul>
+
+                                <li><Link to="teacher-weekly-schedule">מערכת שעות</Link></li>
+                                <li>
+                                    <button onClick={handleLogout}>התנתק</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    )}
+                    {user.role === 'STUDENT' && (
+                        <nav style={{width: '200px'}}>
+                            <ul>
+
+                                <li><Link to="student-weekly-schedule">מערכת שעות</Link></li>
                                 <li>
                                     <button onClick={handleLogout}>התנתק</button>
                                 </li>

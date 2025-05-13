@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import { getManagerSchoolCode } from "../../Api/getManagerSchoolCode.js";
 import { UserContext } from "../../context/UserContext.jsx";
 
 function RemoveSchoolGrades() {
-    const [schoolCode, setSchoolCode] = useState('');
     const [gradesList, setGradesList] = useState([]);
     const [selectedGrade, setSelectedGrade] = useState('');
     const [message, setMessage] = useState('');
@@ -14,14 +12,12 @@ function RemoveSchoolGrades() {
     const token = cookies.get('token');
 
     useEffect(() => {
-        const fetchSchoolCodeAndGrades = async () => {
+        const fetchGrades = async () => {
             if (user?.userId) {
                 try {
-                    const code = await getManagerSchoolCode(user.userId, token);
-                    setSchoolCode(code);
 
                     const gradesResponse = await axios.get(
-                        `http://localhost:8080/Learning-App/School-Manager/grades?schoolCode=${code}`,
+                        `http://localhost:8080/Learning-App/School-Manager/grades?schoolCode=${user.schoolCode}`,
                         {
                             headers: {
                                 Authorization: `Bearer ${token}`
@@ -39,7 +35,7 @@ function RemoveSchoolGrades() {
             }
         };
 
-        fetchSchoolCodeAndGrades();
+        fetchGrades();
     }, [user?.userId]);
 
     const handleRemove = async () => {
@@ -50,7 +46,7 @@ function RemoveSchoolGrades() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/remove-school-grades?schoolCode=${schoolCode}`,
+                `http://localhost:8080/Learning-App/School-Manager/remove-school-grades?schoolCode=${user.schoolCode}`,
                 [selectedGrade],
                 {
                     headers: {

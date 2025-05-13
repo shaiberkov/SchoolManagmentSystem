@@ -30,8 +30,6 @@ export const UserProvider = ({ children }) => {
                 return;
             }
             console.log("🔍 בודק טוקן");
-            // const { userId, role, username } = parseJwt(token);
-
             try {
                 const response = await axios.get(
                     'http://localhost:8080/Learning-App/validateToken/validateToken',
@@ -47,9 +45,10 @@ export const UserProvider = ({ children }) => {
                     setUser({
                         userId:response.data.userId,
                         role:response.data.role,
-                        username:response.data.username
+                        username:response.data.username,
+                        schoolCode:response.data.schoolCode
                     });
-                    console.log(`✅ טוקן תקף - userId: ${response.data.userId}, role: ${response.data.role}, username: ${response.data.username}`);
+                    console.log(`✅ טוקן תקף - userId: ${response.data.userId}, role: ${response.data.role}, username: ${response.data.username},schoolCode:${response.data.schoolCode}`);
                 } else {
                     throw new Error('✖️ נתוני טוקן לא שלמים');
                 }

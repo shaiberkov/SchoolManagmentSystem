@@ -1,14 +1,15 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import { UserContext } from '../../context/UserContext.jsx';
 
 function AddTeachingSubjectToTeacher() {
     const [teacherId, setTeacherId] = useState('');
     const [message, setMessage] = useState('');
-    const [subject, setSubject] = useState('מתמטיקה'); // Currently hardcoded
+    const [subject, setSubject] = useState('מתמטיקה');
     const cookies = new Cookies();
     const token = cookies.get('token');
+
+    //TODO לקבל את זה מהשרת
     const subjects = [
         "מתמטיקה"
     ];

@@ -1,11 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import {getManagerSchoolCode} from "../../Api/getManagerSchoolCode.js";
 import {UserContext} from "../../context/UserContext.jsx";
 
 function AddSchoolGrades() {
-    const [schoolCode, setSchoolCode] = useState('');
     const [grades, setGrades] = useState('');
     const [message, setMessage] = useState('');
     const {user}=useContext(UserContext)
@@ -13,21 +11,6 @@ function AddSchoolGrades() {
     const token = cookies.get('token');
 
 
-
-    useEffect(() => {
-        const fetchSchoolCode = async () => {
-            if (user?.userId) {
-                try {
-                    const code = await getManagerSchoolCode(user.userId, token);
-                    setSchoolCode(code);
-                    console.log(code);
-                } catch (err) {
-                }
-            }
-        };
-
-        fetchSchoolCode();
-    }, [user?.userId]);
 
     const handleSubmit = async () => {
         if (!grades){
@@ -39,7 +22,7 @@ function AddSchoolGrades() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/add-school-grades?schoolCode=${schoolCode}`,
+                `http://localhost:8080/Learning-App/School-Manager/add-school-grades?schoolCode=${user.schoolCode}`,
                 gradesList,
                 {
                     headers: {

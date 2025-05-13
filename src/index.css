@@ -7,7 +7,6 @@ body {
   width: 100vw; /* שימוש ב-100vw במקום 100% */
   margin: 0;
   padding: 0;
-  overflow: hidden; /* הוספה של overflow: hidden; */
 }
 
 body {
