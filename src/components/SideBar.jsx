@@ -69,6 +69,8 @@ function SideBar() {
                             <ul>
 
                                 <li><Link to="teacher-weekly-schedule">מערכת שעות</Link></li>
+                                <li><Link to="test-configurator">יצירת מבחן לתלמידים</Link></li>
+
                                 <li>
                                     <button onClick={handleLogout}>התנתק</button>
                                 </li>
@@ -82,7 +84,7 @@ function SideBar() {
                                 <li><Link to="student-weekly-schedule">מערכת שעות</Link></li>
                                 <li><Link to="question-practice-selector">תירגול שאלות</Link></li>
                                 <li><Link to="test-configurator">תירגול מבחנים</Link></li>
-
+                                <li><Link to="teacher-tests">מבחנים</Link></li>
                                 <li>
                                     <button onClick={handleLogout}>התנתק</button>
                                 </li>

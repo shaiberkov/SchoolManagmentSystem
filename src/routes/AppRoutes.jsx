@@ -32,6 +32,7 @@ import QuestionPracticeSelector from "../components/QuestionPracticeSelector.jsx
 import QuestionPractice from "../pages/student/QuestionPractice.jsx";
 import TestConfigurator from "../components/TestConfigurator.jsx";
 import TestPractice from "../pages/student/TestPractice.jsx";
+import TestsTable from "../pages/student/TestsTable.jsx";
 export default function AppRoutes() {
     // const cookies = new Cookies();
     // const token = cookies.get('token');
@@ -79,6 +80,8 @@ export default function AppRoutes() {
                      {user?.role==='TEACHER' &&(
                          <>
                              <Route path="/teacher-weekly-schedule" element={<TeacherWeeklySchedule/>} />
+                             <Route path="/test-configurator" element={<TestConfigurator type="teacher"/>}/>
+
 
                          </>
                      )}
@@ -86,11 +89,13 @@ export default function AppRoutes() {
                          <>
                              <Route path="/student-weekly-schedule" element={<StudentWeeklySchedule/>}/>
                              <Route path="/question-practice-selector" element={<QuestionPracticeSelector/>}/>
-                             <Route path="/test-configurator" element={<TestConfigurator/>}/>
+                             <Route path="/test-configurator" element={<TestConfigurator type="student"/>}/>
+                             <Route path="/teacher-tests" element={<TestsTable/>}/>
 
 
                              <Route path="/exercises/:subjectName/:topicName/:exerciseName" element={<QuestionPractice/>}/>
-                             <Route path="/test/:selectedSubject/:selectedTopic/:selectedDifficulty/:selectedQuestionCount/:selectedTimeMinutes" element={<TestPractice />} />
+                             <Route path="/test/:selectedSubject/:selectedTopic/:selectedDifficulty/:selectedQuestionCount/:selectedTimeMinutes" element={<TestPractice type="practiceTest" />} />
+                             <Route path="/test/:TeacherTestId/:timeLimitMinutes" element={<TestPractice type="teacherTest" />} />
 
                          </>
                      )}

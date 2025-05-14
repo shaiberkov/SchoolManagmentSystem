@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import DateTime from 'react-datetime';
+import dayjs from 'dayjs';
+import axios from "axios";
+import {UserContext} from "../context/UserContext.jsx";
+import Cookies from "universal-cookie";
 
-const TestConfigurator = () => {
+const TestConfigurator = ({type}) => {
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
+    const cookies = new Cookies();
+    const token = cookies.get('token');
 
     const subjects = ['מתמטיקה'];
     const topics = {
@@ -14,12 +22,44 @@ const TestConfigurator = () => {
     const [selectedSubject, setSelectedSubject] = useState('');
     const [selectedTopic, setSelectedTopic] = useState('');
     const [selectedDifficulty, setSelectedDifficulty] = useState('');
-    const [selectedQuestionCount, setSelectedQuestionCount] = useState(1);
+    const [selectedQuestionCount, setSelectedQuestionCount] = useState('');
     const [selectedTimeMinutes, setSelectedTimeMinutes] = useState(10); // ברירת מחדל: 10 דקות
+    const [startTime, setStartTime] = useState('');
+    const [studentsIdsInput, setStudentsIdsInput] = useState('');
+
 
     const navigateToTest = () => {
         navigate(`/test/${selectedSubject}/${selectedTopic}/${selectedDifficulty}/${selectedQuestionCount}/${selectedTimeMinutes}`);
     };
+
+
+    const handleSubmit = async () => {
+        const formattedStartTime = dayjs(startTime).format('DD/MM/YYYY HH:mm');
+
+        const usersIds = studentsIdsInput
+            .split(',')
+            .map(id => id.trim())
+            .filter(id => id.length > 0);
+
+
+        const url = `http://localhost:8080/Learning-App/Teacher/generate-test-for-students?teacherId=${user.userId}&testStartTime=${formattedStartTime}&subject=${selectedSubject}&topic=${selectedTopic}&difficulty=${selectedDifficulty}&questionCount=${selectedQuestionCount}&timeLimitMinutes=${selectedTimeMinutes}`;
+
+        try {
+            const response = await axios.post(url, usersIds, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            alert('המבחן נוצר בהצלחה!');
+            console.log(response.data);
+        } catch (error) {
+            console.error('שגיאה ביצירת מבחן:', error);
+            alert('ארעה שגיאה ביצירת המבחן');
+        }
+    };
+
 
     return (
         <div>
@@ -82,18 +122,40 @@ const TestConfigurator = () => {
                     }}
                 />
 
-                // <div>
-                //     <label>בחר זמן בדקות:</label>
-                //     <input
-                //         type="number"
-                //         min="1"
-                //         value={selectedTimeMinutes}
-                //         onChange={(e) => setSelectedTimeMinutes(parseInt(e.target.value))}
-                //     />
-                // </div>
+            )}
+            {type==="teacher"&&selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0&& (
+                <div>
+                    <h2>בחר תאריך ושעה למבחן</h2>
+                    <DateTime
+                        value={startTime}
+                        onChange={(value) => setStartTime(value)}
+                        inputProps={{placeholder: 'בחר תאריך ושעה'}}
+                    />
+                </div>
+
             )}
 
-            {selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && (
+
+            {selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && startTime &&type==="teacher" && (
+
+                <div>
+                    <label>הכנס ת"ז של תלמידים (מופרדים בפסיקים):</label>
+                    <textarea
+                        rows={4}
+                        value={studentsIdsInput}
+                        onChange={(e) => setStudentsIdsInput(e.target.value)}
+                        placeholder="123456789,987654321,..."
+                    />
+                </div>
+            )}
+            {selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && startTime &&type==="teacher" && (
+
+                <div>
+                    <button onClick={handleSubmit}>צור מבחן</button>
+                </div>
+            )}
+
+            {selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && type === "student" && (
                 <div>
                     <button onClick={navigateToTest}>צור מבחן</button>
                 </div>

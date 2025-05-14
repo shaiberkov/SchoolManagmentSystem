@@ -4,7 +4,6 @@ import Cookies from 'universal-cookie';
 import { UserContext } from '../../context/UserContext.jsx';
 
 function AddAdditionalClassToGrade() {
-    const [schoolCode, setSchoolCode] = useState('');
     const [gradesList, setGradesList] = useState([]);
     const [selectedGrade, setSelectedGrade] = useState('');
     const [className, setClassName] = useState('');
@@ -15,7 +14,7 @@ function AddAdditionalClassToGrade() {
     const token = cookies.get('token');
 
     useEffect(() => {
-        const fetchSchoolCodeAndGrades = async () => {
+        const fetchGrades = async () => {
             if (user?.userId) {
                 try {
 
@@ -38,7 +37,7 @@ function AddAdditionalClassToGrade() {
             }
         };
 
-        fetchSchoolCodeAndGrades();
+        fetchGrades();
     }, [user?.userId]);
 
     const handleSubmit = async () => {
