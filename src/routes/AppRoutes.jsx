@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useLocation, Link} from 'react-router-dom';
 import Register from "../features/auth/Register.jsx";
 import Login from "../features/auth/Login.jsx";
 import TwoFactorAuthForm from "../features/auth/TwoFactorAuthForm.jsx";
@@ -28,6 +28,8 @@ import TeacherWeeklySchedule from "../pages/teacher/TeacherWeeklySchedule.jsx";
 import AssignStudentToClass from "../pages/manager/AssignStudentToClass.jsx";
 import StudentWeeklySchedule from "../pages/student/StudentWeeklySchedule.jsx";
 import ClassScheduleViewerForManager from "../pages/manager/ClassScheduleViewerForManager.jsx";
+import QuestionPracticeSelector from "../components/QuestionPracticeSelector.jsx";
+import QuestionPractice from "../pages/student/QuestionPractice.jsx";
 export default function AppRoutes() {
     // const cookies = new Cookies();
     // const token = cookies.get('token');
@@ -80,16 +82,15 @@ export default function AppRoutes() {
                      )}
                      {user?.role==='STUDENT' &&(
                          <>
-                             <Route path="/student-weekly-schedule" element={<StudentWeeklySchedule/>} />
+                             <Route path="/student-weekly-schedule" element={<StudentWeeklySchedule/>}/>
+                             <Route path="/question-practice-selector" element={<QuestionPracticeSelector/>}/>
+                             <Route path="/exercises/:subjectName/:topicName/:exerciseName" element={<QuestionPractice/>}/>
 
                          </>
                      )}
 
 
-
-
-
-                     {/*<Route path="/unauthorized" element={<UnauthorizedPage />} />*/}
+                          {/*<Route path="/unauthorized" element={<UnauthorizedPage />} />*/}
                  </Routes>
         </>
 

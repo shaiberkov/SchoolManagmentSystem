@@ -23,21 +23,16 @@ function WeeklySchedule({ type, classRoomName }) {
                     url = `http://localhost:8080/Learning-App/Student/get-student-schedule?schoolCode=${user.schoolCode}&studentId=${user.userId}`;
                 }
 
-                console.log("מושך מערכת שעות מ:", url);
-
                 const response = await axios.get(url, {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Cache-Control': 'no-cache',
+                        Authorization: `Bearer ${token}`
                     },
                 });
 
                 if (response.data.success) {
                     setLessonsByDay(response.data.data);
-                    if(response.data.data.length===0){
-                        return "לא קיים מערכת שעות"
-                    }
                 } else {
+
                     console.warn("בעיה בהבאת נתונים:", response.data);
                 }
             } catch (error) {
@@ -49,9 +44,6 @@ function WeeklySchedule({ type, classRoomName }) {
     }, [user?.userId, type, classRoomName, token]);
 
 
-    // useEffect(() => {
-    //
-    // }, [user?.userId,type, classRoomName]);
 
     const daysInHebrew = {
         SUNDAY: 'ראשון',
@@ -81,7 +73,7 @@ function WeeklySchedule({ type, classRoomName }) {
     const thStyle = { border: "2px solid #ccc", padding: "8px", backgroundColor: "#f4f4f4" };
     const tdStyle = { border: "2px solid #ccc", padding: "8px" };
     const rowSpanCellStyle = { backgroundColor: "#e0f7fa", fontWeight: "bold" };
-
+        //todo אם מערכת שעות ריקה אז להציג מערכת שעות ריקה
     return (
         <div>
             <table style={tableStyle}>

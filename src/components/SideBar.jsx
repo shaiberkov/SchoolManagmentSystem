@@ -80,10 +80,13 @@ function SideBar() {
                             <ul>
 
                                 <li><Link to="student-weekly-schedule">מערכת שעות</Link></li>
+                                <li><Link to="question-practice-selector">תירגול שאלות</Link></li>
+
                                 <li>
                                     <button onClick={handleLogout}>התנתק</button>
                                 </li>
                             </ul>
+
                         </nav>
                     )}
                 </>
