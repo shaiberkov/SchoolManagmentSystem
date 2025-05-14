@@ -3,6 +3,7 @@ import {UserContext} from "../../context/UserContext.jsx";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import ChatComponent from "../../components/ChatComponent.jsx";
+import Cookies from "universal-cookie";
 
 function QuestionPractice(){
 
@@ -19,6 +20,8 @@ function QuestionPractice(){
     const [messages, setMessages] = useState([]);
     const [userMessage, setUserMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const cookies = new Cookies();
+    const token=cookies.get('token')
     const canvasRef = useRef(null);
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -77,7 +80,12 @@ function QuestionPractice(){
         console.log(user.name,"ביקשתי שאלה")
          setMessages([]);
 
-        const response = await axios.get(`http://localhost:8080/Learning-App/Student/generate-question?userId=${user.userId}&subject=${subjectName}&topic=${topicName}&subTopic=${exerciseName}`);
+        const response = await axios.get(`http://localhost:8080/Learning-App/Student/generate-question?userId=${user.userId}&subject=${subjectName}&topic=${topicName}&subTopic=${exerciseName}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
         if (response.data) {
             setExercise(response.data.data);
         }
@@ -100,7 +108,12 @@ function QuestionPractice(){
             });
 
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/Student/submit-answer?${params.toString()}`
+                `http://localhost:8080/Learning-App/Student/submit-answer?${params.toString()}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
             );
             setResponseMessage(response.data.data.message);
             setIsCorrect(response.data.data.correct);
@@ -130,7 +143,12 @@ function QuestionPractice(){
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/Chat/get-response-from-chatGpt-with-memory?userId=${user.userId}&message=${userMessage}`
+                `http://localhost:8080/Learning-App/Chat/get-response-from-chatGpt-with-memory?userId=${user.userId}&message=${userMessage}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
             );
 
             setMessages((prevMessages) => [

@@ -81,6 +81,7 @@ function SideBar() {
 
                                 <li><Link to="student-weekly-schedule">מערכת שעות</Link></li>
                                 <li><Link to="question-practice-selector">תירגול שאלות</Link></li>
+                                <li><Link to="test-configurator">תירגול מבחנים</Link></li>
 
                                 <li>
                                     <button onClick={handleLogout}>התנתק</button>

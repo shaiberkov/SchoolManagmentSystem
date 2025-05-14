@@ -30,6 +30,8 @@ import StudentWeeklySchedule from "../pages/student/StudentWeeklySchedule.jsx";
 import ClassScheduleViewerForManager from "../pages/manager/ClassScheduleViewerForManager.jsx";
 import QuestionPracticeSelector from "../components/QuestionPracticeSelector.jsx";
 import QuestionPractice from "../pages/student/QuestionPractice.jsx";
+import TestConfigurator from "../components/TestConfigurator.jsx";
+import TestPractice from "../pages/student/TestPractice.jsx";
 export default function AppRoutes() {
     // const cookies = new Cookies();
     // const token = cookies.get('token');
@@ -84,7 +86,11 @@ export default function AppRoutes() {
                          <>
                              <Route path="/student-weekly-schedule" element={<StudentWeeklySchedule/>}/>
                              <Route path="/question-practice-selector" element={<QuestionPracticeSelector/>}/>
+                             <Route path="/test-configurator" element={<TestConfigurator/>}/>
+
+
                              <Route path="/exercises/:subjectName/:topicName/:exerciseName" element={<QuestionPractice/>}/>
+                             <Route path="/test/:selectedSubject/:selectedTopic/:selectedDifficulty/:selectedQuestionCount/:selectedTimeMinutes" element={<TestPractice />} />
 
                          </>
                      )}

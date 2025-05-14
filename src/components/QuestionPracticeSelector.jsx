@@ -14,7 +14,7 @@ const topicsData = {
     ],
 };
 
-function PracticeSelector() {
+function QuestionPracticeSelector() {
     const [selectedSubject, setSelectedSubject] = useState(null);
     const [selectedTopic, setSelectedTopic] = useState(null);
     const [selectedExercise, setSelectedExercise] = useState(null);
@@ -75,4 +75,4 @@ function PracticeSelector() {
     );
 }
 
-export default PracticeSelector;
+export default QuestionPracticeSelector;
