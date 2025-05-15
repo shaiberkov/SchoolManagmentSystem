@@ -31,8 +31,10 @@ import ClassScheduleViewerForManager from "../pages/manager/ClassScheduleViewerF
 import QuestionPracticeSelector from "../components/QuestionPracticeSelector.jsx";
 import QuestionPractice from "../pages/student/QuestionPractice.jsx";
 import TestConfigurator from "../components/TestConfigurator.jsx";
-import TestPractice from "../pages/student/TestPractice.jsx";
+import TestSession from "../components/TestSession.jsx";
 import TestsTable from "../pages/student/TestsTable.jsx";
+import TeacherDashboard from "../pages/teacher/TeacherDashboard.jsx";
+import StudentDashboard from "../pages/student/StudentDashboard.jsx";
 export default function AppRoutes() {
     // const cookies = new Cookies();
     // const token = cookies.get('token');
@@ -79,6 +81,8 @@ export default function AppRoutes() {
                      )}
                      {user?.role==='TEACHER' &&(
                          <>
+                             <Route path="/teacher-dashboard" element={<TeacherDashboard/>}/>
+
                              <Route path="/teacher-weekly-schedule" element={<TeacherWeeklySchedule/>} />
                              <Route path="/test-configurator" element={<TestConfigurator type="teacher"/>}/>
 
@@ -87,6 +91,8 @@ export default function AppRoutes() {
                      )}
                      {user?.role==='STUDENT' &&(
                          <>
+                             <Route path="/student-dashboard" element={<StudentDashboard/>}/>
+
                              <Route path="/student-weekly-schedule" element={<StudentWeeklySchedule/>}/>
                              <Route path="/question-practice-selector" element={<QuestionPracticeSelector/>}/>
                              <Route path="/test-configurator" element={<TestConfigurator type="student"/>}/>
@@ -94,8 +100,8 @@ export default function AppRoutes() {
 
 
                              <Route path="/exercises/:subjectName/:topicName/:exerciseName" element={<QuestionPractice/>}/>
-                             <Route path="/test/:selectedSubject/:selectedTopic/:selectedDifficulty/:selectedQuestionCount/:selectedTimeMinutes" element={<TestPractice type="practiceTest" />} />
-                             <Route path="/test/:TeacherTestId/:timeLimitMinutes" element={<TestPractice type="teacherTest" />} />
+                             <Route path="/test/:selectedSubject/:selectedTopic/:selectedDifficulty/:selectedQuestionCount/:selectedTimeMinutes" element={<TestSession type="practiceTest" />} />
+                             <Route path="/test/:TeacherTestId/:timeLimitMinutes" element={<TestSession type="teacherTest" />} />
 
                          </>
                      )}

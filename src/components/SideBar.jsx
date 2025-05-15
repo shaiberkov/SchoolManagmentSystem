@@ -67,6 +67,7 @@ function SideBar() {
                     {user.role === 'TEACHER' && (
                         <nav style={{width: '200px'}}>
                             <ul>
+                                <li><Link to="teacher-dashboard">מסך בית</Link></li>
 
                                 <li><Link to="teacher-weekly-schedule">מערכת שעות</Link></li>
                                 <li><Link to="test-configurator">יצירת מבחן לתלמידים</Link></li>
@@ -80,6 +81,7 @@ function SideBar() {
                     {user.role === 'STUDENT' && (
                         <nav style={{width: '200px'}}>
                             <ul>
+                                <li><Link to="student-dashboard">מסך בית</Link></li>
 
                                 <li><Link to="student-weekly-schedule">מערכת שעות</Link></li>
                                 <li><Link to="question-practice-selector">תירגול שאלות</Link></li>

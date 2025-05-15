@@ -5,6 +5,7 @@ import './App.css'
 import AppRoutes from "./routes/AppRoutes.jsx";
 import {UserProvider} from "./context/UserContext.jsx";
 import {BrowserRouter} from "react-router-dom";
+import {NotificationProvider} from "./context/NotificationContext.jsx";
 
 function App() {
 
@@ -12,7 +13,9 @@ function App() {
         <>
             <BrowserRouter>
                 <UserProvider>
-                    <AppRoutes/>
+                    <NotificationProvider>
+                        <AppRoutes/>
+                    </NotificationProvider>
                 </UserProvider>
             </BrowserRouter>
 

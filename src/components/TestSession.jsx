@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import {UserContext} from "../../context/UserContext.jsx";
+import {UserContext} from "../context/UserContext.jsx";
 
-const TestPractice = ({type}) => {
+const TestSession = ({type}) => {
     const { user } = useContext(UserContext);
     const { selectedSubject, selectedTopic, selectedDifficulty, selectedQuestionCount,selectedTimeMinutes } = useParams();
     const { TeacherTestId,timeLimitMinutes } = useParams();
@@ -79,10 +79,9 @@ const TestPractice = ({type}) => {
                                 Authorization: `Bearer ${token}`
                             }
                         });
-                    console.log(response.data)
                     setTestData(response.data);
                 } catch (err) {
-                    setError(err);
+                    console.warn(err);
                 }
             };
 
@@ -141,13 +140,26 @@ const TestPractice = ({type}) => {
     return (
         <div style={{padding: '20px'}}>
 
+            {type==="teacherTest"&&testData &&(
+                <div>
+                    <h2>מבחן</h2>
+                    <p>מקצוע: {testData.questions[0]?.subject}</p>
+                    <p>נושא: {testData.questions[0]?.topic}</p>
+                    <p>מספר שאלות: {questions.length}</p>
+                </div>
+            )}
 
 
-            <h2>מבחן</h2>
-            <p>מקצוע: {selectedSubject}</p>
-            <p>נושא: {selectedTopic}</p>
-            <p>רמה: {selectedDifficulty}</p>
-            <p>מספר שאלות: {selectedQuestionCount}</p>
+            {type==="practiceTest"&&(
+                <div>
+                    <h2>מבחן</h2>
+                    <p>מקצוע: {selectedSubject}</p>
+                    <p>נושא: {selectedTopic}</p>
+                    <p>רמה: {selectedDifficulty}</p>
+                    <p>מספר שאלות: {selectedQuestionCount}</p>
+                </div>
+            )}
+
 
             {!testResults && (
                 <>
@@ -210,4 +222,4 @@ const TestPractice = ({type}) => {
     );
 };
 
-export default TestPractice;
+export default TestSession;
