@@ -25,9 +25,8 @@ function SchoolRegistration() {
         }
 
         try {
-            const token = cookies.get("token"); // קריאת הטוקן מתוך הקוקיה
+            const token = cookies.get("token");
 
-            // שלב 1 - מינוי מנהל
             const assignResponse = await axios.post(
                 `http://localhost:8080/Learning-App/System-Admin/assign-school-manager`,
                 new URLSearchParams({ userId }),
@@ -44,7 +43,6 @@ function SchoolRegistration() {
                 return;
             }
 
-            // שלב 2 - הוספת בית ספר
             const addSchoolResponse = await axios.post(
                 `http://localhost:8080/Learning-App/System-Admin/add-new-school-to-system`,
                 new URLSearchParams({ schoolName, schoolCode }),
@@ -59,7 +57,6 @@ function SchoolRegistration() {
             if (addSchoolResponse.data.success) {
                 setMessage("בית הספר נוסף והמנהל מונה בהצלחה!");
 
-                // שלב 3 - חיבור מנהל לבית ספר
                 const connectResponse = await axios.post(
                     `http://localhost:8080/Learning-App/System-Admin/assign-school-manager-to-school`,
                     new URLSearchParams({ userId, schoolCode }),
@@ -82,19 +79,6 @@ function SchoolRegistration() {
             }
 
         } catch (err) {
-            // if (err.response) {
-            //     if (err.response.status === 401) {
-            //         setMessage("התחברות לא מצליחה. נא להתחבר מחדש.");
-            //         cookies.remove("token");
-            //         navigate("/login");
-            //     } else if (err.response.status === 403) {
-            //         setMessage("אין לך הרשאה לבצע את הפעולה הזו.");
-            //     } else {
-            //         setMessage(err.response?.data?.errorCode);
-            //     }
-            // } else {
-            //     setMessage("שגיאה בשרת. נסה שוב מאוחר יותר.");
-            // }
         }
     };
 

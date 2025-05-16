@@ -23,7 +23,7 @@ const TestConfigurator = ({type}) => {
     const [selectedTopic, setSelectedTopic] = useState('');
     const [selectedDifficulty, setSelectedDifficulty] = useState('');
     const [selectedQuestionCount, setSelectedQuestionCount] = useState('');
-    const [selectedTimeMinutes, setSelectedTimeMinutes] = useState(10); // ברירת מחדל: 10 דקות
+    const [selectedTimeMinutes, setSelectedTimeMinutes] = useState(10);
     const [startTime, setStartTime] = useState('');
     const [studentsIdsInput, setStudentsIdsInput] = useState('');
 

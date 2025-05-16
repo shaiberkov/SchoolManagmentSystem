@@ -53,7 +53,7 @@ function AddAdditionalClassToGrade() {
         try {
             const response = await axios.post(
                 `http://localhost:8080/Learning-App/School-Manager/add-additional-class-to-grade?schoolCode=${user.schoolCode}&gradeName=${selectedGrade}&className=${className}`,
-                {},
+
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

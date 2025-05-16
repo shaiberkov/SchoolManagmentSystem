@@ -73,15 +73,15 @@ function SendMessage() {
                     </select>
                 </div>
 
-                <div>
-                    <label>ערך יעד (כיתה, שכבה וכו'):</label>
-                    <input
-                        type="text"
-                        value={recipientValue}
-                        onChange={(e) => setRecipientValue(e.target.value)}
-                        placeholder="למשל: ט1, ח'"
-                    />
-                </div>
+                {/*<div>*/}
+                {/*    <label>ערך יעד (כיתה, שכבה וכו'):</label>*/}
+                {/*    <input*/}
+                {/*        type="text"*/}
+                {/*        value={recipientValue}*/}
+                {/*        onChange={(e) => setRecipientValue(e.target.value)}*/}
+                {/*        placeholder="למשל: ט1, ח'"*/}
+                {/*    />*/}
+                {/*</div>*/}
 
                 <div>
                     <label>כותרת:</label>

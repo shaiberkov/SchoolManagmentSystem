@@ -1,4 +1,3 @@
-// NotificationContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext"; // ← נניח שזה מחזיר את user עם שדה role
 

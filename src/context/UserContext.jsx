@@ -21,10 +21,16 @@ export const UserProvider = ({ children }) => {
 
             if (!token) {
                 setUser(null);
-                if (location.pathname !== '/login'
-                    && location.pathname !== '/register'
-                    && location.pathname !== '/reset-password'
-                    && location.pathname !== '/two-factor-auth') {
+                if (
+                    location.pathname !== '/login' &&
+                    location.pathname !== '/register' &&
+                    location.pathname !== '/reset-password' &&
+                    location.pathname !== '/two-factor-auth' &&
+                    location.pathname !== '/about' &&
+                    location.pathname !== '/faq' &&
+                    location.pathname !== '/privacy-policy' &&
+                    location.pathname !== '/terms-of-service'
+                ) {
                     navigate('/login');
                 }
                 return;

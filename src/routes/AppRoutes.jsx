@@ -35,6 +35,11 @@ import TestSession from "../components/TestSession.jsx";
 import TestsTable from "../pages/student/TestsTable.jsx";
 import TeacherDashboard from "../pages/teacher/TeacherDashboard.jsx";
 import StudentDashboard from "../pages/student/StudentDashboard.jsx";
+import TermsOfService from "../pages/footer/TermsOfService.jsx";
+import PrivacyPolicy from "../pages/footer/PrivacyPolicy.jsx";
+import Faq from "../pages/footer/Faq.jsx";
+import About from "../pages/footer/About.jsx";
+import Footer from "../components/Footer.jsx";
 export default function AppRoutes() {
     // const cookies = new Cookies();
     // const token = cookies.get('token');
@@ -106,9 +111,13 @@ export default function AppRoutes() {
                          </>
                      )}
 
-
+                          <Route path="/about" element={<About />} />
+                          <Route path="/faq" element={<Faq />} />
+                          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                          <Route path="/terms-of-service" element={<TermsOfService />} />
                           {/*<Route path="/unauthorized" element={<UnauthorizedPage />} />*/}
                  </Routes>
+            <Footer/>
         </>
 
     );

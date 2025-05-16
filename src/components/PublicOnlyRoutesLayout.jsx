@@ -13,9 +13,9 @@ export default function PublicOnlyRoutesLayout() {
             case 'SCHOOLMANAGER':
                 return <Navigate to="/school-mananger-dashboard" />;
             case 'TEACHER':
-                return <Navigate to="/teacher" />;
+                return <Navigate to="/teacher-dashboard" />;
             case 'STUDENT':
-                return <Navigate to="/student" />;
+                return <Navigate to="/student-dashboard" />;
             default:
                 return <Navigate to="/unauthorized" />;
         }

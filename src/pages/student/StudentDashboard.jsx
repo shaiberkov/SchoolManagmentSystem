@@ -1,6 +1,8 @@
 import {useContext} from "react";
 import {UserContext} from "../../context/UserContext.jsx";
 import MessageList from "../../components/messages/MessageList.jsx";
+import WeeklySchedule from "../../components/WeeklySchedule.jsx";
+import {getGreeting} from "../../Utils/Greeting.jsx";
 
 function  StudentDashboard(){
 
@@ -9,11 +11,17 @@ function  StudentDashboard(){
 
 
 
-
+    // function getGreeting() {
+    //     const hour = new Date().getHours();
+    //     if (hour < 12) return "בוקר טוב";
+    //     if (hour < 17) return "צהריים טובים";
+    //     return "ערב טוב";
+    // }
     return(
         <>
             <div>
-                מסך בית של מורה
+                <h1>{getGreeting()}, {user?.username}</h1>
+                <WeeklySchedule type="student" singleDayMode={true}/>
             </div>
             {user && <MessageList userId={user.userId} />}
         </>

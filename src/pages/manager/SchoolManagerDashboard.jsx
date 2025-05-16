@@ -1,110 +1,79 @@
-//
-//
-// import {UserContext} from "../../context/UserContext.jsx";
-// import {useContext, useEffect, useState} from "react";
-// import axios from "axios";
-// import Cookies from "universal-cookie";
-//
-// function SchoolManagerDashboard() {
-//     const { user } = useContext(UserContext);
-//     const [messagesList, setMessagesList] = useState([]);
-//     const cookies = new Cookies();
-//     const token = cookies.get("token");
-//
-//     useEffect(() => {
-//         const getReceivedMessages = async () => {
-//             try {
-//                 const response = await axios.get(
-//                     `http://localhost:8080/Learning-App/Message/get-all-recived-messages?userId=${user.userId}`,
-//                     {
-//                         headers: {
-//                             Authorization: `Bearer ${token}`,
-//                         },
-//                     }
-//                 );
-//                 const sortedMessages = response.data.data.sort(
-//                     (a, b) => new Date(b.sentAt) - new Date(a.sentAt)
-//                 );
-//                 setMessagesList(sortedMessages);
-//             } catch (error) {
-//                 console.error("Failed to fetch received messages:", error);
-//             }
-//         };
-//
-//         if (user) {
-//             getReceivedMessages();
-//
-//             // חיבור ל-SSE
-//             const eventSource = new EventSource(
-//                 `http://localhost:8080/Learning-App/notifications/connect?userId=${user.userId}`
-//             );
-//
-//             eventSource.onmessage = (event) => {
-//                 try {
-//                     const newMessage = JSON.parse(event.data);
-//                     setMessagesList(prevMessages => [newMessage, ...prevMessages]);
-//                 } catch (err) {
-//                     console.error("Failed to parse SSE message:", err);
-//                 }
-//             };
-//
-//             eventSource.onerror = (err) => {
-//                 console.error("SSE connection error:", err);
-//                 eventSource.close();
-//             };
-//
-//             return () => {
-//                 eventSource.close();
-//             };
-//         }
-//     }, [user]);
-//
-//     return (
-//         <>
-//             <div>
-//                 מסך בית של מנהל
-//             </div>
-//
-//             <div>
-//                 <h2>הודעות</h2>
-//                 {messagesList.length > 0 ? (
-//                     <ul>
-//                         {messagesList.map((message, index) => (
-//                             <li key={index}>
-//                                 <p>
-//                                     {new Date(message.sentAt).toLocaleString()}{" "}
-//                                     {message.senderName}
-//                                 </p>
-//                                 <p>
-//                                     <strong>{message.title}</strong>
-//                                 </p>
-//                                 <p>{message.content}</p>
-//                             </li>
-//                         ))}
-//                     </ul>
-//                 ) : (
-//                     <p>אין הודעות להציג.</p>
-//                 )}
-//             </div>
-//         </>
-//     );
-// }
-//
-// export default SchoolManagerDashboard;
-// pages/SchoolManagerDashboard.jsx
-import { useContext } from "react";
+
+import {useContext, useEffect, useState} from "react";
 import { UserContext } from "../../context/UserContext.jsx";
 import MessageList from "../../components/messages/MessageList.jsx";
+import Cookies from "universal-cookie";
+import axios from "axios";
+import {getGreeting} from "../../Utils/Greeting.jsx";
 
 function SchoolManagerDashboard() {
+    const [schoolData,setSchoolData]=useState({})
+    const [messageFromServer, setMessageFromServer] = useState("");
     const { user } = useContext(UserContext);
+    const cookies = new Cookies();
+    const token = cookies.get('token');
+
+
+
+    useEffect(() => {
+        const fetchSchoolData = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:8080/Learning-App/School-Manager/get-school?schoolManagerId=${user.userId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                if (response.data.success) {
+                    if (response.data.data) {
+                        setSchoolData(response.data.data);
+                    }
+                } else {
+                    setMessageFromServer(response.data.errorCode);
+                }
+            } catch (error) {
+                console.error("שגיאה:", error);
+                setMessageFromServer("שגיאה בחיבור לשרת");
+            }
+        };
+
+       if(user) fetchSchoolData();
+    }, [user?.userId]);
+
 
     return (
         <>
-            <div>
-                מסך בית של מנהל
-            </div>
-            {user && <MessageList userId={user.userId} />}
+            <h1>{getGreeting()}, {user?.username}</h1>
+            <h2>לוח ניהול בית הספר</h2>
+
+            {schoolData ? (
+                <div>
+                    <p>🏫 שם בית הספר: {schoolData.schoolName}</p>
+                    <p>קוד: {schoolData.schoolCode}</p>
+
+                    <p>
+                        מספר מורים:{" "}
+                        {schoolData.teacherCount && schoolData.teacherCount > 0
+                            ? schoolData.teacherCount
+                            : "אין כרגע מורים רשומים"}
+                    </p>
+
+                    <p>
+                        מספר תלמידים:{" "}
+                        {schoolData.studentCount && schoolData.studentCount > 0
+                            ? schoolData.studentCount
+                            : "אין כרגע תלמידים רשומים"}
+                    </p>
+                </div>
+
+            ) : (
+                <p style={{color: "gray"}}>{messageFromServer}</p>
+            )}
+
+            {user && <MessageList userId={user.userId}/>}
         </>
     );
 }
