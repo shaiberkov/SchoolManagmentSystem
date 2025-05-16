@@ -21,9 +21,8 @@ export function NotificationProvider({ children }) {
                 const data = JSON.parse(event.data);
                 console.log(data)
                 if (data.type === "SYSTEM_MESSAGE") {
-                    setMessages(prevMessages => [data.payload, ...prevMessages]);
+                    setMessages(prevMessages => [data.payload.message, ...prevMessages]);
                 } else if (data.type === "NEW_TEST") {
-
                     if (user.role === "STUDENT") {
                         setTests(prevTests => [data.payload.userTestStatusDTO, ...prevTests]);
                     } else {

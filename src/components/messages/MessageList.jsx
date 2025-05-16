@@ -32,46 +32,6 @@ function MessageList({ userId }) {
 
         if (userId) {
             getReceivedMessages();
-
-            // const eventSource = new EventSource(
-            //     `http://localhost:8080/Learning-App/notifications/connect?userId=${userId}`
-            // );
-
-            // eventSource.onmessage = (event) => {
-            //     try {
-            //         const newMessage = JSON.parse(event.data);
-            //             console.log(newMessage)
-            //         if (newMessage.type === "SYSTEM_MESSAGE") {
-            //             setMessagesList((prev) => [...prev, newMessage.payload]);
-            //         }
-            //         // setMessagesList(prevMessages => [newMessage, ...prevMessages]);
-            //     } catch (err) {
-            //         console.error("Failed to parse SSE message:", err);
-            //     }
-            // };
-            // eventSource.addEventListener("message", (event) => {
-            //     try {
-            //         const newMessage = JSON.parse(event.data);
-            //         console.log("New SSE message:", newMessage);
-            //
-            //         if (newMessage.type === "SYSTEM_MESSAGE") {
-            //             // setMessagesList((prev) => [...prev, newMessage.payload]);
-            //             setMessagesList(prevMessages => [newMessage.payload, ...prevMessages]);
-            //         }
-            //     } catch (err) {
-            //         console.error("Failed to parse SSE message:", err);
-            //     }
-            // });
-            //
-            //
-            // eventSource.onerror = (err) => {
-            //     console.error("SSE connection error:", err);
-            //     eventSource.close();
-            // };
-            //
-            // return () => {
-            //     eventSource.close();
-            // };
         }
     }, [userId]);
     const combinedMessages = [...messages, ...messagesList];
