@@ -1,13 +1,11 @@
 
 
-
-
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext.jsx";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {useNotificationContext} from "../../context/NotificationContext.jsx";
+import { useNotificationContext } from "../../context/NotificationContext.jsx";
 
 function TestsTable() {
     const [testsData, setTestsData] = useState([]);
@@ -15,11 +13,12 @@ function TestsTable() {
     const cookies = new Cookies();
     const token = cookies.get("token");
     const navigate = useNavigate();
-    const {tests}=useNotificationContext();
+    const { tests } = useNotificationContext();
 
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState("");
     const [pendingNavigation, setPendingNavigation] = useState(null);
+
     const parseDateTime = (str) => {
         const [datePart, timePart] = str.split(" ");
         const [day, month, year] = datePart.split("/");
@@ -27,10 +26,10 @@ function TestsTable() {
         return new Date(dateTimeString);
     };
 
-    const startTest = async (TeacherTestId, timeLimitMinutes) => {
+    const startTest = async (teacherTestId, timeLimitMinutes, startTimeStr) => {
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/Student/start-test?userId=${user.userId}&testId=${TeacherTestId}`,
+                `http://localhost:8080/Learning-App/Student/start-test?userId=${user.userId}&testId=${teacherTestId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -40,7 +39,11 @@ function TestsTable() {
 
             if (response.data.success) {
                 setModalMessage(response.data.errorCode);
-                setPendingNavigation({ testId: TeacherTestId, timeLimit: timeLimitMinutes });
+                setPendingNavigation({
+                    testId: teacherTestId,
+                    timeLimit: timeLimitMinutes,
+                    startTime: startTimeStr,
+                });
                 setShowModal(true);
             } else {
                 setModalMessage(response.data.errorCode);
@@ -79,6 +82,7 @@ function TestsTable() {
 
         fetchTests();
     }, [user?.userId]);
+
     const combinedTests = [...tests, ...testsData];
 
     return (
@@ -103,7 +107,15 @@ function TestsTable() {
                                 {test.score !== -1 ? (
                                     <span>{test.score}</span>
                                 ) : (
-                                    <button onClick={() => startTest(test.testId, test.timeLimitMinutes)}>
+                                    <button
+                                        onClick={() =>
+                                            startTest(
+                                                test.testId,
+                                                test.timeLimitMinutes,
+                                                test.startTime
+                                            )
+                                        }
+                                    >
                                         התחל מבחן
                                     </button>
                                 )}
@@ -117,7 +129,9 @@ function TestsTable() {
                     </tbody>
                 </table>
             ) : (
-                <p style={{ marginTop: "20px", fontWeight: "bold" }}>אין מבחנים זמינים כעת</p>
+                <p style={{ marginTop: "20px", fontWeight: "bold" }}>
+                    אין מבחנים זמינים כעת
+                </p>
             )}
 
             {/* Modal */}
@@ -136,15 +150,36 @@ function TestsTable() {
                         zIndex: 1000,
                     }}
                 >
-                    <div style={{ background: "white", padding: "20px", borderRadius: "4px", minWidth: "300px" }}>
+                    <div
+                        style={{
+                            background: "white",
+                            padding: "20px",
+                            borderRadius: "4px",
+                            minWidth: "300px",
+                        }}
+                    >
                         <p>{modalMessage}</p>
-                        <div style={{ marginTop: "10px", display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+                        <div
+                            style={{
+                                marginTop: "10px",
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                gap: "10px",
+                            }}
+                        >
                             {pendingNavigation ? (
                                 <>
                                     <button
-                                        onClick={() =>
-                                            navigate(`/test/${pendingNavigation.testId}/${pendingNavigation.timeLimit}`)
-                                        }
+                                        onClick={() => {
+                                            const now = new Date();
+                                            const start = parseDateTime(pendingNavigation.startTime);
+                                            const diff = Math.max(0, Math.floor((now - start) / 60000));
+                                            const updatedLimit = pendingNavigation.timeLimit - diff;
+
+                                            navigate(
+                                                `/test/${pendingNavigation.testId}/${updatedLimit}`
+                                            );
+                                        }}
                                     >
                                         המשך
                                     </button>
@@ -167,4 +202,5 @@ function TestsTable() {
         </div>
     );
 }
+
 export default TestsTable;

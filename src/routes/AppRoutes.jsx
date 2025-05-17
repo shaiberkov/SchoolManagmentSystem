@@ -117,7 +117,7 @@ export default function AppRoutes() {
                           <Route path="/terms-of-service" element={<TermsOfService />} />
                           {/*<Route path="/unauthorized" element={<UnauthorizedPage />} />*/}
                  </Routes>
-            <Footer/>
+            {/*<Footer/>*/}
         </>
 
     );

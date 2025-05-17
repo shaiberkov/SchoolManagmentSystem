@@ -23,9 +23,10 @@ const TestConfigurator = ({type}) => {
     const [selectedTopic, setSelectedTopic] = useState('');
     const [selectedDifficulty, setSelectedDifficulty] = useState('');
     const [selectedQuestionCount, setSelectedQuestionCount] = useState('');
-    const [selectedTimeMinutes, setSelectedTimeMinutes] = useState(10);
+    const [selectedTimeMinutes, setSelectedTimeMinutes] = useState(30);
     const [startTime, setStartTime] = useState('');
     const [studentsIdsInput, setStudentsIdsInput] = useState('');
+    const [message, setMessage] = useState('');
 
 
     const navigateToTest = () => {
@@ -51,12 +52,14 @@ const TestConfigurator = ({type}) => {
                     'Authorization': `Bearer ${token}`
                 }
             });
+            if(response.data.success){
+                setMessage(response.data.errorCode)
+            }else {
+                setMessage(response.data.errorCode)
+            }
 
-            alert('המבחן נוצר בהצלחה!');
-            console.log(response.data);
         } catch (error) {
             console.error('שגיאה ביצירת מבחן:', error);
-            alert('ארעה שגיאה ביצירת המבחן');
         }
     };
 
@@ -160,6 +163,7 @@ const TestConfigurator = ({type}) => {
                     <button onClick={navigateToTest}>צור מבחן</button>
                 </div>
             )}
+            {message}
         </div>
     );
 };
