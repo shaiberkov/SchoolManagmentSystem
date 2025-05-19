@@ -35,7 +35,7 @@ function Register() {
         let formErrors = { ...errors };
 
         if (name === 'username') {
-            if (value !== '' && !/^[a-zA-Zא-ת]+$/.test(value)) {
+            if (value !== '' && !/^[a-zA-Zא-ת\s]+$/.test(value)) {
                 formErrors.username = 'השם חייב להיות מורכב מאותיות בלבד, ללא מספרים';
             }
             else if (errors.username === 'Username Taken') {

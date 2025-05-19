@@ -1,13 +1,15 @@
-// import React, {useContext, useEffect, useState} from 'react';
+//
+//
+// import React, { useContext, useEffect, useState } from 'react';
 // import axios from 'axios';
 // import Cookies from 'universal-cookie';
-// import {UserContext} from "../context/UserContext.jsx";
+// import { UserContext } from "../context/UserContext.jsx";
 //
-// function WeeklySchedule({ type, classRoomName }) {
+// function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
 //     const [lessonsByDay, setLessonsByDay] = useState([]);
 //     const cookies = new Cookies();
-//     const token=cookies.get('token')
-//     const {user}=useContext(UserContext)
+//     const token = cookies.get('token');
+//     const { user } = useContext(UserContext);
 //
 //     useEffect(() => {
 //         const fetchSchedule = async () => {
@@ -42,8 +44,6 @@
 //         fetchSchedule();
 //     }, [user?.userId, type, classRoomName, token]);
 //
-//
-//
 //     const daysInHebrew = {
 //         SUNDAY: 'ראשון',
 //         MONDAY: 'שני',
@@ -52,6 +52,14 @@
 //         THURSDAY: 'חמישי',
 //         FRIDAY: 'שישי',
 //     };
+//
+//     const getTodayKey = () => {
+//         const dayNumber = new Date().getDay();
+//         const dayMap = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+//         return dayMap[dayNumber];
+//     };
+//
+//     const displayedDays = singleDayMode ? [getTodayKey()] : Object.keys(daysInHebrew);
 //
 //     const timeSlots = [
 //         "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -72,14 +80,20 @@
 //     const thStyle = { border: "2px solid #ccc", padding: "8px", backgroundColor: "#f4f4f4" };
 //     const tdStyle = { border: "2px solid #ccc", padding: "8px" };
 //     const rowSpanCellStyle = { backgroundColor: "#e0f7fa", fontWeight: "bold" };
-//         //todo אם מערכת שעות ריקה אז להציג מערכת שעות ריקה
+//
 //     return (
 //         <div>
+//             {singleDayMode && (
+//                 <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>
+//                     מערכת השעות ליום {daysInHebrew[displayedDays[0]]}
+//                 </h2>
+//             )}
+//
 //             <table style={tableStyle}>
 //                 <thead>
 //                 <tr>
 //                     <th style={thStyle}>שעה</th>
-//                     {Object.keys(daysInHebrew).map((dayKey) => (
+//                     {displayedDays.map((dayKey) => (
 //                         <th key={dayKey} style={thStyle}>{daysInHebrew[dayKey]}</th>
 //                     ))}
 //                 </tr>
@@ -88,7 +102,7 @@
 //                 {timeSlots.map((slot) => (
 //                     <tr key={slot}>
 //                         <td style={tdStyle}>{slot}</td>
-//                         {Object.keys(daysInHebrew).map((dayKey) => {
+//                         {displayedDays.map((dayKey) => {
 //                             if (coveredSlots[`${dayKey}_${slot}`]) return null;
 //
 //                             const lesson = lessonsByDay[dayKey]?.find(
@@ -110,20 +124,15 @@
 //                                         style={{ ...tdStyle, ...rowSpanCellStyle }}
 //                                     >
 //                                         <div>{lesson.subject}</div>
-//                                         {type === 'teacher' &&
+//                                         {type === 'teacher' && (
 //                                             <div>כיתה {lesson.classRoomName}</div>
-//
-//                                         }
-//                                         {type === 'class' &&
-//                                             <div>
-//                                                 <div>מורה {lesson.teacherName}</div>
-//                                                 {/*<div>כיתה {lesson.classRoomName}</div>*/}
-//                                             </div>
-//
-//                                         }
-//                                         {type === 'student' &&
+//                                         )}
+//                                         {type === 'class' && (
+//                                             <div>מורה {lesson.teacherName}</div>
+//                                         )}
+//                                         {type === 'student' && (
 //                                             <div>{lesson.teacherName}</div>
-//                                         }
+//                                         )}
 //                                     </td>
 //                                 );
 //                             } else {
@@ -141,8 +150,7 @@
 // export default WeeklySchedule;
 
 
-
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { UserContext } from "../context/UserContext.jsx";
@@ -201,36 +209,33 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
         return dayMap[dayNumber];
     };
 
-    const displayedDays = singleDayMode ? [getTodayKey()] : Object.keys(daysInHebrew);
+    const displayedDays = useMemo(() => {
+        return singleDayMode ? [getTodayKey()] : Object.keys(daysInHebrew);
+    }, [singleDayMode]);
 
     const timeSlots = [
         "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
         "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"
     ];
 
-    function calculateRowSpan(startTime, endTime) {
+    const calculateRowSpan = (startTime, endTime) => {
         const toMinutes = (t) => {
             const [h, m] = t.split(":").map(Number);
             return h * 60 + m;
         };
         const diff = toMinutes(endTime) - toMinutes(startTime);
         return diff / 30;
-    }
+    };
 
-    const coveredSlots = {};
     const tableStyle = { width: "100%", borderCollapse: "collapse", textAlign: "center", direction: "rtl" };
     const thStyle = { border: "2px solid #ccc", padding: "8px", backgroundColor: "#f4f4f4" };
     const tdStyle = { border: "2px solid #ccc", padding: "8px" };
     const rowSpanCellStyle = { backgroundColor: "#e0f7fa", fontWeight: "bold" };
 
-    return (
-        <div>
-            {singleDayMode && (
-                <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>
-                    מערכת השעות ליום {daysInHebrew[displayedDays[0]]}
-                </h2>
-            )}
+    const scheduleTable = useMemo(() => {
+        const coveredSlots = {};
 
+        return (
             <table style={tableStyle}>
                 <thead>
                 <tr>
@@ -285,6 +290,17 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
                 ))}
                 </tbody>
             </table>
+        );
+    }, [lessonsByDay, displayedDays,classRoomName, type]);
+
+    return (
+        <div>
+            {singleDayMode && (
+                <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>
+                    מערכת השעות ליום {daysInHebrew[displayedDays[0]]}
+                </h2>
+            )}
+            {scheduleTable}
         </div>
     );
 }
