@@ -50,6 +50,7 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
         WEDNESDAY: 'רביעי',
         THURSDAY: 'חמישי',
         FRIDAY: 'שישי',
+        SATURDAY:'שבת'
     };
 
     const getTodayKey = () => {
