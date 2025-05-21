@@ -28,6 +28,7 @@ function AssignTeacherToClassRooms() {
                     );
 
                     if (response.data.success) {
+                        console.log(response.data)
                         setClassesName(response.data.data);
                     } else {
                         setMessage(response.data.errorCode);

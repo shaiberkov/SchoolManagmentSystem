@@ -33,6 +33,7 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
                 if (response.data.success) {
                     setLessonsByDay(response.data.data);
                 } else {
+                    setLessonsByDay([]);
                     console.warn("בעיה בהבאת נתונים:", response.data);
                 }
             } catch (error) {
