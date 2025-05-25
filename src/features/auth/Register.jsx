@@ -1,14 +1,13 @@
-
-import React, { useState } from 'react';
-import { FaUser, FaEnvelope, FaLock, FaKey, FaPhone } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {FaUser, FaEnvelope, FaLock, FaKey, FaPhone} from 'react-icons/fa';
+import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 function Register() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
-        userId:'',
+        userId: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -17,7 +16,7 @@ function Register() {
 
     const [errors, setErrors] = useState({
         username: '',
-        userId:'',
+        userId: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -25,23 +24,21 @@ function Register() {
     });
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
 
         setFormData({
             ...formData,
             [name]: value,
         });
 
-        let formErrors = { ...errors };
+        let formErrors = {...errors};
 
         if (name === 'username') {
             if (value !== '' && !/^[a-zA-Zא-ת\s]+$/.test(value)) {
                 formErrors.username = 'השם חייב להיות מורכב מאותיות בלבד, ללא מספרים';
-            }
-            else if (errors.username === 'Username Taken') {
+            } else if (errors.username === 'Username Taken') {
                 formErrors.username = '';
-            }
-            else {
+            } else {
                 formErrors.username = '';
             }
         }
@@ -62,8 +59,8 @@ function Register() {
 
             if (id !== '' && !isValidIsraeliID(id)) {
                 formErrors.userId = 'תעודת זהות לא תקינה';
-            // } else if (errors.userId === 'User ID Taken') {
-            //     formErrors.userId = '';
+                // } else if (errors.userId === 'User ID Taken') {
+                //     formErrors.userId = '';
             } else {
                 formErrors.userId = '';
             }
@@ -73,11 +70,9 @@ function Register() {
         if (name === 'email') {
             if (value !== '' && !/\S+@\S+\.\S+/.test(value)) {
                 formErrors.email = 'האימייל לא תקין, יש לוודא שהוא כולל @';
-            }
-            else if (errors.email === 'אימייל זה תפוס'||errors.email === 'אימייל לא תקין') {
+            } else if (errors.email === 'אימייל זה תפוס' || errors.email === 'אימייל לא תקין') {
                 formErrors.email = '';
-            }
-            else {
+            } else {
                 formErrors.email = '';
             }
         }
@@ -93,11 +88,9 @@ function Register() {
         if (name === 'confirmPassword') {
             if (value !== '' && value !== formData.password) {
                 formErrors.confirmPassword = 'הסיסמאות לא תואמות';
-            }
-            else if (errors.confirmPassword === 'סיסמאות לא זהות') {
+            } else if (errors.confirmPassword === 'סיסמאות לא זהות') {
                 formErrors.confirmPassword = '';
-            }
-            else {
+            } else {
                 formErrors.confirmPassword = '';
             }
         }
@@ -105,11 +98,9 @@ function Register() {
         if (name === 'phone') {
             if (value !== '' && !/^\d{10}$/.test(value)) {
                 formErrors.phone = 'מספר הטלפון חייב לכלול 10 ספרות בלבד';
-            }
-            else if (errors.phone === 'טלפון זה תפוס') {
+            } else if (errors.phone === 'טלפון זה תפוס') {
                 formErrors.phone = '';
-            }
-            else {
+            } else {
                 formErrors.phone = '';
             }
         }
@@ -130,7 +121,7 @@ function Register() {
         }
 
         try {
-            const { username, userId,password, confirmPassword, email, phone } = formData;
+            const {username, userId, password, confirmPassword, email, phone} = formData;
             const params = new URLSearchParams({
                 username: username,
                 userId: userId,
@@ -170,11 +161,20 @@ function Register() {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <h2>הרשמה</h2>
-                <div>
-                    <FaUser/>
+
+        <div className="flex justify-center px-4 py-10 pt-12 animate-fade-in">
+            <form
+                onSubmit={handleSubmit}
+                className="bg-green p-8 rounded-4xl shadow-xl w-full max-w-md space-y-4 transition duration-300"
+            >
+                <h2 className="text-2xl font-bold text-center text-gray-800 mb-3">
+                    הרשמה
+                </h2>
+
+                {/* שם משתמש */}
+                <div className="relative">
+                    <FaUser
+                        className="absolute top-3 left-3 text-blue-500 drop-shadow-md hover:scale-120 transition duration-200"/>
                     <input
                         type="text"
                         name="username"
@@ -182,11 +182,17 @@ function Register() {
                         onChange={handleChange}
                         placeholder="שם מלא"
                         required
+                        className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
                     />
-                    {errors.username && formData.username && <p>{errors.username}</p>}
+                    {errors.username && formData.username && (
+                        <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+                    )}
                 </div>
-                <div>
-                    <FaUser/>
+
+                {/* ת"ז */}
+                <div className="relative">
+                    <FaUser
+                        className="absolute top-3 left-3 text-purple-500 drop-shadow-md hover:scale-120 transition duration-200"/>
                     <input
                         type="number"
                         name="userId"
@@ -194,11 +200,17 @@ function Register() {
                         onChange={handleChange}
                         placeholder="תז"
                         required
+                        className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-300 transition"
                     />
-                    {errors.userId && formData.userId && <p>{errors.userId}</p>}
+                    {errors.userId && formData.userId && (
+                        <p className="text-red-500 text-sm mt-1">{errors.userId}</p>
+                    )}
                 </div>
-                <div>
-                    <FaEnvelope/>
+
+                {/* אימייל */}
+                <div className="relative">
+                    <FaEnvelope
+                        className="absolute top-3 left-3 text-orange-500 drop-shadow-md hover:scale-120 transition duration-200"/>
                     <input
                         type="email"
                         name="email"
@@ -206,11 +218,17 @@ function Register() {
                         onChange={handleChange}
                         placeholder="אימייל"
                         required
+                        className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-300 transition"
                     />
-                    {errors.email && formData.email && <p>{errors.email}</p>}
+                    {errors.email && formData.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                    )}
                 </div>
-                <div>
-                    <FaPhone/>
+
+                {/* טלפון */}
+                <div className="relative">
+                    <FaPhone
+                        className="absolute top-3 left-3 text-green-500 drop-shadow-md hover:scale-120 transition duration-200"/>
                     <input
                         type="tel"
                         name="phone"
@@ -218,11 +236,17 @@ function Register() {
                         onChange={handleChange}
                         placeholder="מספר טלפון"
                         required
+                        className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300 transition"
                     />
-                    {errors.phone && formData.phone && <p>{errors.phone}</p>}
+                    {errors.phone && formData.phone && (
+                        <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                    )}
                 </div>
-                <div>
-                    <FaLock/>
+
+                {/* סיסמה */}
+                <div className="relative">
+                    <FaLock
+                        className="absolute top-3 left-3 text-red-500 drop-shadow-md hover:scale-120 transition duration-200"/>
                     <input
                         type="password"
                         name="password"
@@ -230,11 +254,17 @@ function Register() {
                         onChange={handleChange}
                         placeholder="סיסמא"
                         required
+                        className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300 transition"
                     />
-                    {errors.password && formData.password && <p>{errors.password}</p>}
+                    {errors.password && formData.password && (
+                        <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                    )}
                 </div>
-                <div>
-                    <FaKey/>
+
+                {/* אימות סיסמה */}
+                <div className="relative">
+                    <FaKey
+                        className="absolute top-3 left-3 text-cyan-500 drop-shadow-md hover:scale-120 transition duration-200"/>
                     <input
                         type="password"
                         name="confirmPassword"
@@ -242,17 +272,50 @@ function Register() {
                         onChange={handleChange}
                         placeholder="אימות סיסמא"
                         required
+                        className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-300 transition"
                     />
-                    {errors.confirmPassword && formData.confirmPassword && <p>{errors.confirmPassword}</p>}
+                    {errors.confirmPassword && formData.confirmPassword && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {errors.confirmPassword}
+                        </p>
+                    )}
                 </div>
-                <button type="submit" disabled={hasEmptyFields()}>
-                    הרשם
+
+
+                <button
+                    type="submit"
+                    disabled={hasEmptyFields()}
+                    className="w-full relative py-2 rounded-lg bg-gradient-to-r from-blue-400 to-green-400 text-white font-semibold shadow-md hover:from-blue-600 hover:to-green-600 transition-all duration-300 ease-in-out disabled:opacity-50 overflow-hidden"
+                >
+                        <span
+                            className="absolute inset-0 rounded-lg bg-white opacity-0 hover:opacity-10 transition-opacity duration-300"></span>
+                    <span className="z-10 relative">הרשם</span>
                 </button>
-                <p>
-                    יש לך חשבון? <a href="/login">התחבר כאן</a>
+
+                <p className="text-center text-sm text-gray-700 mt-6">
+                    <a
+                        href="/login"
+                        className="inline-block text-green-500 font-semibold relative group transition duration-300"
+                    >
+
+                        <span
+                            className="absolute left-0 bottom-0 w-full h-0.5 bg-green-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"/>
+
+                        <span
+                            className="relative z-10 group-hover:text-green-800 flex items-center justify-center gap-1">
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                 😀
+                         </span>
+                            התחבר כאן
+                            </span>
+                    </a>{" "}?
+                    אם כבר יש לך חשבון
                 </p>
+
+
             </form>
         </div>
+
     );
 }
 

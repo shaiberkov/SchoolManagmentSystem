@@ -167,78 +167,132 @@ function QuestionPractice(){
         }
     };
 
-
-
     return (
-        <div style={{ padding: '20px' }}>
-            <div className="exercise-page" style={{ textAlign: 'center' }}>
-                <h2>תרגיל: {exerciseName}</h2>
+        <div className="p-4 sm:p-8 font-sans">
+            {/* כותרת ודף התרגיל */}
+            <section className="exercise-page text-center max-w-xl mx-auto space-y-6 animate-fade-in">
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
+                    תרגיל: {exerciseName}
+                </h2>
 
                 {exercise && (
                     <>
-                        <h4>{exercise.questionText}</h4>
+                        <h4 className="text-base sm:text-lg font-medium text-slate-700">
+                            {exercise.questionText}
+                        </h4>
+
                         <input
                             type="text"
                             placeholder="תשובה"
                             value={answer}
                             onChange={(e) => setAnswer(e.target.value)}
+                            className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                         />
-                        <div style={{ marginTop: '10px' }}>
-                            <button onClick={submitAnswer} disabled={!answer}>
-                                שלח תשובה
-                            </button>
-                        </div>
+
+                        <button
+                            onClick={submitAnswer}
+                            disabled={!answer}
+                            className="mt-3 px-6 py-2 rounded-lg font-semibold text-white
+                       bg-gradient-to-r from-blue-500 to-green-500 shadow
+                       hover:from-blue-600 hover:to-green-600 transition-colors
+                       disabled:opacity-50"
+                        >
+                            שלח תשובה
+                        </button>
                     </>
                 )}
 
                 {responseMessage && (
-                    <p style={{ marginTop: '15px', color: isCorrect ? 'green' : 'red' }}>
+                    <p
+                        className={`text-sm sm:text-base font-semibold ${
+                            isCorrect ? "text-green-600" : "text-red-600"
+                        }`}
+                    >
                         {responseMessage}
                     </p>
                 )}
 
-                <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                {/* לוח ציור */}
+                <div className="flex flex-col items-center gap-3">
                     <canvas
                         ref={canvasRef}
-                        width="500"
-                        height="300"
-                        style={{ border: '1px solid black' }}
+                        width={500}
+                        height={300}
                         onMouseDown={handleMouseDown}
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}
                         onMouseLeave={() => setIsDrawing(false)}
+                        className="w-full sm:w-[500px] h-52 sm:h-[300px]
+                     border-2 border-gray-400 rounded-lg shadow-md bg-white"
                     />
-                    <div style={{ marginTop: '10px' }}>
-                        <button onClick={handleClearCanvas}>נקה</button>
-                    </div>
+                    <button
+                        onClick={handleClearCanvas}
+                        className="px-4 py-1.5 rounded-lg bg-red-500 text-white text-sm hover:bg-red-600 transition-colors"
+                    >
+                        נקה
+                    </button>
                 </div>
-            </div>
+            </section>
 
-            <div style={{ position: 'fixed', bottom: '20px', left: '20px' }}>
-                <button onClick={toggleChat}>
-                    צ'אט
-                </button>
-            </div>
+            <button
+                onClick={toggleChat}
+                className="fixed bottom-4 left-4 flex items-center gap-2
+                 px-5 py-2 rounded-full text-white font-semibold shadow-lg
+                 bg-gradient-to-r from-blue-600 to-green-500
+                 hover:from-blue-700 hover:to-green-600 transition
+                 animate-bounce"
+            >
+                📢 צ'אט
+        {/*        {newMessages > 0 && (*/}
+        {/*            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs">*/}
+        {/*  {newMessages}*/}
+        {/*</span>*/}
+        {/*        )}*/}
+            </button>
+
 
             {isChatOpen && (
-                <div style={{
-                    position: 'fixed',
-                    bottom: '90px',
-                    left: '20px',
-                    width: '400px',
-                    height: '450px',
-                    backgroundColor: 'white',
-                    overflow: 'hidden'
-                }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <span>📚</span>
-                            <span>צ'אט עם מורה</span>
-                        </div>
-                        <button onClick={toggleChat}>✖️</button>
-                    </div>
+                <div
+                    className="fixed bottom-24 left-4 w-96 max-w-[95vw] h-[50vh] sm:h-[450px] flex flex-col
+        bg-white border border-gray-300 rounded-xl shadow-2xl z-50
+        animate-[slide-up_0.5s_ease-out]"
+                >
+                    {/* כותרת */}
+                    {/*<header className="flex justify-between items-center px-4 py-2 bg-gray-100 border-b">*/}
+                    {/*    <div className="flex items-center gap-2 rtl:space-x-reverse">*/}
+                    {/*        <span>📚</span>*/}
+                    {/*        <span className="font-medium text-sm">צ'אט עם מורה</span>*/}
+                    {/*    </div>*/}
+                    {/*    <button*/}
+                    {/*        onClick={toggleChat}*/}
+                    {/*        className="text-gray-500 hover:text-red-500 transition-colors text-lg"*/}
+                    {/*    >*/}
+                    {/*        ✖️*/}
+                    {/*    </button>*/}
+                    {/*</header>*/}
 
-                    <div style={{ flex: 1 }}>
+                    <header className="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-blue-100 to-green-100
+    border-b rounded-t-xl shadow-sm">
+
+                        <div className="flex items-center gap-2 rtl:space-x-reverse">
+                            <span className="text-xl">📚</span>
+                            <span className="font-semibold text-base text-slate-700 tracking-wide">
+            צ'אט עם מורה
+        </span>
+                        </div>
+
+                        <button
+                            onClick={toggleChat}
+                            className="text-slate-500 hover:text-red-500 transition-colors text-xl font-bold"
+                            title="סגור"
+                        >
+                            ✖️
+                        </button>
+                    </header>
+
+
+                    {/* גוף הצ'אט – גלילה פנימית */}
+                    <main className="flex-1 overflow-y-auto  rounded-b-xl">
                         <ChatComponent
                             messages={messages}
                             userMessage={userMessage}
@@ -247,26 +301,133 @@ function QuestionPractice(){
                             isLoading={isLoading}
                             setIsOpen={setIsChatOpen}
                         />
-                    </div>
+                    </main>
                 </div>
             )}
 
-            {/*<div style={{ position: 'fixed', top: '80px', right: '30px', zIndex: 1000 }}>*/}
-            {/*    <div style={{*/}
-            {/*        padding: '10px',*/}
-            {/*        backgroundColor: '#f0f0f0',*/}
-            {/*        border: '1px solid #ccc',*/}
-            {/*        borderRadius: '8px'*/}
-            {/*    }}>*/}
-            {/*        <p>נתקלת בקושי בשאלה? דבר עם מורה!</p>*/}
-            {/*        <button onClick={openChat}>*/}
-            {/*            <BsChatDots /> דבר עם המורה הפרטי שלך*/}
-            {/*        </button>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </div>
+    );
 
-    )
+    // return (
+    //     <div className="p-6 sm:p-10 font-sans">
+    //         {/* כותרת ודף התרגיל */}
+    //         <section className="exercise-page text-center max-w-xl mx-auto space-y-6 animate-fade-in">
+    //             <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
+    //                 תרגיל: {exerciseName}
+    //             </h2>
+    //
+    //             {exercise && (
+    //                 <>
+    //                     <h4 className="text-lg sm:text-xl font-medium text-slate-700">
+    //                         {exercise.questionText}
+    //                     </h4>
+    //
+    //                     <input
+    //                         type="text"
+    //                         placeholder="תשובה"
+    //                         value={answer}
+    //                         onChange={(e) => setAnswer(e.target.value)}
+    //                         className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
+    //                     />
+    //
+    //                     <button
+    //                         onClick={submitAnswer}
+    //                         disabled={!answer}
+    //                         className="mt-3 inline-block px-6 py-2 rounded-lg font-semibold text-white
+    //                    bg-gradient-to-r from-blue-500 to-green-500 shadow
+    //                    hover:from-blue-600 hover:to-green-600 transition-colors
+    //                    disabled:opacity-50"
+    //                     >
+    //                         שלח תשובה
+    //                     </button>
+    //                 </>
+    //             )}
+    //
+    //             {responseMessage && (
+    //                 <p
+    //                     className={`text-base font-semibold ${
+    //                         isCorrect ? "text-green-600" : "text-red-600"
+    //                     }`}
+    //                 >
+    //                     {responseMessage}
+    //                 </p>
+    //             )}
+    //
+    //             {/* לוח ציור */}
+    //             <div className="flex flex-col items-center gap-3">
+    //                 <canvas
+    //                     ref={canvasRef}
+    //                     width={500}
+    //                     height={300}
+    //                     onMouseDown={handleMouseDown}
+    //                     onMouseMove={handleMouseMove}
+    //                     onMouseUp={handleMouseUp}
+    //                     onMouseLeave={() => setIsDrawing(false)}
+    //                     className="border-2 border-gray-400 rounded-lg shadow-md bg-white"
+    //                 />
+    //                 <button
+    //                     onClick={handleClearCanvas}
+    //                     className="px-4 py-1.5 rounded-lg bg-red-500 text-white text-sm hover:bg-red-600 transition-colors"
+    //                 >
+    //                     נקה
+    //                 </button>
+    //             </div>
+    //         </section>
+    //
+    //         {/* כפתור צ'אט קבוע בפינה */}
+    //         <button
+    //             onClick={toggleChat}
+    //             className="fixed bottom-4 left-4 z-50 flex items-center gap-2
+    //              px-5 py-2 rounded-full text-white font-semibold shadow-lg
+    //              bg-gradient-to-r from-blue-600 to-green-500
+    //              hover:from-blue-700 hover:to-green-600 transition
+    //              animate-bounce"
+    //         >
+    //             📢 צ'אט
+    //             {newMessages > 0 && (
+    //                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs">
+    //       {newMessages}
+    //     </span>
+    //             )}
+    //         </button>
+    //
+    //         {/* חלון צ'אט צף */}
+    //         {isChatOpen && (
+    //             <div
+    //                 className="fixed bottom-24 left-4 w-96 max-w-full h-[450px] flex flex-col
+    //                bg-white border border-gray-300 rounded-xl shadow-2xl z-50
+    //                animate-[slide-up_0.3s_ease-out]"
+    //             >
+    //                 {/* כותרת */}
+    //                 <header className="flex justify-between items-center px-4 py-2 bg-gray-100 border-b">
+    //                     <div className="flex items-center gap-2 rtl:space-x-reverse">
+    //                         <span>📚</span>
+    //                         <span className="font-medium text-sm">צ'אט עם מורה</span>
+    //                     </div>
+    //                     <button
+    //                         onClick={toggleChat}
+    //                         className="text-gray-500 hover:text-red-500 transition-colors text-lg"
+    //                     >
+    //                         ✖️
+    //                     </button>
+    //                 </header>
+    //
+    //                 {/* גוף הצ'אט – גלילה פנימית */}
+    //                 <main className="flex-1 overflow-y-auto">
+    //                     <ChatComponent
+    //                         messages={messages}
+    //                         userMessage={userMessage}
+    //                         setUserMessage={setUserMessage}
+    //                         sendMessage={sendMessage}
+    //                         isLoading={isLoading}
+    //                         setIsOpen={setIsChatOpen}
+    //                     />
+    //                 </main>
+    //             </div>
+    //         )}
+    //     </div>
+    // );
+
 
 }
 export default QuestionPractice;

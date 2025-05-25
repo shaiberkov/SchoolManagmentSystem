@@ -8,7 +8,7 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
     const [lessonsByDay, setLessonsByDay] = useState([]);
     const cookies = new Cookies();
     const token = cookies.get('token');
-    const { user } = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
     useEffect(() => {
         const fetchSchedule = async () => {
@@ -51,7 +51,7 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
         WEDNESDAY: 'רביעי',
         THURSDAY: 'חמישי',
         FRIDAY: 'שישי',
-        SATURDAY:'שבת'
+        SATURDAY: 'שבת'
     };
 
     const getTodayKey = () => {
@@ -82,6 +82,10 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
     const thStyle = { border: "2px solid #ccc", padding: "8px", backgroundColor: "#f4f4f4" };
     const tdStyle = { border: "2px solid #ccc", padding: "8px" };
     const rowSpanCellStyle = { backgroundColor: "#e0f7fa", fontWeight: "bold" };
+    // const tableStyle = "w-full border-separate border-spacing-0 text-center rtl";
+    // const thStyle = "p-3 border-2 border-green-300 bg-green-100 text-green-800 font-semibold text-sm sm:text-base rounded-md shadow-sm text-center";
+    // const tdStyle = "p-2 border-2 border-green-100 text-gray-700 text-sm sm:text-base rounded-md";
+    // const rowSpanCellStyle = "bg-cyan-100 font-bold text-green-900 p-2 border-2 border-green-300 rounded-xl shadow-inner";
 
     const scheduleTable = useMemo(() => {
         const coveredSlots = {};
@@ -154,6 +158,7 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
             {scheduleTable}
         </div>
     );
+
 }
 
 export default WeeklySchedule;

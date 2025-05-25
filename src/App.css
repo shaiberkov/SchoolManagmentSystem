@@ -1,42 +1,103 @@
+@import "tailwindcss";
+
+
+
+
+
+/*@layer base {*/
+/*  body {*/
+/*    @apply min-h-screen bg-linear-45 from-blue-100 to-green-100  ;*/
+
+/*  }*/
+/*}*/
+/*html, body, #root {*/
+/*  @apply bg-linear-45 from-blue-100 to-green-100  min-h-screen;*/
+/*  background-attachment: fixed;*/
+/*}*/
+
+/*body {*/
+/*  background-color: transparent;*/
+/*  overscroll-behavior-y:none;*/
+/*}*/
+html,
+body,
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* Tailwind utilities */
+  @apply bg-gradient-to-br from-blue-100 to-green-100 min-h-screen overflow-x-hidden;
+
+  /* CSS רגיל */
+  background-attachment: fixed;   /* הרקע “מודבק” גם בגלילה */
+  overscroll-behavior: none;      /* מונע bounce באנדרואיד/iOS */
+  margin: 0;
+  padding: 0;
+}
+@keyframes shine {
+  0%   { transform: translateX(-50%) rotate(12deg); }
+  100% { transform: translateX(150%) rotate(12deg); }
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes slide-up {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+.slide-up {
+  animation: slide-up 0.4s ease-out;
+}
+
+
+@layer base {
+  html {
+    @apply scroll-smooth;
   }
 }
-
-.card {
-  padding: 2em;
+.scroll-container {
+  scroll-behavior: smooth;
 }
 
-.read-the-docs {
-  color: #888;
-}
+/*#root {*/
+/*  max-width: 1280px;*/
+/*  margin: 0 auto;*/
+/*  padding: 2rem;*/
+/*  text-align: center;*/
+/*}*/
+
+/*.logo {*/
+/*  height: 6em;*/
+/*  padding: 1.5em;*/
+/*  will-change: filter;*/
+/*  transition: filter 300ms;*/
+/*}*/
+/*.logo:hover {*/
+/*  filter: drop-shadow(0 0 2em #646cffaa);*/
+/*}*/
+/*.logo.react:hover {*/
+/*  filter: drop-shadow(0 0 2em #61dafbaa);*/
+/*}*/
+
+/*@keyframes logo-spin {*/
+/*  from {*/
+/*    transform: rotate(0deg);*/
+/*  }*/
+/*  to {*/
+/*    transform: rotate(360deg);*/
+/*  }*/
+/*}*/
+
+/*@media (prefers-reduced-motion: no-preference) {*/
+/*  a:nth-of-type(2) .logo {*/
+/*    animation: logo-spin infinite 20s linear;*/
+/*  }*/
+/*}*/
+
+
+/*.read-the-docs {*/
+/*  color: #888;*/
+/*}*/
