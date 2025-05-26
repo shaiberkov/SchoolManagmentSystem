@@ -43,7 +43,7 @@ function ClassScheduleViewerForManager() {
     }));
 
     return (
-        <div style={{ padding: "20px", maxWidth: "400px", direction: "rtl" }}>
+        <div style={{padding: "20px", maxWidth: "400px", direction: "rtl"}}>
             <h2>צפייה במערכת שעות לפי כיתה</h2>
 
             <label>בחר כיתה:</label>
@@ -54,13 +54,13 @@ function ClassScheduleViewerForManager() {
                 placeholder="בחר כיתה..."
                 isClearable
                 isSearchable
-                style={{ marginBottom: "15px" }}
+                style={{marginBottom: "15px"}}
             />
 
             {message && <div>{message}</div>}
 
             {selectedClassName && (
-                <WeeklySchedule type="class" classRoomName={selectedClassName} />
+                <WeeklySchedule type="class" classRoomName={selectedClassName}/>
             )}
         </div>
     );

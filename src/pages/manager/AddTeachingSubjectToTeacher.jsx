@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import {FiBookOpen, FiUserCheck} from "react-icons/fi";
 
 function AddTeachingSubjectToTeacher() {
     const [teacherId, setTeacherId] = useState('');
@@ -48,32 +49,58 @@ function AddTeachingSubjectToTeacher() {
     };
 
     return (
-        <div style={{ padding: '1rem', maxWidth: '400px' }}>
-            <h3>הוסף מקצוע הוראה למורה</h3>
+        <div
+            className="w-full max-w-xs sm:max-w-sm mx-auto p-4 sm:p-6 bg-white rounded-2xl shadow-xl mt-8 animate-fade-in text-right mb-8"
+            dir="rtl"
+        >
+            <h2 className="text-xl sm:text-2xl font-bold text-black-600 mb-6 text-center">
+                הוסף מקצוע הוראה למורה
+            </h2>
 
-            <div>
-                <label>מזהה מורה:</label>
-                <input
-                    type="text"
-                    value={teacherId}
-                    onChange={(e) => setTeacherId(e.target.value)}
-                    placeholder="לדוג': abc12345"
-                />
-            </div>
+            <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                <FiUserCheck
+                    className="text-green-500 transition-colors duration-300 hover:text-blue-600 hover:scale-120"/>
+                מזהה מורה:
+            </label>
+            <input
+                type="text"
+                value={teacherId}
+                onChange={(e) => setTeacherId(e.target.value)}
+                placeholder="תז..."
+                className="w-full px-3 py-2 mb-4 border-2 border-green-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 transition-all duration-300"
+            />
 
-            <div>
-                <label>בחר מקצוע:</label>
-                <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-                    <option value="">בחר מיקצוע</option>
-                    {subjects.map((s, index) => (
-                        <option key={index} value={s}>{s}</option>
-                    ))}
-                </select>
-            </div>
+            <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                <FiBookOpen
+                    className="text-green-500 transition-colors duration-300 hover:text-blue-600 hover:scale-120"/>
+                בחר מקצוע:
+            </label>
+            <select
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                className="w-full px-3 py-2 mb-4 border-2 border-green-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 transition-all duration-300"
+            >
+                <option value="">בחר מקצוע</option>
+                {subjects.map((s, index) => (
+                    <option key={index} value={s}>
+                        {s}
+                    </option>
+                ))}
+            </select>
 
-            <button onClick={handleSubmit}>הוסף מקצוע</button>
+            <button
+                onClick={handleSubmit}
+                className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-lg shadow-md transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+            >
+                <FiBookOpen className="text-white transition-transform duration-300 hover:scale-120"/>
+                הוסף מקצוע
+            </button>
 
-            {message && <p>{message}</p>}
+            {message && (
+                <div className="mt-4 text-sm text-red-600 text-center animate-pulse">
+                    {message}
+                </div>
+            )}
         </div>
     );
 }

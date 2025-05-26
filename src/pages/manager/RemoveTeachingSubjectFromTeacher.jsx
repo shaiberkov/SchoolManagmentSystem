@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import {FiBookOpen, FiSearch, FiTrash2} from "react-icons/fi";
 
 function RemoveTeachingSubjectFromTeacher() {
     const [teacherId, setTeacherId] = useState('');
@@ -84,43 +85,72 @@ function RemoveTeachingSubjectFromTeacher() {
     };
 
     return (
-        <div style={{ padding: '1rem', maxWidth: '400px' }}>
-            <h3>הסר מקצוע הוראה ממורה</h3>
 
-            <div>
-                <label>מזהה מורה:</label>
-                <input
-                    type="text"
-                    value={teacherId}
-                    onChange={(e) => setTeacherId(e.target.value)}
-                    placeholder="לדוג': abc12345"
-                />
-                <button onClick={fetchSubjects} style={{ marginTop: '0.5rem' }}>
-                    הבא מקצועות הוראה
-                </button>
-            </div>
+            <div
+                className="w-full max-w-sm mx-auto p-6 bg-white rounded-2xl shadow-xl mt-8 text-right animate-fade-in"
+                dir="rtl"
+            >
+                <h3 className="text-2xl font-bold text-green-600 mb-6 text-center">
+                    הסר מקצוע הוראה ממורה
+                </h3>
 
-            {subjectsFetched && subjects.length > 0 && (
-                <div style={{ marginTop: '1rem' }}>
-                    <label>בחר מקצוע להסרה:</label>
-                    <select
-                        value={selectedSubject}
-                        onChange={(e) => setSelectedSubject(e.target.value)}
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                        <FiSearch className="text-green-500 transition-transform duration-300 hover:scale-110 hover:text-blue-400" />
+                        מזהה מורה:
+                    </label>
+                    <input
+                        type="text"
+                        value={teacherId}
+                        onChange={(e) => setTeacherId(e.target.value)}
+                        placeholder="לדוג': abc12345"
+                        className="w-full px-4 py-2 border-2 border-green-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 transition-all duration-300"
+                    />
+                    <button
+                        onClick={fetchSubjects}
+                        className="w-full mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg shadow-md transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
                     >
-                        <option value="">בחר מיקצוע</option>
-                        {subjects.map((subject, index) => (
-                            <option key={index} value={subject}>{subject}</option>
-                        ))}
-                    </select>
-                    <button onClick={handleRemove} style={{ marginTop: '0.5rem' }}>
-                        הסר מקצוע
+                        <FiSearch className="text-white transition-transform duration-300 hover:scale-110 hover:text-blue-200" />
+                        הבא מקצועות הוראה
                     </button>
                 </div>
-            )}
 
-            {message && <p>{message}</p>}
-        </div>
-    );
+                {subjectsFetched && subjects.length > 0 && (
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                            <FiBookOpen className="text-green-500 transition-transform duration-300 hover:scale-110 hover:text-blue-400" />
+                            בחר מקצוע להסרה:
+                        </label>
+                        <select
+                            value={selectedSubject}
+                            onChange={(e) => setSelectedSubject(e.target.value)}
+                            className="w-full px-3 py-2 border-2 border-green-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 transition-all duration-300 mb-2"
+                        >
+                            <option value="">בחר מקצוע</option>
+                            {subjects.map((subject, index) => (
+                                <option key={index} value={subject}>
+                                    {subject}
+                                </option>
+                            ))}
+                        </select>
+                        <button
+                            onClick={handleRemove}
+                            className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 rounded-lg shadow-md transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+                        >
+                            <FiTrash2 className="text-white transition-transform duration-300 hover:scale-120 hover:text-red-200" />
+                            הסר מקצוע
+                        </button>
+                    </div>
+                )}
+
+                {message && (
+                    <p className="mt-4 text-sm text-center text-blue-600 animate-pulse">
+                        {message}
+                    </p>
+                )}
+            </div>
+        );
+
 }
 
 export default RemoveTeachingSubjectFromTeacher;

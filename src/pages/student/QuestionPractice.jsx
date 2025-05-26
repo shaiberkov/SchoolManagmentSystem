@@ -169,7 +169,6 @@ function QuestionPractice(){
 
     return (
         <div className="p-4 sm:p-8 font-sans">
-            {/* כותרת ודף התרגיל */}
             <section className="exercise-page text-center max-w-xl mx-auto space-y-6 animate-fade-in">
                 <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
                     תרגיל: {exerciseName}
@@ -212,7 +211,6 @@ function QuestionPractice(){
                     </p>
                 )}
 
-                {/* לוח ציור */}
                 <div className="flex flex-col items-center gap-3">
                     <canvas
                         ref={canvasRef}
@@ -257,19 +255,7 @@ function QuestionPractice(){
         bg-white border border-gray-300 rounded-xl shadow-2xl z-50
         animate-[slide-up_0.5s_ease-out]"
                 >
-                    {/* כותרת */}
-                    {/*<header className="flex justify-between items-center px-4 py-2 bg-gray-100 border-b">*/}
-                    {/*    <div className="flex items-center gap-2 rtl:space-x-reverse">*/}
-                    {/*        <span>📚</span>*/}
-                    {/*        <span className="font-medium text-sm">צ'אט עם מורה</span>*/}
-                    {/*    </div>*/}
-                    {/*    <button*/}
-                    {/*        onClick={toggleChat}*/}
-                    {/*        className="text-gray-500 hover:text-red-500 transition-colors text-lg"*/}
-                    {/*    >*/}
-                    {/*        ✖️*/}
-                    {/*    </button>*/}
-                    {/*</header>*/}
+
 
                     <header className="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-blue-100 to-green-100
     border-b rounded-t-xl shadow-sm">
@@ -307,127 +293,6 @@ function QuestionPractice(){
 
         </div>
     );
-
-    // return (
-    //     <div className="p-6 sm:p-10 font-sans">
-    //         {/* כותרת ודף התרגיל */}
-    //         <section className="exercise-page text-center max-w-xl mx-auto space-y-6 animate-fade-in">
-    //             <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
-    //                 תרגיל: {exerciseName}
-    //             </h2>
-    //
-    //             {exercise && (
-    //                 <>
-    //                     <h4 className="text-lg sm:text-xl font-medium text-slate-700">
-    //                         {exercise.questionText}
-    //                     </h4>
-    //
-    //                     <input
-    //                         type="text"
-    //                         placeholder="תשובה"
-    //                         value={answer}
-    //                         onChange={(e) => setAnswer(e.target.value)}
-    //                         className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-    //                     />
-    //
-    //                     <button
-    //                         onClick={submitAnswer}
-    //                         disabled={!answer}
-    //                         className="mt-3 inline-block px-6 py-2 rounded-lg font-semibold text-white
-    //                    bg-gradient-to-r from-blue-500 to-green-500 shadow
-    //                    hover:from-blue-600 hover:to-green-600 transition-colors
-    //                    disabled:opacity-50"
-    //                     >
-    //                         שלח תשובה
-    //                     </button>
-    //                 </>
-    //             )}
-    //
-    //             {responseMessage && (
-    //                 <p
-    //                     className={`text-base font-semibold ${
-    //                         isCorrect ? "text-green-600" : "text-red-600"
-    //                     }`}
-    //                 >
-    //                     {responseMessage}
-    //                 </p>
-    //             )}
-    //
-    //             {/* לוח ציור */}
-    //             <div className="flex flex-col items-center gap-3">
-    //                 <canvas
-    //                     ref={canvasRef}
-    //                     width={500}
-    //                     height={300}
-    //                     onMouseDown={handleMouseDown}
-    //                     onMouseMove={handleMouseMove}
-    //                     onMouseUp={handleMouseUp}
-    //                     onMouseLeave={() => setIsDrawing(false)}
-    //                     className="border-2 border-gray-400 rounded-lg shadow-md bg-white"
-    //                 />
-    //                 <button
-    //                     onClick={handleClearCanvas}
-    //                     className="px-4 py-1.5 rounded-lg bg-red-500 text-white text-sm hover:bg-red-600 transition-colors"
-    //                 >
-    //                     נקה
-    //                 </button>
-    //             </div>
-    //         </section>
-    //
-    //         {/* כפתור צ'אט קבוע בפינה */}
-    //         <button
-    //             onClick={toggleChat}
-    //             className="fixed bottom-4 left-4 z-50 flex items-center gap-2
-    //              px-5 py-2 rounded-full text-white font-semibold shadow-lg
-    //              bg-gradient-to-r from-blue-600 to-green-500
-    //              hover:from-blue-700 hover:to-green-600 transition
-    //              animate-bounce"
-    //         >
-    //             📢 צ'אט
-    //             {newMessages > 0 && (
-    //                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs">
-    //       {newMessages}
-    //     </span>
-    //             )}
-    //         </button>
-    //
-    //         {/* חלון צ'אט צף */}
-    //         {isChatOpen && (
-    //             <div
-    //                 className="fixed bottom-24 left-4 w-96 max-w-full h-[450px] flex flex-col
-    //                bg-white border border-gray-300 rounded-xl shadow-2xl z-50
-    //                animate-[slide-up_0.3s_ease-out]"
-    //             >
-    //                 {/* כותרת */}
-    //                 <header className="flex justify-between items-center px-4 py-2 bg-gray-100 border-b">
-    //                     <div className="flex items-center gap-2 rtl:space-x-reverse">
-    //                         <span>📚</span>
-    //                         <span className="font-medium text-sm">צ'אט עם מורה</span>
-    //                     </div>
-    //                     <button
-    //                         onClick={toggleChat}
-    //                         className="text-gray-500 hover:text-red-500 transition-colors text-lg"
-    //                     >
-    //                         ✖️
-    //                     </button>
-    //                 </header>
-    //
-    //                 {/* גוף הצ'אט – גלילה פנימית */}
-    //                 <main className="flex-1 overflow-y-auto">
-    //                     <ChatComponent
-    //                         messages={messages}
-    //                         userMessage={userMessage}
-    //                         setUserMessage={setUserMessage}
-    //                         sendMessage={sendMessage}
-    //                         isLoading={isLoading}
-    //                         setIsOpen={setIsChatOpen}
-    //                     />
-    //                 </main>
-    //             </div>
-    //         )}
-    //     </div>
-    // );
-
 
 }
 export default QuestionPractice;

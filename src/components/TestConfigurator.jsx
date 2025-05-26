@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 import axios from "axios";
 import {UserContext} from "../context/UserContext.jsx";
 import Cookies from "universal-cookie";
+import { FaBook, FaClipboardList, FaLayerGroup, FaSortAmountDown, FaClock, FaCalendarAlt, FaUserGraduate } from "react-icons/fa";
+
 
 const TestConfigurator = ({type}) => {
     const navigate = useNavigate();
@@ -65,12 +67,26 @@ const TestConfigurator = ({type}) => {
 
 
     return (
-        <div>
-            <h2>יצירת מבחן</h2>
+        <div className="max-w-xl mx-auto p-4 bg-white rounded-3xl shadow-md space-y-6 mb-8" dir="rtl">
+            <h2 className="text-2xl font-bold text-center text-green-700 flex items-center justify-center gap-2">
+        <span className="group">
+            <FaClipboardList
+                className="text-green-500 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-[35deg] group-hover:text-green-700"/>
+        </span>
+                יצירת מבחן
+            </h2>
 
-            <div>
-                <label>בחר מקצוע:</label>
-                <select value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)}>
+            {/* בחירת מקצוע */}
+            <div className="space-y-1">
+                <label className="font-semibold flex items-center gap-2 text-gray-700">
+            <span className="group">
+                <FaBook
+                    className="text-blue-500 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-[35deg] group-hover:text-blue-700"/>
+            </span>
+                    בחר מקצוע:
+                </label>
+                <select className="w-full p-2 rounded-xl border" value={selectedSubject}
+                        onChange={(e) => setSelectedSubject(e.target.value)}>
                     <option value="">-- בחר --</option>
                     {subjects.map((subject) => (
                         <option key={subject} value={subject}>{subject}</option>
@@ -78,10 +94,18 @@ const TestConfigurator = ({type}) => {
                 </select>
             </div>
 
+            {/* נושא */}
             {selectedSubject && (
-                <div>
-                    <label>בחר נושא:</label>
-                    <select value={selectedTopic} onChange={(e) => setSelectedTopic(e.target.value)}>
+                <div className="space-y-1">
+                    <label className="font-semibold flex items-center gap-2 text-gray-700">
+                <span className="group">
+                    <FaLayerGroup
+                        className="text-purple-500 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-[35deg] group-hover:text-purple-700"/>
+                </span>
+                        בחר נושא:
+                    </label>
+                    <select className="w-full p-2 rounded-xl border" value={selectedTopic}
+                            onChange={(e) => setSelectedTopic(e.target.value)}>
                         <option value="">-- בחר --</option>
                         {topics[selectedSubject].map((topic) => (
                             <option key={topic} value={topic}>{topic}</option>
@@ -90,10 +114,18 @@ const TestConfigurator = ({type}) => {
                 </div>
             )}
 
+            {/* רמת קושי */}
             {selectedTopic && (
-                <div>
-                    <label>בחר רמת קושי:</label>
-                    <select value={selectedDifficulty} onChange={(e) => setSelectedDifficulty(e.target.value)}>
+                <div className="space-y-1">
+                    <label className="font-semibold flex items-center gap-2 text-gray-700">
+                <span className="group">
+                    <FaSortAmountDown
+                        className="text-yellow-500 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-[35deg] group-hover:text-yellow-700"/>
+                </span>
+                        בחר רמת קושי:
+                    </label>
+                    <select className="w-full p-2 rounded-xl border" value={selectedDifficulty}
+                            onChange={(e) => setSelectedDifficulty(e.target.value)}>
                         <option value="">-- בחר --</option>
                         {difficulties.map((level) => (
                             <option key={level} value={level}>{level}</option>
@@ -102,10 +134,18 @@ const TestConfigurator = ({type}) => {
                 </div>
             )}
 
+            {/* מספר שאלות */}
             {selectedDifficulty && (
-                <div>
-                    <label>בחר מספר שאלות:</label>
-                    <select value={selectedQuestionCount} onChange={(e) => setSelectedQuestionCount(parseInt(e.target.value))}>
+                <div className="space-y-1">
+                    <label className="font-semibold flex items-center gap-2 text-gray-700">
+                <span className="group">
+                    <FaClipboardList
+                        className="text-orange-500 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-[35deg] group-hover:text-orange-700"/>
+                </span>
+                        בחר מספר שאלות:
+                    </label>
+                    <select className="w-full p-2 rounded-xl border" value={selectedQuestionCount}
+                            onChange={(e) => setSelectedQuestionCount(parseInt(e.target.value))}>
                         {questionCounts.map((count) => (
                             <option key={count} value={count}>{count}</option>
                         ))}
@@ -113,58 +153,92 @@ const TestConfigurator = ({type}) => {
                 </div>
             )}
 
+            {/* זמן למבחן */}
             {selectedQuestionCount && (
-                <input
-                    type="number"
-                    min="1"
-                    value={selectedTimeMinutes || ""}
-                    onChange={(e) => {
-                        const value = e.target.value;
-                        const parsedValue = value ? parseInt(value, 10) : "";
-                        setSelectedTimeMinutes(parsedValue);
-                    }}
-                />
-
+                <div className="space-y-1">
+                    <label className="font-semibold flex items-center gap-2 text-gray-700">
+                <span className="group">
+                    <FaClock
+                        className="text-indigo-500 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-[35deg] group-hover:text-indigo-700"/>
+                </span>
+                        זמן בדקות:
+                    </label>
+                    <input
+                        type="number"
+                        min="1"
+                        className="w-full p-2 rounded-xl border"
+                        value={selectedTimeMinutes || ""}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            const parsedValue = value ? parseInt(value, 10) : "";
+                            setSelectedTimeMinutes(parsedValue);
+                        }}
+                    />
+                </div>
             )}
-            {type==="teacher"&&selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0&& (
-                <div>
-                    <h2>בחר תאריך ושעה למבחן</h2>
+
+            {/* תאריך ושעה - רק מורה */}
+            {type === "teacher" && selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && (
+                <div className="space-y-1">
+                    <label className="font-semibold flex items-center gap-2 text-gray-700">
+                <span className="group">
+                    <FaCalendarAlt
+                        className="text-teal-500 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-[35deg] group-hover:text-teal-700"/>
+                </span>
+                        בחר תאריך ושעה למבחן:
+                    </label>
                     <DateTime
                         value={startTime}
                         onChange={(value) => setStartTime(value)}
-                        inputProps={{placeholder: 'בחר תאריך ושעה'}}
+                        inputProps={{
+                            placeholder: 'בחר תאריך ושעה',
+                            className: 'w-full p-2 rounded-xl border'
+                        }}
                     />
                 </div>
-
             )}
 
-
-            {selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && startTime &&type==="teacher" && (
-
-                <div>
-                    <label>הכנס ת"ז של תלמידים (מופרדים בפסיקים):</label>
+            {/* ת"ז תלמידים */}
+            {selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && startTime && type === "teacher" && (
+                <div className="space-y-1">
+                    <label className="font-semibold flex items-center gap-2 text-gray-700">
+                <span className="group">
+                    <FaUserGraduate
+                        className="text-pink-500 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-[35deg] group-hover:text-pink-700"/>
+                </span>
+                        הכנס ת"ז של תלמידים (מופרדים בפסיקים):
+                    </label>
                     <textarea
                         rows={4}
+                        className="w-full p-2 rounded-xl border"
                         value={studentsIdsInput}
                         onChange={(e) => setStudentsIdsInput(e.target.value)}
                         placeholder="123456789,987654321,..."
                     />
                 </div>
             )}
-            {selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && startTime &&type==="teacher" && (
 
-                <div>
-                    <button onClick={handleSubmit}>צור מבחן</button>
+            {/* כפתור שליחה */}
+            {(type === "teacher" && selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && startTime) ||
+            (type === "student" && selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0) ? (
+                <div className="text-center">
+                    <button
+                        onClick={type === "teacher" ? handleSubmit : navigateToTest}
+                        className="bg-green-600 text-white px-6 py-2 rounded-xl shadow-lg hover:bg-green-700 transition duration-300"
+                    >
+                        צור מבחן
+                    </button>
+                </div>
+            ) : null}
+
+            {/* הודעה כללית */}
+            {message && (
+                <div className="text-center text-sm text-blue-600 animate-pulse">
+                    {message}
                 </div>
             )}
-
-            {selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && type === "student" && (
-                <div>
-                    <button onClick={navigateToTest}>צור מבחן</button>
-                </div>
-            )}
-            {message}
         </div>
+
     );
 };
 

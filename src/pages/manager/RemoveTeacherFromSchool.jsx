@@ -51,7 +51,8 @@ function RemoveTeacherFromSchool() {
             </h2>
 
             <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
-                <FiTrash2 className="text-green-500 transition-colors duration-300 hover:text-red-600 hover:scale-110" />
+                <FiTrash2
+                    className="text-green-500 transition-transform duration-300 hover:scale-110 hover:text-red-600"/>
                 הכנס מזהה מורה להסרה:
             </label>
 
@@ -68,7 +69,7 @@ function RemoveTeacherFromSchool() {
                 onClick={handleRemove}
                 className="w-full bg-green-400 hover:bg-green-500 text-white font-bold py-2 rounded-lg shadow-md transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
             >
-                <FiTrash2 className="text-white transition-transform duration-300 hover:scale-120" />
+                <FiTrash2 className="text-white transition-transform duration-300 hover:scale-110 hover:text-red-300"/>
                 הסר מורה
             </button>
 

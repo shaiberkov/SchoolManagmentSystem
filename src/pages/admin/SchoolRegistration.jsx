@@ -86,15 +86,19 @@ function SchoolRegistration() {
 
 
     return (
-        <div className="max-w-md mx-auto mt-10 mb-8 p-6 bg-white rounded-3xl shadow-lg space-y-5" dir="rtl">
+        <div
+            className="max-w-md mx-auto mt-10 mb-8 p-6 bg-white rounded-3xl shadow-lg space-y-5"
+            dir="rtl"
+        >
             <h2 className="text-2xl font-bold text-center text-green-600 flex items-center justify-center gap-2">
                 מינוי מנהל והוספת בית ספר
             </h2>
 
-            {/* מזהה משתמש */}
             <div>
-                <div className="flex items-center gap-2 bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-green-400">
-                    <FaUser className="text-gray-400" />
+                <div
+                    className="flex items-center gap-2 bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-green-400">
+                    <FaUser
+                        className="text-gray-400 transition-transform duration-300 hover:scale-[1.2] hover:text-blue-400"/>
                     <input
                         type="text"
                         placeholder="מזהה משתמש"
@@ -103,13 +107,16 @@ function SchoolRegistration() {
                         className="w-full bg-transparent outline-none"
                     />
                 </div>
-                {userIdError && <p className="text-red-500 text-sm mt-1">{userIdError}</p>}
+                {userIdError && (
+                    <p className="text-red-500 text-sm mt-1">{userIdError}</p>
+                )}
             </div>
 
-            {/* שם בית הספר */}
             <div>
-                <div className="flex items-center gap-2 bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-green-400">
-                    <FaSchool className="text-gray-400" />
+                <div
+                    className="flex items-center gap-2 bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-green-400">
+                    <FaSchool
+                        className="text-gray-400 transition-transform duration-300 hover:scale-[1.2] hover:text-blue-400"/>
                     <input
                         type="text"
                         placeholder="שם בית הספר"
@@ -120,10 +127,11 @@ function SchoolRegistration() {
                 </div>
             </div>
 
-            {/* קוד בית ספר */}
             <div>
-                <div className="flex items-center gap-2  bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-green-400">
-                    <FaKey className="text-gray-400" />
+                <div
+                    className="flex items-center gap-2 bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-green-400">
+                    <FaKey
+                        className="text-gray-400 transition-transform duration-300 hover:scale-[1.2] hover:text-blue-400"/>
                     <input
                         type="text"
                         placeholder="קוד בית הספר"
@@ -132,10 +140,11 @@ function SchoolRegistration() {
                         className="w-full bg-transparent outline-none"
                     />
                 </div>
-                {schoolCodeError && <p className="text-red-500 text-sm mt-1">{schoolCodeError}</p>}
+                {schoolCodeError && (
+                    <p className="text-red-500 text-sm mt-1">{schoolCodeError}</p>
+                )}
             </div>
 
-            {/* כפתור */}
             <button
                 onClick={assignSchoolManager}
                 className="w-full bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white font-bold py-2 rounded-xl transition duration-300 shadow-md hover:shadow-lg"
@@ -143,7 +152,6 @@ function SchoolRegistration() {
                 הוסף
             </button>
 
-            {/* הודעה כללית */}
             {message && (
                 <p className="text-center text-green-600 font-semibold flex items-center justify-center gap-2">
                     {message}
@@ -152,85 +160,6 @@ function SchoolRegistration() {
         </div>
     );
 
-    // return (
-    //     <div className="max-w-md mx-auto mt-10 mb-8 p-6 bg-white rounded-3xl shadow-lg space-y-5" dir="rtl">
-    //         <h2 className="text-2xl font-bold text-center text-green-600">מינוי מנהל והוספת בית ספר</h2>
-    //
-    //         {/* מזהה משתמש */}
-    //         <div>
-    //             <input
-    //                 type="text"
-    //                 placeholder="מזהה משתמש"
-    //                 value={userId}
-    //                 onChange={(e) => setUserId(e.target.value)}
-    //                 className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400"
-    //             />
-    //             {userIdError && <p className="text-red-500 text-sm mt-1">{userIdError}</p>}
-    //         </div>
-    //
-    //         {/* שם בית ספר */}
-    //         <div>
-    //             <input
-    //                 type="text"
-    //                 placeholder="שם בית הספר"
-    //                 value={schoolName}
-    //                 onChange={(e) => setSchoolName(e.target.value)}
-    //                 className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400"
-    //             />
-    //         </div>
-    //
-    //         {/* קוד בית ספר */}
-    //         <div>
-    //             <input
-    //                 type="text"
-    //                 placeholder="קוד בית הספר"
-    //                 value={schoolCode}
-    //                 onChange={(e) => setSchoolCode(e.target.value)}
-    //                 className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400"
-    //             />
-    //             {schoolCodeError && <p className="text-red-500 text-sm mt-1">{schoolCodeError}</p>}
-    //         </div>
-    //
-    //         {/* כפתור */}
-    //         <button
-    //             onClick={assignSchoolManager}
-    //             className="w-full bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white font-bold py-2 rounded-xl transition duration-300 shadow-md hover:shadow-lg"
-    //         >
-    //             הוסף
-    //         </button>
-    //
-    //         {/* הודעה כללית */}
-    //         {message && <p className="text-center text-green-600 font-semibold">{message}</p>}
-    //     </div>
-    // );
-
-    // return (
-    //     <div style={{ maxWidth: "400px", margin: "0 auto", direction: "rtl" }}>
-    //         <h2>מינוי מנהל והוספת בית ספר</h2>
-    //         <input
-    //             type="text"
-    //             placeholder="מזהה משתמש"
-    //             value={userId}
-    //             onChange={(e) => setUserId(e.target.value)}
-    //         />
-    //         {userIdError && <p style={{ color: "red" }}>{userIdError}</p>}
-    //         <input
-    //             type="text"
-    //             placeholder="שם בית הספר"
-    //             value={schoolName}
-    //             onChange={(e) => setSchoolName(e.target.value)}
-    //         />
-    //         <input
-    //             type="text"
-    //             placeholder="קוד בית הספר"
-    //             value={schoolCode}
-    //             onChange={(e) => setSchoolCode(e.target.value)}
-    //         />
-    //         {schoolCodeError && <p style={{ color: "red" }}>{schoolCodeError}</p>}
-    //         <button onClick={assignSchoolManager}>הוסף</button>
-    //         {message && <p>{message}</p>}
-    //     </div>
-    // );
 }
 
 export default SchoolRegistration;

@@ -49,46 +49,6 @@ function Login() {
     };
 
 
-//         <div>
-//             <form onSubmit={handleSubmit}>
-//                 <h2>התחברות</h2>
-//
-//                 <div>
-//                     <FaUser />
-//                     <input
-//                         type="text"
-//                         name="userId"
-//                         value={formData.userId}
-//                         onChange={handleChange}
-//                         placeholder="תעודת זהות"
-//                         required
-//                     />
-//                 </div>
-//
-//                 <div>
-//                     <FaLock />
-//                     <input
-//                         type="password"
-//                         name="password"
-//                         value={formData.password}
-//                         onChange={handleChange}
-//                         placeholder="סיסמא"
-//                         required
-//                     />
-//                 </div>
-//
-//                 {error && <p>{error}</p>}
-//
-//                 <button type="submit" disabled={hasEmptyFields()}>התחבר</button>
-//                 <p>
-//                     אין לך חשבון? <a href="/register">הרשם כאן</a>
-//                 </p>
-//                 <p>
-//                     שכחת סיסמא? <a href="/reset-password">לחץ כאן לשחזור</a>
-//                 </p>
-//             </form>
-//         </div>
-//     );
     return (
         <div className="flex justify-center py-10 px-4 pt-12 animate-fade-in">
             <form
@@ -99,7 +59,6 @@ function Login() {
                     התחברות
                 </h2>
 
-                {/* ת״ז */}
                 <div className="relative">
                     <FaUser
                         className="absolute top-3 left-3 text-blue-500 drop-shadow-md hover:scale-110 transition duration-200"/>
@@ -114,7 +73,6 @@ function Login() {
                     />
                 </div>
 
-                {/* סיסמה */}
                 <div className="relative">
                     <FaLock
                         className="absolute top-3 left-3 text-red-500 drop-shadow-md hover:scale-110 transition duration-200"/>
@@ -135,14 +93,12 @@ function Login() {
                 <button
                     type="submit"
                     disabled={hasEmptyFields()}
-                    /* בסיס הכפתור */
+
                     className="w-full relative py-2 rounded-lg bg-gradient-to-r from-blue-400 to-green-400
              text-white font-semibold shadow-md hover:from-blue-600 hover:to-green-600
              transition-colors duration-300 ease-in-out disabled:opacity-50 overflow-hidden group"
                 >
-                    {/* SHIMMER WRAPPER – keeps overflow hidden */}
                     <span className="absolute inset-0 pointer-events-none overflow-hidden rounded-lg">
-    {/* MOVING HIGHLIGHT */}
                         <span
                             className="absolute -top-1/2 -left-[140%] w-[140%] h-[200%]
                  bg-gradient-to-r from-transparent via-white/70 to-transparent
@@ -152,21 +108,9 @@ function Login() {
                         />
   </span>
 
-                    {/* טקסט הכפתור */}
                     <span className="relative z-10">התחבר</span>
                 </button>
 
-                {/*<button*/}
-                {/*    type="submit"*/}
-                {/*    disabled={hasEmptyFields()}*/}
-                {/*    className="w-full relative py-2 rounded-lg bg-gradient-to-r from-blue-400 to-green-400 text-white font-semibold shadow-md hover:from-blue-600 hover:to-green-600 transition-all duration-300 ease-in-out disabled:opacity-50 overflow-hidden"*/}
-                {/*>*/}
-
-                {/*    <span className="absolute inset-0 rounded-lg bg-white opacity-0 hover:opacity-10 transition-opacity duration-300" />*/}
-                {/*    <span className="relative z-10">התחבר</span>*/}
-                {/*</button>*/}
-
-                {/* קישור להרשמה */}
                 <p className="text-center text-sm text-gray-700 mt-6">
                     <a
                         href="/register"
@@ -184,7 +128,6 @@ function Login() {
                     אם עדיין אין לך חשבון
                 </p>
 
-                {/* קישור לשחזור סיסמה */}
                 <p className="text-center text-sm text-gray-600 mt-2">
                     שכחת סיסמה?{" "}
                     <a

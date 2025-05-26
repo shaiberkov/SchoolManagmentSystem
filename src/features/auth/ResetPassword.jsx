@@ -83,57 +83,6 @@ function ResetPassword() {
     };
 
     const isButtonDisabled = errors.password || !formData.newPassword || !formData.otp || !formData.userId;
-
-//     return (
-//         <div>
-//             <h2>איפוס סיסמה</h2>
-//             {step === 1 ? (
-//                 <>
-//                     <div>
-//                         <input
-//                             name="userId"
-//                             type="text"
-//                             placeholder="תז"
-//                             value={formData.userId}
-//                             onChange={setData}
-//                         />
-//                         {errors.userId && <p>{errors.userId}</p>}
-//                     </div>
-//                     <button onClick={requestOtp} disabled={formData.userId === ""}>שלח קוד לאיפוס סיסמא</button>
-//                 </>
-//             ) : (
-//                 <>
-//                     <div>
-//                         <input
-//                             name="otp"
-//                             type="text"
-//                             placeholder="קוד אימות"
-//                             value={formData.otp}
-//                             onChange={setData}
-//                         />
-//                         {errors.otp && <p>{errors.otp}</p>}
-//                     </div>
-//                     <div>
-//                         <input
-//                             name="newPassword"
-//                             type="password"
-//                             placeholder="סיסמה חדשה"
-//                             value={formData.newPassword}
-//                             onChange={setData}
-//                         />
-//                         {errors.password && <p>{errors.password}</p>}
-//                     </div>
-//                     <button
-//                         onClick={resetPassword}
-//                         disabled={isButtonDisabled}
-//                     >
-//                         אפס סיסמה
-//                     </button>
-//                 </>
-//             )}
-//         </div>
-//     );
-// }
     return (
         <div className="flex justify-center  px-4 pt-12 animate-fade-in">
             <form

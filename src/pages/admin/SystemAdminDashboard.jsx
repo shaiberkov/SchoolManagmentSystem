@@ -58,7 +58,6 @@ export default function SystemAdminDashboard() {
 
     return (
         <div className="min-h-screen p-4 sm:p-8" dir="rtl">
-            {/* כותרת עליונה */}
             <header className="max-w-6xl mx-auto mb-8">
                 <h1 className="text-3xl sm:text-4xl font-bold text-slate-800">
                     {getGreeting()}, {user.username}
@@ -68,22 +67,20 @@ export default function SystemAdminDashboard() {
                 </h2>
             </header>
 
-            {/* פריסה עם Grid – תוכן + תיבת הודעות */}
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* אזור תוכן ראשי (2 עמודות) */}
                 <div className="lg:col-span-2 space-y-10">
-                    {/* כרטיסים */}
                     <section className="grid gap-6 sm:grid-cols-2">
-                        {/* כרטיס סטטיסטיקה */}
                         <div className="bg-white rounded-3xl shadow-md p-6 flex items-center gap-4">
                             <FaSchool className="text-4xl text-green-500" />
                             <div>
                                 <p className="text-sm text-gray-500">מספר בתי ספר רשומים</p>
-                                <p className="text-3xl font-extrabold text-slate-800">{schoolData.length}</p>
+                                {schoolData.length>0&& (
+                                    <p className="text-3xl font-extrabold text-slate-800">{schoolData.length}</p>
+                                )}
+
                             </div>
                         </div>
 
-                        {/* כפתור רישום */}
                         <div className="bg-gradient-to-r from-lime-400 to-green-500 rounded-3xl shadow-md p-6 flex flex-col justify-between text-white">
                             <div className="flex items-center gap-3">
                                 <FaPlusCircle className="text-4xl" />
@@ -98,7 +95,6 @@ export default function SystemAdminDashboard() {
                         </div>
                     </section>
 
-                    {/* רשימת בתי ספר */}
                     <section>
                         <div className="flex items-center gap-2 mb-4">
                             <FaClipboardList className="text-xl text-slate-600" />

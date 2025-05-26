@@ -81,35 +81,6 @@ function TwoFactorAuthForm() {
     };
 
     return (
-        // <div>
-        //     <form onSubmit={handleSubmit}>
-        //         <h2>הכנס את קוד האימות</h2>
-        //         <div>
-        //             <FaKey />
-        //             <input
-        //                 type="text"
-        //                 name="verificationCode"
-        //                 value={verificationCode}
-        //                 onChange={handleCodeChange}
-        //                 placeholder="הכנס קוד אימות"
-        //                 required
-        //             />
-        //         </div>
-        //
-        //         {/* הודעת שגיאה */}
-        //         {error && <p>{error}</p>}
-        //
-        //         <button type="submit">
-        //             אמת קוד
-        //         </button>
-        //
-        //         <p>
-        //             הקוד תקף ל-2 דקות בלבד. הקוד נשלח למספר טלפון:
-        //             {phoneNumber.slice(-3)}******{phoneNumber.slice(0, 3)}
-        //         </p>
-        //     </form>
-        // </div>
-
         <div className="flex justify-center px-4 py-10 pt-12 animate-fade-in">
             <form
                 onSubmit={handleSubmit}
@@ -119,7 +90,6 @@ function TwoFactorAuthForm() {
                     הכנס את קוד האימות
                 </h2>
 
-                {/* קוד אימות */}
                 <div className="relative">
                     <FaKey
                         className="absolute top-3 left-3 text-yellow-500 drop-shadow-md hover:scale-120 transition duration-200"/>
@@ -132,7 +102,6 @@ function TwoFactorAuthForm() {
                         required
                         className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 transition"
                     />
-                    {/*{error && <p className="text-red-500 text-sm mt-1">{error}</p>}*/}
                     {error && (
                         <p className="text-red-500 text-sm mt-1 text-center flex items-center justify-center gap-1">
                              {error}

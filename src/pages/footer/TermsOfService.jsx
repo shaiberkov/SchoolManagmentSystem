@@ -2,48 +2,6 @@ import React from "react";
 
 export default function TermsOfService() {
     return (
-        //     <div dir="rtl">
-        //         <h1>📜 תנאי שימוש</h1>
-        //
-        //         <h3>1. שימוש הוגן ואחראי</h3>
-        //         <p>
-        //             השימוש באתר מותר לכל אדם, בתנאי שישתמש בו למטרות לימודיות והוגנות בלבד.
-        //             אין להעלות תכנים פוגעניים, מזיקים או בלתי חוקיים.
-        //         </p>
-        //
-        //         <h3>2. הרשמה ושמירת מידע</h3>
-        //         <p>
-        //             אם תבחר להירשם, עליך לספק מידע נכון ועדכני. הפרטים שלך נשמרים בצורה
-        //             מאובטחת ואינם נמסרים לגורמים חיצוניים ללא הסכמתך.
-        //         </p>
-        //
-        //         <h3>3. זכויות יוצרים</h3>
-        //         <p>
-        //             כל התכנים באתר מוגנים בזכויות יוצרים. אין להעתיק, להפיץ או להשתמש
-        //             בהם ללא אישור מראש ובכתב מבעלי האתר.
-        //         </p>
-        //
-        //         <h3>4. אחריות על השימוש</h3>
-        //         <p>
-        //             הנהלת האתר אינה אחראית לכל נזק ישיר או עקיף שעלול להיגרם כתוצאה
-        //             מהשימוש במערכת או מהסתמכות על תכני האתר.
-        //         </p>
-        //
-        //         <h3>5. שינויים ועדכונים</h3>
-        //         <p>
-        //             תנאי השימוש עשויים להתעדכן מעת לעת. השימוש המתמשך באתר מהווה הסכמה
-        //             לתנאים המעודכנים.
-        //         </p>
-        //
-        //         <h3>6. יצירת קשר</h3>
-        //         <p>
-        //             בכל שאלה בנוגע לתנאים אלו ניתן לפנות אלינו דרך טופס יצירת קשר
-        //             באתר או למייל התמיכה המופיע בתחתית העמוד.
-        //         </p>
-        //
-        //         <p style={{ marginTop: "1rem" }}>עודכן לאחרונה: מאי 2025</p>
-        //     </div>
-        // );
         <div dir="rtl" className="flex justify-center mb-10 px-4 pt-12 animate-fade-in">
             <div className="w-full max-w-4xl bg-white p-8 rounded-2xl shadow-xl border border-gray-200 space-y-6">
                 <h1 className="text-3xl font-bold text-center text-green-500 mb-4">📜 תנאי שימוש</h1>

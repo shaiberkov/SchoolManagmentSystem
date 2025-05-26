@@ -70,32 +70,13 @@ function RemoveSchoolGrades() {
         }
     };
 
-    // return (
-    //     <div style={{ padding: '1rem', maxWidth: '400px' }}>
-    //         <div>
-    //             <label>בחר שכבה להסרה:</label>
-    //             <select
-    //                 value={selectedGrade}
-    //                 onChange={(e) => setSelectedGrade(e.target.value)}
-    //             >
-    //                 <option value="">-- בחר שכבה --</option>
-    //                 {gradesList.map((grade, index) => (
-    //                     <option key={index} value={grade}>
-    //                         {grade}
-    //                     </option>
-    //                 ))}
-    //             </select>
-    //         </div>
-    //         <button onClick={handleRemove}>הסר שכבה</button>
-    //
-    //         {message && <p>{message}</p>}
-    //     </div>
+
     return (
         <div
             className="w-full max-w-full sm:max-w-sm mb-8 mx-auto p-4 sm:p-6 bg-white rounded-2xl shadow-xl mt-8 animate-fade-in text-right"
             dir="rtl"
         >
-            <h2 className="text-2xl font-bold text-green-600 mb-6 text-center">
+            <h2 className="text-2xl font-bold text-black-600 mb-6 text-center">
                 הסר שכבה
             </h2>
 

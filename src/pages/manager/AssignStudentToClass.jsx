@@ -76,36 +76,6 @@ function AssignStudentToClass() {
 
 
     return (
-        // <div style={{ padding: "20px", maxWidth: "400px", direction: "rtl" }}>
-        //     <h2>שיבוץ תלמיד לכיתה</h2>
-        //
-        //     <label>ת"ז תלמיד:</label>
-        //     <input
-        //         type="text"
-        //         value={studentId}
-        //         onChange={(e) => setStudentId(e.target.value)}
-        //         placeholder="הכנס תז"
-        //         style={{ width: "100%", marginBottom: "15px" }}
-        //     />
-        //
-        //     <div style={{ marginBottom: "15px" }}>
-        //         <label>בחר כיתה:</label>
-        //         <Select
-        //             options={classOptions}
-        //             onChange={(selected) => setClassName(selected?.value || "")}
-        //             value={classOptions.find((opt) => opt.value === className)}
-        //             placeholder="בחר כיתה..."
-        //             isClearable
-        //             isSearchable
-        //         />
-        //     </div>
-        //
-        //     <button onClick={assignStudent} style={{ width: "100%", padding: "10px", marginTop: "10px" }}>
-        //         שיבוץ תלמיד
-        //     </button>
-        //
-        //     <div style={{ marginTop: "15px", color: "red" }}>{message}</div>
-        // </div>
 
         <div
             className="w-full max-w-sm mb-8 mx-auto p-6 bg-white rounded-2xl shadow-xl mt-8 animate-fade-in text-right"

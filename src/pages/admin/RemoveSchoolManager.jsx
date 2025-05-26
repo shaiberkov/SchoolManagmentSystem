@@ -47,7 +47,6 @@ function RemoveSchoolManager() {
                 הסרת מנהל מבית ספר
             </h2>
 
-            {/* ת"ז מנהל */}
             <div>
                 <div
                     className="flex items-center gap-2 bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-green-400">
@@ -75,7 +74,6 @@ function RemoveSchoolManager() {
             </button>
 
 
-            {/* הודעת שגיאה או תגובה */}
             {errorCode && (
                 <p className="text-center text-green-700 font-semibold flex items-center justify-center gap-2">
                     <FaCheckCircle/>
