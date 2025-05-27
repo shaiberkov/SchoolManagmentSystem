@@ -7,6 +7,7 @@ import Cookies from "universal-cookie";
 import MessageList from "../../components/messages/MessageList.jsx";
 import {getGreeting} from "../../Utils/Greeting.jsx";
 import {FaClipboardList, FaPlusCircle, FaSchool} from "react-icons/fa";
+import EventForm from "../../components/EventForm.jsx";
 
 
 
@@ -125,7 +126,7 @@ export default function SystemAdminDashboard() {
                         <MessageList userId={user.userId} />
                     </div>
                 )}
-
+                {user && <EventForm />}
             </div>
         </div>
     );

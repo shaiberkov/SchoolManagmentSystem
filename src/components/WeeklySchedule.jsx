@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { UserContext } from "../context/UserContext.jsx";
-
+import clsx from "clsx";
 function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
     const [lessonsByDay, setLessonsByDay] = useState([]);
     const cookies = new Cookies();
@@ -78,85 +78,153 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
         return diff / 30;
     };
 
-    const tableStyle = { width: "100%", borderCollapse: "collapse", textAlign: "center", direction: "rtl" };
-    const thStyle = { border: "2px solid #ccc", padding: "8px", backgroundColor: "#f4f4f4" };
-    const tdStyle = { border: "2px solid #ccc", padding: "8px" };
-    const rowSpanCellStyle = { backgroundColor: "#e0f7fa", fontWeight: "bold" };
-    // const tableStyle = "w-full border-separate border-spacing-0 text-center rtl";
-    // const thStyle = "p-3 border-2 border-green-300 bg-green-100 text-green-800 font-semibold text-sm sm:text-base rounded-md shadow-sm text-center";
-    // const tdStyle = "p-2 border-2 border-green-100 text-gray-700 text-sm sm:text-base rounded-md";
-    // const rowSpanCellStyle = "bg-cyan-100 font-bold text-green-900 p-2 border-2 border-green-300 rounded-xl shadow-inner";
+    const tableStyle =
+        "min-w-[200px] max-w-[800px] w-full border-collapse text-center text-sm sm:text-base";
+    const thStyle =
+        "border-2 border-gray-300 p-2 sm:p-3 bg-blue-300 font-bold text-gray-800";
 
+    const tdStyle =
+        "border-2 border-gray-300 p-2 sm:p-3 bg-white";
+    const rowSpanCellStyle =
+        "bg-blue-50 font-semibold text-blue-800";
+    // const tableStyle = clsx(
+    //     "border-collapse text-center text-sm sm:text-base w-full",
+    //     singleDayMode ? "min-w-[300px] max-w-[500px]" : "min-w-[600px] max-w-[800px]"
+    // );
+    //
+    // const thStyle = clsx(
+    //     "border-2 border-gray-300 font-bold text-gray-800",
+    //     singleDayMode ? "p-2 text-xs sm:text-sm" : "p-2 sm:p-3 bg-blue-300"
+    // );
+    //
+    // const tdStyle = clsx(
+    //     "border-2 border-gray-300 bg-white",
+    //     singleDayMode ? "p-1 sm:p-2 text-sm" : "p-2 sm:p-3"
+    // );
+    //
+    // const rowSpanCellStyle = "bg-blue-50 font-semibold text-blue-800";
     const scheduleTable = useMemo(() => {
         const coveredSlots = {};
 
         return (
-            <table style={tableStyle}>
-                <thead>
-                <tr>
-                    <th style={thStyle}>שעה</th>
-                    {displayedDays.map((dayKey) => (
-                        <th key={dayKey} style={thStyle}>{daysInHebrew[dayKey]}</th>
-                    ))}
-                </tr>
-                </thead>
-                <tbody>
-                {timeSlots.map((slot) => (
-                    <tr key={slot}>
-                        <td style={tdStyle}>{slot}</td>
-                        {displayedDays.map((dayKey) => {
-                            if (coveredSlots[`${dayKey}_${slot}`]) return null;
+            <div
+                className="relative overflow-x-auto rounded-xl shadow-lg border border-gray-300 mx-2 max-w-3xl ">
 
-                            const lesson = lessonsByDay[dayKey]?.find(
-                                (l) => l.startTime === slot
-                            );
-
-                            if (lesson) {
-                                const rowSpan = calculateRowSpan(lesson.startTime, lesson.endTime);
-                                const startIdx = timeSlots.indexOf(slot);
-
-                                for (let i = 1; i < rowSpan; i++) {
-                                    coveredSlots[`${dayKey}_${timeSlots[startIdx + i]}`] = true;
-                                }
-
-                                return (
-                                    <td
-                                        key={dayKey + slot}
-                                        rowSpan={rowSpan}
-                                        style={{ ...tdStyle, ...rowSpanCellStyle }}
-                                    >
-                                        <div>{lesson.subject}</div>
-                                        {type === 'teacher' && (
-                                            <div>כיתה {lesson.classRoomName}</div>
-                                        )}
-                                        {type === 'class' && (
-                                            <div>מורה {lesson.teacherName}</div>
-                                        )}
-                                        {type === 'student' && (
-                                            <div>{lesson.teacherName}</div>
-                                        )}
-                                    </td>
-                                );
-                            } else {
-                                return <td key={dayKey + slot} style={tdStyle}></td>;
-                            }
-                        })}
+                <div className=" h-full w-12 pointer-events-none bg-gradient-to-l "></div>
+                <table className={tableStyle} dir="rtl">
+                    <thead>
+                    <tr>
+                        <th
+                            className={`${thStyle} sticky right-0 z-30 bg-yellow-300 text-gray-900`}
+                        >
+                            שעה
+                        </th>
+                        {displayedDays.map((dayKey) => (
+                            <th key={dayKey} className={thStyle}>
+                                {daysInHebrew[dayKey]}
+                            </th>
+                        ))}
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {timeSlots.map((slot) => (
+                        <tr
+                            key={slot}
+                            className="hover:bg-blue-50 hover:shadow-sm transition-all duration-300 rounded-md"
+                        >
+                            <td
+                                className=" border-2 border-gray-300 p-2 sm:p-3 bg-yellow-100 font-semibold text-gray-800 sticky right-0 z-20 shadow-md"
+                            >
+                                {slot}
+                            </td>
+                            {displayedDays.map((dayKey) => {
+                                if (coveredSlots[`${dayKey}_${slot}`]) return null;
+
+                                const lesson = lessonsByDay[dayKey]?.find(
+                                    (l) => l.startTime === slot
+                                );
+
+                                if (lesson) {
+                                    const rowSpan = calculateRowSpan(
+                                        lesson.startTime,
+                                        lesson.endTime
+                                    );
+                                    const startIdx = timeSlots.indexOf(slot);
+
+                                    for (let i = 1; i < rowSpan; i++) {
+                                        coveredSlots[`${dayKey}_${timeSlots[startIdx + i]}`] = true;
+                                    }
+
+                                    return (
+                                        <td
+                                            key={dayKey + slot}
+                                            rowSpan={rowSpan}
+                                            className={`${tdStyle} ${rowSpanCellStyle} align-middle`}
+                                        >
+                                            <div className="text-base font-bold">
+                                                {lesson.subject}
+                                            </div>
+                                            {type === "teacher" && (
+                                                <div className="text-sm text-gray-600">
+                                                    כיתה {lesson.classRoomName}
+                                                </div>
+                                            )}
+                                            {type === "class" && (
+                                                <div className="text-sm text-gray-600">
+                                                    מורה {lesson.teacherName}
+                                                </div>
+                                            )}
+                                            {type === "student" && (
+                                                <div className="text-sm text-gray-600">
+                                                    {lesson.teacherName}
+                                                </div>
+                                            )}
+                                        </td>
+                                    );
+                                } else {
+                                    return (
+                                        <td key={dayKey + slot} className={tdStyle}></td>
+                                    );
+                                }
+                            })}
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         );
-    }, [lessonsByDay, displayedDays,classRoomName, type]);
+    }, [lessonsByDay, displayedDays, classRoomName, type]);
 
     return (
-        <div>
+
+        <div className="px-3 py-4 sm:p-4 md:p-6">
             {singleDayMode && (
-                <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>
-                    מערכת השעות ליום {daysInHebrew[displayedDays[0]]}
+                <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 text-blue-800 flex items-center justify-center gap-2 flex-wrap text-balance">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 transition-transform duration-300 hover:scale-110 hover:rotate-[35deg]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M8 7V3m8 4V3m-9 8h10m-12 4h14M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                    </svg>
+                    <span className="whitespace-nowrap">
+        מערכת השעות ליום {daysInHebrew[displayedDays[0]]}
+      </span>
                 </h2>
             )}
-            {scheduleTable}
+
+            <div className="w-full max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto overflow-x-auto">
+                <div className="w-full table-fixed">{scheduleTable}</div>
+            </div>
         </div>
+
     );
 
 }

@@ -118,7 +118,7 @@ function MessageList({ userId }) {
     // )
 
     return (
-        <div className="flex justify-center px-4 py-10 animate-fade-in">
+        <div className="flex justify-center px-4 pt-22 animate-fade-in">
             <div
                 className="bg-white rounded-4xl shadow-xl w-full max-w-md overflow-hidden transition-all duration-300 flex flex-col h-[350px]"
                 dir="rtl"

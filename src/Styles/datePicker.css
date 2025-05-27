@@ -1,0 +1,99 @@
+
+/* גוף הלוח */
+.react-datepicker {
+    font-family: 'Segoe UI', sans-serif;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    color: #1e293b; /* slate-800 */
+}
+
+/* כותרת */
+.react-datepicker__header {
+    background: linear-gradient(90deg, #dbeafe, #c7d2fe); /* blue + indigo */
+    color: #1e3a8a;
+    border-bottom: 1px solid #cbd5e1;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    padding: 1rem;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* חודש נוכחי */
+.react-datepicker__current-month {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* ימי השבוע */
+.react-datepicker__day-name {
+    color: #3b82f6;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* יום רגיל */
+.react-datepicker__day {
+    color: #334155;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0;
+    margin: 0.15rem;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.react-datepicker__day:hover {
+    background-color: #e0f2fe;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* יום נבחר */
+.react-datepicker__day--selected {
+    background: linear-gradient(to right, #3b82f6, #6366f1);
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* היום הנוכחי */
+.react-datepicker__day--today {
+    border: 1px solid #60a5fa;
+    background-color: #eff6ff;
+    font-weight: 600;
+}
+
+.react-datepicker__time-container {
+    background-color: #f1f5f9;
+    border-left: 1px solid #cbd5e1;
+}
+
+.react-datepicker__time-list {
+    padding: 0.5rem;
+    max-height: 15rem;
+}
+
+.react-datepicker__time-list-item {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.react-datepicker__time-list-item:hover {
+    background-color: #e0f2fe;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.react-datepicker__time-list-item--selected {
+    background: linear-gradient(to right, #3b82f6, #6366f1);
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+}
+
+

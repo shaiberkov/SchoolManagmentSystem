@@ -5,6 +5,7 @@ import MessageList from "../../components/messages/MessageList.jsx";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import {getGreeting} from "../../Utils/Greeting.jsx";
+import EventForm from "../../components/EventForm.jsx";
 
 function SchoolManagerDashboard() {
     const [schoolData,setSchoolData]=useState({})
@@ -91,6 +92,7 @@ function SchoolManagerDashboard() {
                     </div>
                 )}
             </div>
+            {user && <EventForm />}
         </div>
     );
 

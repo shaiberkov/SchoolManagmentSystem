@@ -41,7 +41,7 @@ function EventForm() {
 
     return (
     <div
-        className="max-w-sm mx-auto mt-10 mb-8 p-4 bg-white rounded-3xl shadow-xl space-y-4"
+        className="max-w-md mx-auto  mb-8 p-4 bg-white rounded-3xl shadow-xl space-y-4"
         dir="rtl"
     >
         {/* כותרת עם רקע ירוק ואייקון מונפש עם אפקט ברק */}

@@ -5,7 +5,20 @@ import dayjs from 'dayjs';
 import axios from "axios";
 import {UserContext} from "../context/UserContext.jsx";
 import Cookies from "universal-cookie";
-import { FaBook, FaClipboardList, FaLayerGroup, FaSortAmountDown, FaClock, FaCalendarAlt, FaUserGraduate } from "react-icons/fa";
+import {
+    FaBook,
+    FaClipboardList,
+    FaLayerGroup,
+    FaSortAmountDown,
+    FaClock,
+    FaCalendarAlt,
+    FaUserGraduate,
+    FaPlay
+} from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { he } from "date-fns/locale";
+import "../Styles/datePicker.css";
 
 
 const TestConfigurator = ({type}) => {
@@ -187,13 +200,17 @@ const TestConfigurator = ({type}) => {
                 </span>
                         בחר תאריך ושעה למבחן:
                     </label>
-                    <DateTime
-                        value={startTime}
-                        onChange={(value) => setStartTime(value)}
-                        inputProps={{
-                            placeholder: 'בחר תאריך ושעה',
-                            className: 'w-full p-2 rounded-xl border'
-                        }}
+                    <DatePicker
+                        selected={startTime}
+                        onChange={(date) => setStartTime(date)}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        dateFormat="Pp"
+                        locale={he}
+                        placeholderText="בחר תאריך ושעה"
+                        className="w-full p-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+
                     />
                 </div>
             )}
@@ -210,10 +227,11 @@ const TestConfigurator = ({type}) => {
                     </label>
                     <textarea
                         rows={4}
-                        className="w-full p-2 rounded-xl border"
+                        className="w-full p-2 rounded-xl border resize-none"
                         value={studentsIdsInput}
                         onChange={(e) => setStudentsIdsInput(e.target.value)}
                         placeholder="123456789,987654321,..."
+
                     />
                 </div>
             )}
@@ -221,17 +239,21 @@ const TestConfigurator = ({type}) => {
             {/* כפתור שליחה */}
             {(type === "teacher" && selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && startTime) ||
             (type === "student" && selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0) ? (
-                <div className="text-center">
+                <div className=" mt-4 flex justify-center">
                     <button
                         onClick={type === "teacher" ? handleSubmit : navigateToTest}
-                        className="bg-green-600 text-white px-6 py-2 rounded-xl shadow-lg hover:bg-green-700 transition duration-300"
+                        className="bg-green-600 text-white px-6 py-2 rounded-xl shadow-lg hover:bg-green-700 transition duration-300 flex items-center gap-2"
+
                     >
+                        <FaPlay
+                            className="transition-transform transition-colors duration-300 hover:scale-110 hover:rotate-[25deg]"
+                        />
                         צור מבחן
                     </button>
                 </div>
             ) : null}
 
-            {/* הודעה כללית */}
+
             {message && (
                 <div className="text-center text-sm text-blue-600 animate-pulse">
                     {message}
