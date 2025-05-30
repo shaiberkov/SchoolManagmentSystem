@@ -71,7 +71,7 @@ function SendMessage() {
 
 
     return (
-        <div className="max-w-md mx-auto mb-8 mt-10 p-6 bg-white rounded-3xl shadow-lg space-y-6" dir="rtl">
+        <div className="max-w-md mx-auto mb-8 mt-20 p-6 bg-white rounded-3xl shadow-lg space-y-6" dir="rtl">
             <h2 className="text-2xl font-bold text-center text-blue-600 flex items-center justify-center gap-2">
                 <FaEnvelopeOpenText />
                 שליחת הודעה
