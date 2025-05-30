@@ -97,7 +97,7 @@ export default function AppRoutes() {
                         </>
                     )}
 
-                    {user?.role === 'STUDENT' && (
+                    {user?.role === 'STUDENT'&&user?.schoolCode && (
                         <>
                             <Route path="/student-dashboard" element={<StudentDashboard />} />
                             <Route path="/student-weekly-schedule" element={<StudentWeeklySchedule />} />
@@ -107,6 +107,11 @@ export default function AppRoutes() {
                             <Route path="/exercises/:subjectName/:topicName/:exerciseName" element={<QuestionPractice />} />
                             <Route path="/test/:selectedSubject/:selectedTopic/:selectedDifficulty/:selectedQuestionCount/:selectedTimeMinutes" element={<TestSession type="practiceTest" />} />
                             <Route path="/test/:TeacherTestId/:timeLimitMinutes" element={<TestSession type="teacherTest" />} />
+                        </>
+                    )}
+                    {user?.role === 'STUDENT'&&!user?.schoolCode && (
+                        <>
+                            <Route path="/student-dashboard" element={<StudentDashboard />} />
                         </>
                     )}
 

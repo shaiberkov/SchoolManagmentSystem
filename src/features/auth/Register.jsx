@@ -47,15 +47,16 @@ function Register() {
         if (name === 'userId') {
             const id = value.trim();
             const isValidIsraeliID = (id) => {
-                if (!/^\d{5,9}$/.test(id)) return false;
-                let fullId = id.padStart(9, '0');
-                let sum = 0;
-                for (let i = 0; i < 9; i++) {
-                    let num = Number(fullId[i]) * ((i % 2) + 1);
-                    if (num > 9) num -= 9;
-                    sum += num;
-                }
-                return sum % 10 === 0;
+                // if (!/^\d{5,9}$/.test(id)) return false;
+                // let fullId = id.padStart(9, '0');
+                // let sum = 0;
+                // for (let i = 0; i < 9; i++) {
+                //     let num = Number(fullId[i]) * ((i % 2) + 1);
+                //     if (num > 9) num -= 9;
+                //     sum += num;
+                // }
+                // return sum % 10 === 0;
+                return true
             };
 
             if (id !== '' && !isValidIsraeliID(id)) {
@@ -162,7 +163,7 @@ function Register() {
 
     return (
 
-        <div className="flex justify-center px-4 py-10 pt-12 animate-fade-in">
+        <div className="flex justify-center mt-15 px-4 py-10 pt-12 animate-fade-in">
             <form
                 onSubmit={handleSubmit}
                 className="bg-green p-8 rounded-4xl shadow-xl w-full max-w-md space-y-4 transition duration-300"

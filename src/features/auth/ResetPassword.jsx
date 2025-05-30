@@ -57,9 +57,7 @@ function ResetPassword() {
     const requestOtp = async () => {
         try {
             const response = await axios.post(
-                // `http://localhost:8080/Learning-App/User/forgot-password?userId=${formData.userId}`
                 `${USER_BASE_PATH}${FORGOT_PASSWORD}${QUESTION}${USER_ID}${formData.userId}`
-
             );
             if (response.data.success) setStep(2);
             else {
@@ -76,9 +74,7 @@ function ResetPassword() {
     const resetPassword = async () => {
         try {
             const response = await axios.post(
-                // `http://localhost:8080/Learning-App/User/reset-password?userId=${formData.userId}&otp=${formData.otp}&newPassword=${formData.newPassword}`
                 `${USER_BASE_PATH}${RESET_PASSWORD}${QUESTION}${USER_ID}${formData.userId}${AND}${OTP}${formData.otp}${AND}"newPasswor${NEW_PASSWORD}="${formData.newPassword}`
-
             );
 
             if (response.data.success) {
@@ -97,7 +93,7 @@ function ResetPassword() {
 
     const isButtonDisabled = errors.password || !formData.newPassword || !formData.otp || !formData.userId;
     return (
-        <div className="flex justify-center  px-4 pt-12 animate-fade-in">
+        <div className="flex justify-center mt-15 px-4 pt-12 animate-fade-in">
             <form
                 onSubmit={(e) => e.preventDefault()}
                 className="bg-green p-8 rounded-2xl shadow-xl w-full max-w-md space-y-5 transition duration-300"

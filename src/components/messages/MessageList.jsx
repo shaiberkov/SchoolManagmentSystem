@@ -45,9 +45,9 @@ function MessageList({ userId }) {
     const combinedMessages = [...messages, ...messagesList];
 
     return (
-        <div className="flex justify-center px-4 pt-22 animate-fade-in">
+        <div className="flex justify-center px-4  animate-fade-in">
             <div
-                className="bg-white rounded-4xl shadow-xl w-full max-w-md overflow-hidden transition-all duration-300 flex flex-col h-[350px]"
+                className="bg-white rounded-4xl shadow-xl w-full max-w-md overflow-hidden transition-all duration-300 flex flex-col h-[375px]"
                 dir="rtl"
             >
                 {/* כותרת ירוקה */}

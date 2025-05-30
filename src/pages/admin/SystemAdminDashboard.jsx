@@ -64,7 +64,7 @@ export default function SystemAdminDashboard() {
     };
 
     return (
-        <div className="min-h-screen p-4 sm:p-8" dir="rtl">
+        <div className="min-h-screen mt-20  p-4 sm:p-8" dir="rtl">
             <header className="max-w-6xl mx-auto mb-8">
                 <h1 className="text-3xl sm:text-4xl font-bold text-slate-800">
                     {getGreeting()}, {user.username}
@@ -126,13 +126,19 @@ export default function SystemAdminDashboard() {
                     </section>
                 </div>
 
-
                 {user && (
-                    <div className="lg:col-span-1 mt-[-40px]">
+                    <div className="lg:col-span-1 flex flex-col gap-4">
                         <MessageList userId={user.userId} />
+                        <EventForm />
                     </div>
                 )}
-                {user && <EventForm />}
+
+                {/*{user && (*/}
+                {/*    <div className="lg:col-span-1 ">*/}
+                {/*        <MessageList userId={user.userId} />*/}
+                {/*    </div>*/}
+                {/*)}*/}
+                {/*{user && <EventForm />}*/}
             </div>
         </div>
     );

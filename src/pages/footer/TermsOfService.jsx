@@ -2,7 +2,7 @@ import React from "react";
 
 export default function TermsOfService() {
     return (
-        <div dir="rtl" className="flex justify-center mb-10 px-4 pt-12 animate-fade-in">
+        <div dir="rtl" className="flex justify-center mb-10 mt-15 px-4 pt-12 animate-fade-in">
             <div className="w-full max-w-4xl bg-white p-8 rounded-2xl shadow-xl border border-gray-200 space-y-6">
                 <h1 className="text-3xl font-bold text-center text-green-500 mb-4">📜 תנאי שימוש</h1>
 

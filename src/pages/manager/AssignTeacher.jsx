@@ -49,7 +49,7 @@ function AssignTeacher() {
 
     return (
 
-        <div className="flex justify-center px-4 py-10 animate-fade-in">
+        <div className="flex justify-center px-4 py-10 animate-fade-in  mt-10">
             <div
                 className="relative bg-white rounded-3xl shadow-[0_15px_30px_-5px_rgba(0,200,100,0.3)] w-full max-w-sm p-6 space-y-6 transition-all duration-500 overflow-hidden border border-green-100"
                 dir="rtl"

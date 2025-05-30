@@ -15,7 +15,7 @@ function  TeacherDashboard(){
 
       return (
 
-          <div className="min-h-screen p-4 sm:p-6" dir="rtl">
+          <div className="min-h-screen mt-20 p-4 sm:p-6" dir="rtl">
               <header className="max-w-6xl mx-auto mb-4 sm:mb-6">
                   <h1 className="text-2xl sm:text-3xl font-bold text-slate-800">
                       {getGreeting()}, {user?.username}
@@ -29,7 +29,7 @@ function  TeacherDashboard(){
                       </div>
                   </div>
 
-                  <div className="lg:w-1/2 flex flex-col gap-2 sm:gap-3">
+                  <div className="lg:w-1/2 flex flex-col mt-22 gap-2 sm:gap-3">
                       {user && (
                           <div className="rounded-2xl sm:p-5">
                               <MessageList userId={user.userId}/>
@@ -37,7 +37,7 @@ function  TeacherDashboard(){
                       )}
 
                       {user && (
-                          <div className="rounded-2xl p-4 sm:p-5">
+                          <div className="rounded-2xl  p-4 sm:p-5">
                               <EventForm/>
                           </div>
                       )}

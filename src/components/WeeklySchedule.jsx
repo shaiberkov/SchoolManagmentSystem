@@ -191,9 +191,10 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
 
     return (
 
-        <div className="px-3 py-4 sm:p-4 md:p-6">
+        <div className={`px-3 py-4 sm:p-4 md:p-6 ${!singleDayMode ? 'mt-20' : ''}`}>
+
             {singleDayMode && (
-                <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 text-blue-800 flex items-center justify-center gap-2 flex-wrap text-balance">
+                <h2 className="text-center  text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 text-blue-800 flex items-center justify-center gap-2 flex-wrap text-balance">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 transition-transform duration-300 hover:scale-110 hover:rotate-[35deg]"
@@ -208,7 +209,7 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
                             d="M8 7V3m8 4V3m-9 8h10m-12 4h14M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                         />
                     </svg>
-                    <span className="whitespace-nowrap">
+                    <span className="whitespace-nowrap ">
         מערכת השעות ליום {daysInHebrew[displayedDays[0]]}
       </span>
                 </h2>

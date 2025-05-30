@@ -49,7 +49,7 @@ function RemoveSchoolManager() {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-3xl shadow-lg space-y-5" dir="rtl">
+        <div className="max-w-md mx-auto mt-20 p-6 bg-white rounded-3xl shadow-lg space-y-5" dir="rtl">
             <h2 className="text-2xl font-bold text-center text-green-600 flex items-center justify-center gap-2">
                 הסרת מנהל מבית ספר
             </h2>

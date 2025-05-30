@@ -175,7 +175,7 @@ function QuestionPractice(){
     };
 
     return (
-        <div className="p-4 sm:p-8 font-sans">
+        <div className="p-4 sm:p-8 font-sans  mt-20">
             <section className="exercise-page text-center max-w-xl mx-auto space-y-6 animate-fade-in">
                 <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">
                     תרגיל: {exerciseName}

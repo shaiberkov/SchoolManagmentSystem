@@ -146,7 +146,7 @@ const TestSession = ({ type }) => {
 
     return (
         <div
-            className="w-full max-w-full sm:max-w-2xl mx-auto p-4 sm:p-6 bg-white rounded-2xl shadow-xl mt-8 text-right animate-fade-in mb-8"
+            className="w-full max-w-full sm:max-w-2xl mx-auto p-4 sm:p-6 bg-white rounded-2xl shadow-xl mt-20 text-right animate-fade-in mb-8"
             dir="rtl"
         >
             {type === 'teacherTest' && (

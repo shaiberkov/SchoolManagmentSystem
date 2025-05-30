@@ -32,7 +32,7 @@ function QuestionPracticeSelector() {
     return (
 
 
-        <div className="max-w-xl mx-auto p-4 bg-white rounded-3xl shadow-md space-y-6 mb-8" dir="rtl">
+        <div className="max-w-xl mx-auto mt-20 p-4 bg-white rounded-3xl shadow-md space-y-6 mb-8" dir="rtl">
             <h2 className="text-2xl font-bold text-center text-green-700 flex items-center justify-center gap-2">
                 <FaPuzzlePiece
                     className="text-green-500 transition-transform transition-colors duration-300 hover:scale-110 hover:text-green-700 hover:rotate-[25deg]"

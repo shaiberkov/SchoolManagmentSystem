@@ -41,7 +41,7 @@ function App() {
                         <NotificationProvider>
                             <ScrollToTop />
                             {/* עטוף את כל התוכן בקונטיינר שמאפשר גובה מינימלי ושוליים */}
-                            <div className="min-h-screen flex flex-col">
+                            <div className="">
                                 <AppRoutes />
                                 {/*<Footer />*/}
                             </div>

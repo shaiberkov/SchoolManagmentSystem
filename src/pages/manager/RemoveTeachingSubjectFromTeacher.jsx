@@ -94,7 +94,7 @@ function RemoveTeachingSubjectFromTeacher() {
     return (
 
             <div
-                className="w-full max-w-sm mx-auto mb-8 p-6 bg-white rounded-2xl shadow-xl mt-8 text-right animate-fade-in"
+                className="w-full max-w-sm mx-auto mb-8 p-6 bg-white rounded-2xl shadow-xl mt-20 text-right animate-fade-in"
                 dir="rtl"
             >
                 <h3 className="text-2xl font-bold text-green-600 mb-6 text-center">

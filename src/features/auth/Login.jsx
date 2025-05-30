@@ -52,7 +52,7 @@ function Login() {
 
 
     return (
-        <div className="flex justify-center py-10 px-4 pt-12 animate-fade-in">
+        <div className="flex justify-center mt-15 py-10 px-4 pt-12 animate-fade-in">
             <form
                 onSubmit={handleSubmit}
                 className="bg-green p-8 rounded-2xl shadow-xl w-full max-w-md space-y-5 transition duration-300"

@@ -8,7 +8,6 @@ import {getGreeting} from "../../Utils/Greeting.jsx";
 import EventForm from "../../components/EventForm.jsx";
 import {
     AUTH_HEADER, GET_SCHOOL,
-    GET_TEACHER_TEACHING_SUBJECTS,
     QUESTION,
     SCHOOL_MANAGER_BASE_PATH, SCHOOL_MANAGER_ID, TEACHER_ID
 } from "../../constants/pages.constants.js";
@@ -53,8 +52,7 @@ function SchoolManagerDashboard() {
 
 
     return (
-        <div className="min-h-screen p-4 sm:p-8" dir="rtl">
-            {/* כותרת עליונה */}
+        <div className="min-h-screen mt-20 p-4 sm:p-8" dir="rtl">
             <header className="max-w-6xl mx-auto mb-8">
                 <h1 className="text-3xl sm:text-4xl font-bold text-slate-800">
                     {getGreeting()}, {user?.username}
@@ -64,9 +62,9 @@ function SchoolManagerDashboard() {
                 </h2>
             </header>
 
-            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* תוכן ראשי - פרטי בית הספר */}
-                <div className="lg:col-span-2 space-y-6">
+            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                {/* עמודה 1 - פרטי בית הספר (בצד ימין) */}
+                <div className="space-y-4">
                     {schoolData ? (
                         <div className="bg-white rounded-3xl shadow-md p-6 space-y-4">
                             <p className="text-lg text-slate-800 font-semibold">
@@ -93,16 +91,23 @@ function SchoolManagerDashboard() {
                     )}
                 </div>
 
+                {/* עמודה 2 - אירועים קרובים */}
                 {user && (
-                    <div className="lg:col-span-1 mt-[-40px]">
-                        <MessageList userId={user.userId} />
+                    <div>
+                        <EventForm/>
+                    </div>
+                )}
+
+                {/* עמודה 3 - הודעות */}
+                {user && (
+                    <div>
+                        <MessageList userId={user.userId}/>
                     </div>
                 )}
             </div>
-            {user && <EventForm />}
         </div>
-    );
 
+    );
 
 
 }

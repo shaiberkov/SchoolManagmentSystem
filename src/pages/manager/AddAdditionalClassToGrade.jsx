@@ -86,7 +86,7 @@ function AddAdditionalClassToGrade() {
     return (
 
         <div
-            className="w-full max-w-xs sm:max-w-sm mx-auto p-4 sm:p-6 bg-white rounded-2xl shadow-xl mt-8 animate-fade-in text-right mb-8"
+            className="w-full max-w-xs sm:max-w-sm mx-auto p-4 sm:p-6 bg-white rounded-2xl shadow-xl mt-20 animate-fade-in text-right mb-8"
             dir="rtl"
         >
             <h2 className="text-xl sm:text-2xl font-bold text-black-600 mb-6 text-center">

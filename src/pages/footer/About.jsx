@@ -5,7 +5,7 @@ export default function About() {
 
 
         return (
-            <div dir="rtl" className="flex justify-center mb-10 px-4 pt-12 animate-fade-in">
+            <div dir="rtl" className="flex justify-center mt-15 mb-10 px-4 pt-12 animate-fade-in">
                 <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-4xl space-y-6 transition duration-300 border border-gray-200">
                     <h1 className="text-3xl font-bold text-center text-green-500 mb-4">אודות מערכת ניהול בתי־ספר</h1>
 

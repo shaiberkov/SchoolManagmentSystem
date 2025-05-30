@@ -22,10 +22,9 @@ import "../Styles/datePicker.css";
 import {
     AND,
     AUTH_HEADER, DIFFICULTY,
-    GENERATE_QUESTION, GENERATE_TEST_FOR_STUDENTS,
+    GENERATE_TEST_FOR_STUDENTS,
     QUESTION, QUESTION_COUNT,
-    STUDENT_BASE_PATH, SUB_TOPIC, SUBJECT, TEACHER_BASE_PATH, TEACHER_ID, TEST_START_TIME, TIME_LIMIT_MINUTES, TOPIC,
-    USER_ID
+    SUBJECT, TEACHER_BASE_PATH, TEACHER_ID, TEST_START_TIME, TIME_LIMIT_MINUTES, TOPIC
 } from "../constants/pages.constants.js";
 import {BEARER_PREFIX} from "../constants/shared.constant.js";
 
@@ -88,7 +87,7 @@ const TestConfigurator = ({type}) => {
 
 
     return (
-        <div className="max-w-xl mx-auto p-4 bg-white rounded-3xl shadow-md space-y-6 mb-8" dir="rtl">
+        <div className="max-w-xl mx-auto mt-20 p-4 bg-white rounded-3xl shadow-md space-y-6 mb-8" dir="rtl">
             <h2 className="text-2xl font-bold text-center text-green-700 flex items-center justify-center gap-2">
         <span className="group">
             <FaClipboardList

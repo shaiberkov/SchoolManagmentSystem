@@ -42,7 +42,7 @@ function TwoFactorAuthForm() {
 
     useEffect(() => {
         const sendOtp = async () => {
-            if (phoneNumber) { // רק אם יש מספר טלפון, שלח OTP
+            if (phoneNumber) {
                 try {
                     const params = new URLSearchParams({ userId, phoneNumber });
                     const response = await axios.post(
@@ -76,7 +76,6 @@ function TwoFactorAuthForm() {
 
         try {
             const response = await axios.post(
-                // `http://localhost:8080/Learning-App/User/verify-otp?${params.toString()}`
                 `${USER_BASE_PATH}${VERIFY_OTP}${QUESTION}${params.toString()}`
 
             );
@@ -95,7 +94,7 @@ function TwoFactorAuthForm() {
     };
 
     return (
-        <div className="flex justify-center px-4 py-10 pt-12 animate-fade-in">
+        <div className="flex justify-center mt-15 px-4 py-10 pt-12 animate-fade-in">
             <form
                 onSubmit={handleSubmit}
                 className="bg-green p-8 rounded-4xl shadow-xl w-full max-w-md space-y-4 transition duration-300"

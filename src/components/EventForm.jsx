@@ -49,10 +49,10 @@ function EventForm() {
 
     return (
     <div
-        className="max-w-md mx-auto  mb-8 p-4 bg-white rounded-3xl shadow-xl space-y-4"
+        className="max-w-md mx-auto  mb-8 p-4 h-[375px] bg-white rounded-3xl shadow-xl space-y-4"
         dir="rtl"
     >
-        <div className="flex items-center justify-center gap-2 bg-green-100 py-2 px-4 rounded-xl shadow-inner">
+        <div className="flex items-center  justify-center gap-2 bg-green-100 py-2 px-4 rounded-xl shadow-inner">
             <FaCalendarAlt className="text-green-600 text-xl transition-transform duration-300 hover:rotate-12 hover:scale-110 hover:drop-shadow-[0_0_6px_rgba(34,197,94,0.6)] hover:brightness-125" />
             <h2 className="text-xl font-bold text-green-800">האירועים הקרובים שלך</h2>
         </div>
