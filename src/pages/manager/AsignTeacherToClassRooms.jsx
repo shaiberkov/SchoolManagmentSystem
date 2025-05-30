@@ -6,6 +6,14 @@ import { UserContext } from "../../context/UserContext.jsx";
 import axios from "axios";
 import Select from "react-select";
 import {FiUserCheck, FiUsers} from "react-icons/fi";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    AND,
+    ASSIGN_TEACHER_TO_CLASSES,
+    AUTH_HEADER,
+    GET_ALL_CLASSES_BY_SCHOOL_CODE, QUESTION, SCHOOL_CODE,
+    SCHOOL_MANAGER_BASE_PATH, TEACHER_ID
+} from "../../constants/pages.constants.js";
 
 function AssignTeacherToClassRooms() {
     const [classesName, setClassesName] = useState([]);
@@ -22,9 +30,11 @@ function AssignTeacherToClassRooms() {
                 try {
 
                     const response = await axios.get(
-                        `http://localhost:8080/Learning-App/School-Manager/get-all-classes-name-by-school-code?schoolCode=${user.schoolCode}`,
+                         `${SCHOOL_MANAGER_BASE_PATH}${GET_ALL_CLASSES_BY_SCHOOL_CODE}${QUESTION}${SCHOOL_CODE}${user.schoolCode}`,
                         {
-                            headers: { Authorization: `Bearer ${token}` }
+                            headers: {
+                                [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
+                            }
                         }
                     );
 
@@ -53,12 +63,11 @@ function AssignTeacherToClassRooms() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/assign-teacher-to-classes?schoolCode=${user.schoolCode}&teacherId=${teacherId}`,
+                `${SCHOOL_MANAGER_BASE_PATH}${ASSIGN_TEACHER_TO_CLASSES}${QUESTION}${SCHOOL_CODE}${user.schoolCode}${AND}${TEACHER_ID}${teacherId}`,
                 selectedClasses,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json"
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`,
                     }
                 }
             );

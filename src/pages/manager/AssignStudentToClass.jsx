@@ -4,6 +4,14 @@ import { UserContext } from "../../context/UserContext.jsx";
 import Cookies from "universal-cookie";
 import Select from "react-select";
 import {FiBook, FiCheckCircle, FiUser} from "react-icons/fi";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    AND, ASSIGN_STUDENT_TO_CLASS,
+    ASSIGN_TEACHER_TO_CLASSES,
+    AUTH_HEADER, CLASS_NAME, GET_ALL_CLASSES_BY_SCHOOL_CODE,
+    QUESTION, SCHOOL_CODE,
+    SCHOOL_MANAGER_BASE_PATH, STUDENT_ID, TEACHER_ID
+} from "../../constants/pages.constants.js";
 
 function AssignStudentToClass() {
     const cookies = new Cookies();
@@ -20,8 +28,12 @@ function AssignStudentToClass() {
             if (user?.userId) {
                 try {
                     const classRes = await axios.get(
-                        `http://localhost:8080/Learning-App/School-Manager/get-all-classes-name-by-school-code?schoolCode=${user.schoolCode}`,
-                        {headers: {Authorization: `Bearer ${token}`}}
+                        `${SCHOOL_MANAGER_BASE_PATH}${GET_ALL_CLASSES_BY_SCHOOL_CODE}${QUESTION}${SCHOOL_CODE}${user.schoolCode}`,
+                        {
+                            headers: {
+                                [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
+                        }
+                        }
                     );
 
                     if (classRes.data.success) {
@@ -49,10 +61,10 @@ function AssignStudentToClass() {
         }
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/assign-student-to-class?schoolCode=${user.schoolCode}&studentId=${studentId}&className=${className}`,
+                `${SCHOOL_MANAGER_BASE_PATH}${ASSIGN_STUDENT_TO_CLASS}${QUESTION}${SCHOOL_CODE}${user.schoolCode}${AND}${STUDENT_ID}${studentId}${AND}${CLASS_NAME}${className}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     },
                 }
             );

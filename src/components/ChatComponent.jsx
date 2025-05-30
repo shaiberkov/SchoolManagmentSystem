@@ -50,7 +50,6 @@ const ChatComponent = ({ messages, userMessage, setUserMessage, sendMessage, isL
             </div>
 
             <div className="p-3 border-t border-gray-300 bg-gray-50 flex items-center"
-                 // dir="rtl"
             >
                 <input
                     ref={inputRef}

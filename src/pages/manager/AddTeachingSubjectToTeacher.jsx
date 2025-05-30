@@ -2,6 +2,12 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {FiBookOpen, FiUserCheck} from "react-icons/fi";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    ADD_TEACHING_SUBJECT_TO_TEACHER,
+    AUTH_HEADER, QUESTION,
+    SCHOOL_MANAGER_BASE_PATH, TEACHER_ID
+} from "../../constants/pages.constants.js";
 
 function AddTeachingSubjectToTeacher() {
     const [teacherId, setTeacherId] = useState('');
@@ -26,12 +32,11 @@ function AddTeachingSubjectToTeacher() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/add-teaching-subject-to-teacher?teacherId=${teacherId}`,
+            `${SCHOOL_MANAGER_BASE_PATH}${ADD_TEACHING_SUBJECT_TO_TEACHER}${QUESTION}${TEACHER_ID}${teacherId}`,
                 [subject],
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );

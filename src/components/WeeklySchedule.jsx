@@ -4,6 +4,15 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { UserContext } from "../context/UserContext.jsx";
 import clsx from "clsx";
+import {
+    AND,
+    AUTH_HEADER,
+    CHECK_PRACTICE_TEST, CLASS_ROOM_NAME, GET_SCHEDULE_FOR_CLASSROOM, GET_STUDENT_SCHEDULE,
+    QUESTION, SCHEDULE_FOR_TEACHER, SCHOOL_CODE, SCHOOL_MANAGER_BASE_PATH,
+    STUDENT_BASE_PATH, STUDENT_ID, TEACHER_BASE_PATH, TEACHER_ID, TEST_ID,
+    USER_ID
+} from "../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../constants/shared.constant.js";
 function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
     const [lessonsByDay, setLessonsByDay] = useState([]);
     const cookies = new Cookies();
@@ -17,16 +26,16 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
             try {
                 let url = '';
                 if (type === 'teacher') {
-                    url = `http://localhost:8080/Learning-App/Teacher/schedule-for-teacher?teacherId=${user.userId}`;
+                    url = `${TEACHER_BASE_PATH}${SCHEDULE_FOR_TEACHER}${QUESTION}${TEACHER_ID}${user.userId}`;
                 } else if (type === 'class') {
-                    url = `http://localhost:8080/Learning-App/School-Manager/get-schedule-for-classRoom?schoolCode=${user.schoolCode}&classRoomName=${classRoomName}`;
+                    url =`${SCHOOL_MANAGER_BASE_PATH}${GET_SCHEDULE_FOR_CLASSROOM}${QUESTION}${SCHOOL_CODE}${user.schoolCode}${AND}${CLASS_ROOM_NAME}${classRoomName}`;
                 } else if (type === 'student') {
-                    url = `http://localhost:8080/Learning-App/Student/get-student-schedule?schoolCode=${user.schoolCode}&studentId=${user.userId}`;
+                    url =`${STUDENT_BASE_PATH}${GET_STUDENT_SCHEDULE}${QUESTION}${SCHOOL_CODE}${user.schoolCode}${AND}${STUDENT_ID}${user.userId}`;
                 }
-
                 const response = await axios.get(url, {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
+
                     },
                 });
 
@@ -87,22 +96,7 @@ function WeeklySchedule({ type, classRoomName, singleDayMode = false }) {
         "border-2 border-gray-300 p-2 sm:p-3 bg-white";
     const rowSpanCellStyle =
         "bg-blue-50 font-semibold text-blue-800";
-    // const tableStyle = clsx(
-    //     "border-collapse text-center text-sm sm:text-base w-full",
-    //     singleDayMode ? "min-w-[300px] max-w-[500px]" : "min-w-[600px] max-w-[800px]"
-    // );
-    //
-    // const thStyle = clsx(
-    //     "border-2 border-gray-300 font-bold text-gray-800",
-    //     singleDayMode ? "p-2 text-xs sm:text-sm" : "p-2 sm:p-3 bg-blue-300"
-    // );
-    //
-    // const tdStyle = clsx(
-    //     "border-2 border-gray-300 bg-white",
-    //     singleDayMode ? "p-1 sm:p-2 text-sm" : "p-2 sm:p-3"
-    // );
-    //
-    // const rowSpanCellStyle = "bg-blue-50 font-semibold text-blue-800";
+
     const scheduleTable = useMemo(() => {
         const coveredSlots = {};
 

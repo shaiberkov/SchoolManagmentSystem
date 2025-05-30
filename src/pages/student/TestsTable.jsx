@@ -14,6 +14,15 @@ import {
     FaBookOpen,
     FaClipboardList, FaExclamationCircle, FaTimesCircle, FaRegCalendarAlt, FaChartBar
 } from "react-icons/fa";
+import {
+    AND,
+    AUTH_HEADER,
+    GENERATE_QUESTION, GET_STUDENT_TESTS_STATUS,
+    QUESTION, START_TEST,
+    STUDENT_BASE_PATH, STUDENT_ID, SUB_TOPIC, SUBJECT, TEST_ID, TOPIC,
+    USER_ID
+} from "../../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
 
 function TestsTable() {
     const [testsData, setTestsData] = useState([]);
@@ -37,10 +46,10 @@ function TestsTable() {
     const startTest = async (teacherTestId, timeLimitMinutes, startTimeStr) => {
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/Student/start-test?userId=${user.userId}&testId=${teacherTestId}`,
+                `${STUDENT_BASE_PATH}${START_TEST}${QUESTION}${USER_ID}${user.userId}${AND}${TEST_ID}${teacherTestId}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     },
                 }
             );
@@ -71,10 +80,10 @@ function TestsTable() {
             if (user?.userId) {
                 try {
                     const response = await axios.get(
-                        `http://localhost:8080/Learning-App/Student/get-student-tests-status?studentId=${user.userId}`,
+                        `${STUDENT_BASE_PATH}${GET_STUDENT_TESTS_STATUS}${QUESTION}${STUDENT_ID}${user.userId}`,
                         {
                             headers: {
-                                Authorization: `Bearer ${token}`,
+                                [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                             },
                         }
                     );

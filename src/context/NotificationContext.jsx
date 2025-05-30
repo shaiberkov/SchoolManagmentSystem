@@ -1,5 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { UserContext } from "./UserContext"; // ← נניח שזה מחזיר את user עם שדה role
+import {createContext, useContext, useEffect, useRef, useState} from "react";
+import { UserContext } from "./UserContext";
+import {API_BASE_URL, BASE_API} from "../constants/base.constants.js";
+import {CONNECT, NOTIFICATION_BASE_PATH, QUESTION, USER_ID} from "../constants/pages.constants.js";
 
 export const NotificationContext = createContext();
 
@@ -8,11 +10,12 @@ export function NotificationProvider({ children }) {
     const [tests, setTests] = useState([]);
     const { user } = useContext(UserContext);
 
+
     useEffect(() => {
         if (!user?.userId) return;
 
         const eventSource = new EventSource(
-            `http://localhost:8080/Learning-App/notifications/connect?userId=${user.userId}`
+            `${NOTIFICATION_BASE_PATH}${CONNECT}${QUESTION}${USER_ID}${user.userId}`
         );
 
         eventSource.addEventListener("message", (event) => {
@@ -41,7 +44,7 @@ export function NotificationProvider({ children }) {
         return () => {
             eventSource.close();
         };
-    }, [user?.userId, user?.role]);
+    }, [user?.userId]);
 
     return (
         <NotificationContext.Provider value={{ messages, tests }}>

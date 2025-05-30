@@ -3,7 +3,14 @@ import axios from 'axios';
 import Cookies from "universal-cookie";
 import {UserContext} from "../../context/UserContext.jsx";
 import {FaIdCard} from "react-icons/fa";
-import {FiTrash2} from "react-icons/fi";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    AND,
+    ASSIGN_STUDENT_TO_CLASS, ASSIGN_USER_AS_SCHOOL_TEACHER,
+    AUTH_HEADER, CLASS_NAME,
+    QUESTION, SCHOOL_CODE,
+    SCHOOL_MANAGER_BASE_PATH, STUDENT_ID, USER_ID
+} from "../../constants/pages.constants.js";
 
 function AssignTeacher() {
     const [userId, setUserId] = useState('');
@@ -18,10 +25,10 @@ function AssignTeacher() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/assign-user-as-school-teacher?userId=${userId}&schoolCode=${user.schoolCode}`,
+                `${SCHOOL_MANAGER_BASE_PATH}${ASSIGN_USER_AS_SCHOOL_TEACHER}${QUESTION}${USER_ID}${userId}${AND}${SCHOOL_CODE}${user.schoolCode}`,
                 {}, {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );

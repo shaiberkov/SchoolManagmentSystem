@@ -23,7 +23,6 @@ function  StudentDashboard(){
                 </header>
 
                 <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-2 sm:gap-3">
-                    {/* צד ימין – מערכת שעות קטנה יותר */}
                     <div className="lg:w-1/2">
                         <div className="rounded-2xl sm:p-5 h-full">
                             <WeeklySchedule type="student" singleDayMode={true}/>

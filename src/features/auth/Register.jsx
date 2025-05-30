@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {FaUser, FaEnvelope, FaLock, FaKey, FaPhone} from 'react-icons/fa';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
+import {ADD_USER, LOGIN, QUESTION, USER_BASE_PATH} from "../../constants/pages.constants.js";
 
 function Register() {
     const navigate = useNavigate();
@@ -59,8 +60,7 @@ function Register() {
 
             if (id !== '' && !isValidIsraeliID(id)) {
                 formErrors.userId = 'תעודת זהות לא תקינה';
-                // } else if (errors.userId === 'User ID Taken') {
-                //     formErrors.userId = '';
+
             } else {
                 formErrors.userId = '';
             }
@@ -132,11 +132,11 @@ function Register() {
             });
 
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/User/add-user/?${params.toString()}`
+                `${USER_BASE_PATH}${ADD_USER}${QUESTION}${params.toString()}`
+
             );
             console.log("Response:", response.data);
             if (response.data.success) {
-                alert('נרשמת בהצלחה!');
                 navigate('/login');
             } else {
                 setErrors((prevErrors) => ({

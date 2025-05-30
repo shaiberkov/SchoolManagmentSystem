@@ -3,6 +3,14 @@ import axios from 'axios';
 import Cookies from "universal-cookie";
 import {UserContext} from "../../context/UserContext.jsx";
 import {FiList} from "react-icons/fi";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    ADD_SCHOOL_GRADES,
+    AUTH_HEADER,
+    QUESTION,
+    SCHOOL_CODE,
+    SCHOOL_MANAGER_BASE_PATH
+} from "../../constants/pages.constants.js";
 
 function AddSchoolGrades() {
     const [grades, setGrades] = useState('');
@@ -23,12 +31,11 @@ function AddSchoolGrades() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/add-school-grades?schoolCode=${user.schoolCode}`,
+                    `${SCHOOL_MANAGER_BASE_PATH}${ADD_SCHOOL_GRADES}${QUESTION}${SCHOOL_CODE}${user.schoolCode}`,
                 gradesList,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );

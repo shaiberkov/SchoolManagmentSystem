@@ -40,7 +40,6 @@ function QuestionPracticeSelector() {
                 בחר תרגול
             </h2>
 
-            {/* שלב ראשון - בחירת מקצוע */}
             <div className="space-y-1">
                 <label className="font-semibold flex items-center gap-2 text-gray-700">
                     <FaBook
@@ -67,7 +66,6 @@ function QuestionPracticeSelector() {
                 </div>
             </div>
 
-            {/* שלב שני - בחירת נושא */}
             {selectedSubject && (
                 <div className="space-y-1">
                     <label className="font-semibold flex items-center gap-2 text-gray-700">
@@ -95,7 +93,6 @@ function QuestionPracticeSelector() {
                 </div>
             )}
 
-            {/* שלב שלישי - בחירת תרגיל */}
             {selectedTopic && (
                 <div className="space-y-1">
                     <label className="font-semibold flex items-center gap-2 text-gray-700">
@@ -120,7 +117,6 @@ function QuestionPracticeSelector() {
                 </div>
             )}
 
-            {/* כפתור התחלה */}
             {selectedSubject && selectedTopic && selectedExercise && (
                 <div className="mt-4 flex justify-center">
                     <button

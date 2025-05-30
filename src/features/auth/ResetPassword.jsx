@@ -2,6 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {FaKey, FaLock, FaUser} from "react-icons/fa";
+import {
+    AND,
+    FORGOT_PASSWORD,
+    LOGIN, NEW_PASSWORD, OTP,
+    QUESTION,
+    RESET_PASSWORD,
+    USER_BASE_PATH,
+    USER_ID
+} from "../../constants/pages.constants.js";
 
 function ResetPassword() {
     const [formData, setFormData] = useState({
@@ -48,7 +57,9 @@ function ResetPassword() {
     const requestOtp = async () => {
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/User/forgot-password?userId=${formData.userId}`
+                // `http://localhost:8080/Learning-App/User/forgot-password?userId=${formData.userId}`
+                `${USER_BASE_PATH}${FORGOT_PASSWORD}${QUESTION}${USER_ID}${formData.userId}`
+
             );
             if (response.data.success) setStep(2);
             else {
@@ -65,7 +76,9 @@ function ResetPassword() {
     const resetPassword = async () => {
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/User/reset-password?userId=${formData.userId}&otp=${formData.otp}&newPassword=${formData.newPassword}`
+                // `http://localhost:8080/Learning-App/User/reset-password?userId=${formData.userId}&otp=${formData.otp}&newPassword=${formData.newPassword}`
+                `${USER_BASE_PATH}${RESET_PASSWORD}${QUESTION}${USER_ID}${formData.userId}${AND}${OTP}${formData.otp}${AND}"newPasswor${NEW_PASSWORD}="${formData.newPassword}`
+
             );
 
             if (response.data.success) {

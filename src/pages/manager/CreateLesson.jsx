@@ -3,6 +3,15 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import {UserContext} from "../../context/UserContext.jsx";
 import {FiBookOpen, FiCalendar, FiClock, FiPlusCircle, FiSearch, FiUserCheck} from "react-icons/fi";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    ADD_LESSON_TO_TEACHER,
+    AND,
+    ASSIGN_USER_AS_SCHOOL_TEACHER,
+    AUTH_HEADER, GET_TEACHER_DTO,
+    QUESTION, SCHOOL_CODE,
+    SCHOOL_MANAGER_BASE_PATH, TEACHER_ID, USER_ID
+} from "../../constants/pages.constants.js";
 
 function CreateLesson() {
     const [formData, setFormData] = useState({
@@ -64,10 +73,10 @@ function CreateLesson() {
         setErrorMessage("");
         try {
             const response = await axios.get(
-                `http://localhost:8080/Learning-App/School-Manager/get-teacher-DTO?teacherId=${teacherId}&schoolCode=${user.schoolCode}`,
+                `${SCHOOL_MANAGER_BASE_PATH}${GET_TEACHER_DTO}${QUESTION}${TEACHER_ID}${teacherId}${AND}${SCHOOL_CODE}${user.schoolCode}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );
@@ -101,25 +110,17 @@ function CreateLesson() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/add-lesson-to-teacher?teacherId=${teacherId}`,
+                `${SCHOOL_MANAGER_BASE_PATH}${ADD_LESSON_TO_TEACHER}${QUESTION}${TEACHER_ID}${teacherId}`,
                 formData,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     },
                 }
             );
 
             if(response.data.success){
                 setSubmitMessage(response.data.errorCode);
-                // setFormData({
-                //     subject: "",
-                //     dayOfWeek: "",
-                //     startTime: "",
-                //     endTime: "",
-                //     classRoomName: ""
-                // });
-                // setTeacher(null);
 
 
             }

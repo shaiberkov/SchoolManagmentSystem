@@ -5,10 +5,10 @@ function ScrollToTop() {
     const location = useLocation();
 
     useEffect(() => {
-        window.scrollTo(0, 0); // גלילה למעלה
-    }, [location]); // כל שינוי ב־location גורם לגלול למעלה
+        window.scrollTo(0, 0);
+    }, [location]);
 
-    return null; // אין צורך להחזיר שום דבר
+    return null;
 }
 
 export default ScrollToTop;

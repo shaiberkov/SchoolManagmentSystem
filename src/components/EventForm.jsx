@@ -3,7 +3,14 @@ import { UserContext } from "../context/UserContext.jsx";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import {FaCalendarAlt} from "react-icons/fa";
-
+import {
+    AND,
+    AUTH_HEADER,
+    GET_UPCOMING_EVENTS,
+    QUESTION, ROLE, UPCOMING_EVENTS_BASE_PATH,
+    USER_ID
+} from "../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../constants/shared.constant.js";
 function EventForm() {
     const { user } = useContext(UserContext);
     const cookies = new Cookies();
@@ -17,11 +24,12 @@ function EventForm() {
         if (!user ) return;
 
         const fetchEvents = async () => {
-            const url = `http://localhost:8080/Learning-App/UpcomingEvents/upcoming-events?role=${user.role}&userId=${user.userId}`;
+
+            const url =`${UPCOMING_EVENTS_BASE_PATH}${GET_UPCOMING_EVENTS}${QUESTION}${ROLE}${user.role}${AND}${USER_ID}${user.userId}`
             try {
                 const response = await axios.get(url, {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`,
                         Accept: "application/json",
                     },
                 });
@@ -44,13 +52,11 @@ function EventForm() {
         className="max-w-md mx-auto  mb-8 p-4 bg-white rounded-3xl shadow-xl space-y-4"
         dir="rtl"
     >
-        {/* כותרת עם רקע ירוק ואייקון מונפש עם אפקט ברק */}
         <div className="flex items-center justify-center gap-2 bg-green-100 py-2 px-4 rounded-xl shadow-inner">
             <FaCalendarAlt className="text-green-600 text-xl transition-transform duration-300 hover:rotate-12 hover:scale-110 hover:drop-shadow-[0_0_6px_rgba(34,197,94,0.6)] hover:brightness-125" />
             <h2 className="text-xl font-bold text-green-800">האירועים הקרובים שלך</h2>
         </div>
 
-        {/* תוכן האירועים עם סקרול מעוצב */}
         <div className="max-h-72 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-green-100 rounded-xl">
             {events.length === 0 ? (
                 <p className="text-center text-gray-500">אין אירועים קרובים</p>

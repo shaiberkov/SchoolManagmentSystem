@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {FiBookOpen, FiSearch, FiTrash2} from "react-icons/fi";
+import {
+    AND,
+    AUTH_HEADER, GET_TEACHER_TEACHING_SUBJECTS,
+    QUESTION,
+    REMOVE_TEACHER_FROM_SCHOOL, REMOVE_TEACHING_SUBJECT_FROM_TEACHER,
+    SCHOOL_MANAGER_BASE_PATH, SUBJECT_TO_REMOVE, TEACHER_ID, USER_ID
+} from "../../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
 
 function RemoveTeachingSubjectFromTeacher() {
     const [teacherId, setTeacherId] = useState('');
@@ -20,10 +28,10 @@ function RemoveTeachingSubjectFromTeacher() {
 
         try {
             const response = await axios.get(
-                `http://localhost:8080/Learning-App/School-Manager/get-teacher-teaching-subjects?teacherId=${teacherId}`,
+                `${SCHOOL_MANAGER_BASE_PATH}${GET_TEACHER_TEACHING_SUBJECTS}${QUESTION}${TEACHER_ID}${teacherId}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );
@@ -60,11 +68,10 @@ function RemoveTeachingSubjectFromTeacher() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/remove-teaching-subject-from-teacher?teacherId=${teacherId}&subjectToRemove=${selectedSubject}`,
+                `${SCHOOL_MANAGER_BASE_PATH}${REMOVE_TEACHING_SUBJECT_FROM_TEACHER}${QUESTION}${TEACHER_ID}${teacherId}${AND}${SUBJECT_TO_REMOVE}${selectedSubject}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );
@@ -87,7 +94,7 @@ function RemoveTeachingSubjectFromTeacher() {
     return (
 
             <div
-                className="w-full max-w-sm mx-auto p-6 bg-white rounded-2xl shadow-xl mt-8 text-right animate-fade-in"
+                className="w-full max-w-sm mx-auto mb-8 p-6 bg-white rounded-2xl shadow-xl mt-8 text-right animate-fade-in"
                 dir="rtl"
             >
                 <h3 className="text-2xl font-bold text-green-600 mb-6 text-center">

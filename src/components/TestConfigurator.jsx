@@ -19,6 +19,15 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { he } from "date-fns/locale";
 import "../Styles/datePicker.css";
+import {
+    AND,
+    AUTH_HEADER, DIFFICULTY,
+    GENERATE_QUESTION, GENERATE_TEST_FOR_STUDENTS,
+    QUESTION, QUESTION_COUNT,
+    STUDENT_BASE_PATH, SUB_TOPIC, SUBJECT, TEACHER_BASE_PATH, TEACHER_ID, TEST_START_TIME, TIME_LIMIT_MINUTES, TOPIC,
+    USER_ID
+} from "../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../constants/shared.constant.js";
 
 
 const TestConfigurator = ({type}) => {
@@ -57,14 +66,13 @@ const TestConfigurator = ({type}) => {
             .map(id => id.trim())
             .filter(id => id.length > 0);
 
-
-        const url = `http://localhost:8080/Learning-App/Teacher/generate-test-for-students?teacherId=${user.userId}&testStartTime=${formattedStartTime}&subject=${selectedSubject}&topic=${selectedTopic}&difficulty=${selectedDifficulty}&questionCount=${selectedQuestionCount}&timeLimitMinutes=${selectedTimeMinutes}`;
+        const url =`${TEACHER_BASE_PATH}${GENERATE_TEST_FOR_STUDENTS}${QUESTION}${TEACHER_ID}${user.userId}${AND}${TEST_START_TIME}${formattedStartTime}${AND}${SUBJECT}${selectedSubject}${AND}${TOPIC}${selectedTopic}${AND}${DIFFICULTY}${selectedDifficulty}${AND}${QUESTION_COUNT}${selectedQuestionCount}${AND}${TIME_LIMIT_MINUTES}${selectedTimeMinutes}`;
 
         try {
             const response = await axios.post(url, usersIds, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                 }
             });
             if(response.data.success){
@@ -89,7 +97,6 @@ const TestConfigurator = ({type}) => {
                 יצירת מבחן
             </h2>
 
-            {/* בחירת מקצוע */}
             <div className="space-y-1">
                 <label className="font-semibold flex items-center gap-2 text-gray-700">
             <span className="group">
@@ -107,7 +114,6 @@ const TestConfigurator = ({type}) => {
                 </select>
             </div>
 
-            {/* נושא */}
             {selectedSubject && (
                 <div className="space-y-1">
                     <label className="font-semibold flex items-center gap-2 text-gray-700">
@@ -127,7 +133,6 @@ const TestConfigurator = ({type}) => {
                 </div>
             )}
 
-            {/* רמת קושי */}
             {selectedTopic && (
                 <div className="space-y-1">
                     <label className="font-semibold flex items-center gap-2 text-gray-700">
@@ -147,7 +152,6 @@ const TestConfigurator = ({type}) => {
                 </div>
             )}
 
-            {/* מספר שאלות */}
             {selectedDifficulty && (
                 <div className="space-y-1">
                     <label className="font-semibold flex items-center gap-2 text-gray-700">
@@ -166,7 +170,6 @@ const TestConfigurator = ({type}) => {
                 </div>
             )}
 
-            {/* זמן למבחן */}
             {selectedQuestionCount && (
                 <div className="space-y-1">
                     <label className="font-semibold flex items-center gap-2 text-gray-700">
@@ -190,7 +193,6 @@ const TestConfigurator = ({type}) => {
                 </div>
             )}
 
-            {/* תאריך ושעה - רק מורה */}
             {type === "teacher" && selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && (
                 <div className="space-y-1">
                     <label className="font-semibold flex items-center gap-2 text-gray-700">
@@ -215,7 +217,6 @@ const TestConfigurator = ({type}) => {
                 </div>
             )}
 
-            {/* ת"ז תלמידים */}
             {selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && startTime && type === "teacher" && (
                 <div className="space-y-1">
                     <label className="font-semibold flex items-center gap-2 text-gray-700">
@@ -236,7 +237,6 @@ const TestConfigurator = ({type}) => {
                 </div>
             )}
 
-            {/* כפתור שליחה */}
             {(type === "teacher" && selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0 && startTime) ||
             (type === "student" && selectedSubject && selectedTopic && selectedDifficulty && selectedQuestionCount && selectedTimeMinutes > 0) ? (
                 <div className=" mt-4 flex justify-center">

@@ -1,8 +1,18 @@
 
-import React, { createContext, useState, useEffect } from 'react';
+import React, {createContext, useState, useEffect, useRef} from 'react';
 import Cookies from 'universal-cookie';
 import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import {
+    AUTH_HEADER,
+    QUESTION,
+    SEND_OTP,
+    SESSION_BASE_PATH,
+    USER_BASE_PATH,
+    VALIDATE_TOKEN
+} from "../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../constants/shared.constant.js";
+import {API_BASE_URL, BASE_API} from "../constants/base.constants.js";
 
 export const UserContext = createContext();
 
@@ -11,6 +21,7 @@ export const UserProvider = ({ children }) => {
     const cookies = new Cookies();
     const token = cookies.get('token');
     const location = useLocation();
+    const userIdRef = useRef(null);
 
     const navigate=useNavigate()
 
@@ -38,22 +49,32 @@ export const UserProvider = ({ children }) => {
             console.log("🔍 בודק טוקן");
             try {
                 const response = await axios.get(
-                    'http://localhost:8080/Learning-App/validateToken/validateToken',
+                    // 'http://localhost:8080/Learning-App/validateToken/validateToken'
+                    `${SESSION_BASE_PATH}${VALIDATE_TOKEN}`
+                    ,
                     {
                         headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json'
+                            [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
+                            ,
                         }
                     }
                 );
 
                 if (response.data.valid) {
+                    const newUserId = response.data.userId;
+                    console.log("👁‍🗨 userIdRef.current:", userIdRef.current);
+                    console.log("👁‍🗨 newUserId:", newUserId);
+                    if (userIdRef.current === newUserId) {
+                        console.log("ℹ️ userId לא השתנה - לא מבצע setUser");
+                        return;
+                    }
                     setUser({
                         userId:response.data.userId,
                         role:response.data.role,
                         username:response.data.username,
                         schoolCode:response.data.schoolCode
                     });
+                    userIdRef.current = newUserId;
                     console.log(`✅ טוקן תקף - userId: ${response.data.userId}, role: ${response.data.role}, username: ${response.data.username},schoolCode:${response.data.schoolCode}`);
                 } else {
                     throw new Error('✖️ נתוני טוקן לא שלמים');

@@ -2,6 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import {FaCheckCircle, FaIdCard} from "react-icons/fa";
+import {
+    AUTH_HEADER,
+    QUESTION,
+    REMOVE_SCHOOL_MANAGER_FROM_SCHOOL,
+    SYSTEM_ADMIN_BASE_PATH, USER_ID
+} from "../../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
 
 
 function RemoveSchoolManager() {
@@ -20,11 +27,11 @@ function RemoveSchoolManager() {
         try {
 
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/System-Admin/remove-school-manager-from-school?userId=${schoolManagerId}`,
+                `${SYSTEM_ADMIN_BASE_PATH}${REMOVE_SCHOOL_MANAGER_FROM_SCHOOL}${QUESTION}${USER_ID}${schoolManagerId}`,
                 {},
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );

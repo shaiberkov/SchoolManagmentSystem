@@ -10,9 +10,6 @@ const ProtectedRoute = ({ allowedRoles, children }) => {
     const cookies = new Cookies();
     const token = cookies.get('token');
 
-    // if (token && !user) {
-    //     return <div>טוען...</div>; // ⏳ אפשר לשים ספינר יפה
-    // }
 
     if (!user) {
         return <Navigate to="/login" />;

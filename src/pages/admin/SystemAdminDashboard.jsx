@@ -8,6 +8,12 @@ import MessageList from "../../components/messages/MessageList.jsx";
 import {getGreeting} from "../../Utils/Greeting.jsx";
 import {FaClipboardList, FaPlusCircle, FaSchool} from "react-icons/fa";
 import EventForm from "../../components/EventForm.jsx";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    AUTH_HEADER,
+    GET_ALL_SCHOOLS,
+    SYSTEM_ADMIN_BASE_PATH
+} from "../../constants/pages.constants.js";
 
 
 
@@ -26,10 +32,10 @@ export default function SystemAdminDashboard() {
     const getSchoolData = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:8080/Learning-App/System-Admin/get-all-schools",
+                `${SYSTEM_ADMIN_BASE_PATH}${GET_ALL_SCHOOLS}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     },
                 }
             );

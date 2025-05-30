@@ -1,9 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { FaUser, FaSchool, FaKey, FaCheckCircle } from "react-icons/fa";
+import { FaUser, FaSchool, FaKey } from "react-icons/fa";
 
-import Cookies from "universal-cookie"; // Universal Cookies
+import Cookies from "universal-cookie";
+import {
+    ADD_NEW_SCHOOL_TO_SYSTEM,
+    ASSIGN_SCHOOL_MANAGER, ASSIGN_SCHOOL_MANAGER_TO_SCHOOL, AUTH_HEADER,
+    SYSTEM_ADMIN_BASE_PATH
+} from "../../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js"; // Universal Cookies
 
 function SchoolRegistration() {
     const [userId, setUserId] = useState("");
@@ -30,12 +36,11 @@ function SchoolRegistration() {
             const token = cookies.get("token");
 
             const assignResponse = await axios.post(
-                `http://localhost:8080/Learning-App/System-Admin/assign-school-manager`,
+                `${SYSTEM_ADMIN_BASE_PATH}${ASSIGN_SCHOOL_MANAGER}`,
                 new URLSearchParams({ userId }),
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/x-www-form-urlencoded",
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     },
                 }
             );
@@ -46,12 +51,13 @@ function SchoolRegistration() {
             }
 
             const addSchoolResponse = await axios.post(
-                `http://localhost:8080/Learning-App/System-Admin/add-new-school-to-system`,
+
+                `${SYSTEM_ADMIN_BASE_PATH}${ ADD_NEW_SCHOOL_TO_SYSTEM}`,
                 new URLSearchParams({ schoolName, schoolCode }),
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/x-www-form-urlencoded",
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
+
                     },
                 }
             );
@@ -60,12 +66,13 @@ function SchoolRegistration() {
                 setMessage("בית הספר נוסף והמנהל מונה בהצלחה!");
 
                 const connectResponse = await axios.post(
-                    `http://localhost:8080/Learning-App/System-Admin/assign-school-manager-to-school`,
+
+                    `${SYSTEM_ADMIN_BASE_PATH}${ASSIGN_SCHOOL_MANAGER_TO_SCHOOL}`,
                     new URLSearchParams({ userId, schoolCode }),
                     {
                         headers: {
-                            Authorization: `Bearer ${token}`,
-                            "Content-Type": "application/x-www-form-urlencoded",
+                            [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
+
                         },
                     }
                 );

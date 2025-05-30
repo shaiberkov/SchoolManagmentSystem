@@ -3,6 +3,15 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { UserContext } from '../../context/UserContext.jsx';
 import {FiLayers, FiPlusCircle} from "react-icons/fi";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    ADD_ADDITIONAL_CLASS_TO_GRADE,
+    AND, AUTH_HEADER, CLASS_NAME,
+    GET_GRADES, GRADE_NAME,
+    QUESTION,
+    SCHOOL_CODE,
+    SCHOOL_MANAGER_BASE_PATH
+} from "../../constants/pages.constants.js";
 
 function AddAdditionalClassToGrade() {
     const [gradesList, setGradesList] = useState([]);
@@ -20,10 +29,10 @@ function AddAdditionalClassToGrade() {
                 try {
 
                     const gradesResponse = await axios.get(
-                        `http://localhost:8080/Learning-App/School-Manager/grades?schoolCode=${user.schoolCode}`,
+                        `${SCHOOL_MANAGER_BASE_PATH}${GET_GRADES}${QUESTION}${SCHOOL_CODE}${user.schoolCode}`,
                         {
                             headers: {
-                                Authorization: `Bearer ${token}`
+                                [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                             }
                         }
                     );
@@ -53,11 +62,10 @@ function AddAdditionalClassToGrade() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/add-additional-class-to-grade?schoolCode=${user.schoolCode}&gradeName=${selectedGrade}&className=${className}`,
-
+                    `${SCHOOL_MANAGER_BASE_PATH}${ADD_ADDITIONAL_CLASS_TO_GRADE}${QUESTION}${SCHOOL_CODE}${user.schoolCode}${AND}${GRADE_NAME}${selectedGrade}${AND}${CLASS_NAME}${className}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );

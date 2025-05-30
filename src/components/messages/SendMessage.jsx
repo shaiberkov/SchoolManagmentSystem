@@ -3,6 +3,14 @@ import axios from 'axios';
 import {UserContext} from "../../context/UserContext.jsx";
 import Cookies from "universal-cookie";
 import {FaEnvelopeOpenText, FaPaperPlane} from "react-icons/fa";
+import {
+    AND,
+    ASSIGN_SCHOOL_MANAGER_TO_SCHOOL,
+    AUTH_HEADER, CONTENT, MESSAGE_BASE_PATH, QUESTION, RECIPIENT_TYPE, RECIPIENT_TYPES, RECIPIENT_VALUE,
+    SEND_MESSAGE, SENDER_ID,
+    SYSTEM_ADMIN_BASE_PATH, TITLE, USER_ID
+} from "../../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
 
 function SendMessage() {
     const { user } = useContext(UserContext);
@@ -18,11 +26,13 @@ function SendMessage() {
 
     useEffect(() => {
         const fetchRecipientTypes = async () => {
+
             try {
-                const res = await axios.get(`http://localhost:8080/Learning-App/Message/recipient-types?userId=${user.userId}`,
+                const res = await axios.get(
+                    `${MESSAGE_BASE_PATH}${RECIPIENT_TYPES}${QUESTION}${USER_ID}${user.userId}`,
                     {
                         headers: {
-                            Authorization: `Bearer ${token}`
+                            [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                         }
                     });
                 if(res.data.success){
@@ -42,11 +52,11 @@ function SendMessage() {
     const handleSubmit = async () => {
 
         try {
-            const res = await axios.post(`http://localhost:8080/Learning-App/Message/send-message?senderId=${user.userId}&recipientType=${recipientType}&recipientValue=${recipientValue}&title=${title}&content=${content}`
+            const res = await axios.post(`${MESSAGE_BASE_PATH}${SEND_MESSAGE}${QUESTION}${SENDER_ID}${user.userId}${AND}${RECIPIENT_TYPE}${recipientType}${AND}${RECIPIENT_VALUE}${recipientValue}${AND}${TITLE}${title}${AND}${CONTENT}${content}`
                 ,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 });
 
@@ -58,55 +68,7 @@ function SendMessage() {
         }
     };
 
-    // return (
-    //     <div>
-    //         <h2>שליחת הודעה</h2>
-    //             <div>
-    //                 <label>סוג נמענים:</label>
-    //                 <select
-    //                     value={recipientType}
-    //                     onChange={(e) => setRecipientType(e.target.value)}
-    //                 >
-    //                     <option key="default" value="">בחר נמען</option>
-    //                     {availableRecipientTypes.map((type) => (
-    //                         <option key={type} value={type}>{type}</option>
-    //                     ))}
-    //                 </select>
-    //             </div>
-    //
-    //             {/*<div>*/}
-    //             {/*    <label>ערך יעד (כיתה, שכבה וכו'):</label>*/}
-    //             {/*    <input*/}
-    //             {/*        type="text"*/}
-    //             {/*        value={recipientValue}*/}
-    //             {/*        onChange={(e) => setRecipientValue(e.target.value)}*/}
-    //             {/*        placeholder="למשל: ט1, ח'"*/}
-    //             {/*    />*/}
-    //             {/*</div>*/}
-    //
-    //             <div>
-    //                 <label>כותרת:</label>
-    //                 <input
-    //                     type="text"
-    //                     value={title}
-    //                     onChange={(e) => setTitle(e.target.value)}
-    //                 />
-    //             </div>
-    //
-    //             <div>
-    //                 <label>תוכן ההודעה:</label>
-    //                 <textarea
-    //                     value={content}
-    //                     onChange={(e) => setContent(e.target.value)}
-    //                 />
-    //             </div>
-    //
-    //             <button onClick={handleSubmit}>שלח הודעה</button>
-    //
-    //             {message && <p>{message}</p>}
-    //
-    //     </div>
-    // );
+
 
     return (
         <div className="max-w-md mx-auto mb-8 mt-10 p-6 bg-white rounded-3xl shadow-lg space-y-6" dir="rtl">

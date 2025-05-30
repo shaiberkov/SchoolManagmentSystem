@@ -4,6 +4,12 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import ChatComponent from "../../components/ChatComponent.jsx";
 import Cookies from "universal-cookie";
+import {
+    AND,
+    AUTH_HEADER, CHAT_BASE_PATH, GENERATE_QUESTION, MESSAGE, QUESTION,
+    STUDENT_BASE_PATH, SUB_TOPIC, SUBJECT, SUBMIT_ANSWER, TEACHER_ID, TOPIC, USER_ID, WITH_MEMORY
+} from "../../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
 
 function QuestionPractice(){
 
@@ -80,10 +86,11 @@ function QuestionPractice(){
         console.log(user.name,"ביקשתי שאלה")
          setMessages([]);
 
-        const response = await axios.get(`http://localhost:8080/Learning-App/Student/generate-question?userId=${user.userId}&subject=${subjectName}&topic=${topicName}&subTopic=${exerciseName}`,
+        const response = await axios.get(
+            `${STUDENT_BASE_PATH}${GENERATE_QUESTION}${QUESTION}${USER_ID}${user.userId}${AND}${SUBJECT}${subjectName}${AND}${TOPIC}${topicName}${AND}${SUB_TOPIC}${exerciseName}`,
             {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                 }
             });
         if (response.data) {
@@ -108,10 +115,10 @@ function QuestionPractice(){
             });
 
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/Student/submit-answer?${params.toString()}`,
+                `${STUDENT_BASE_PATH}${SUBMIT_ANSWER}${QUESTION}${params.toString()}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );
@@ -143,10 +150,10 @@ function QuestionPractice(){
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/Chat/get-response-from-chatGpt-with-memory?userId=${user.userId}&message=${userMessage}`,
+                `${CHAT_BASE_PATH}${WITH_MEMORY}${QUESTION}${USER_ID}${user.userId}${AND}${MESSAGE}${userMessage}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );

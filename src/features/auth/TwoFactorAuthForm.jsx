@@ -3,6 +3,14 @@ import { FaPhone, FaKey } from 'react-icons/fa';
 import Cookies from "universal-cookie";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+    GET_USER_PHONE,
+    QUESTION,
+    SEND_OTP,
+    USER_BASE_PATH,
+    USER_ID,
+    VERIFY_OTP
+} from "../../constants/pages.constants.js";
 
 function TwoFactorAuthForm() {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -16,7 +24,9 @@ function TwoFactorAuthForm() {
     useEffect(() => {
         const fetchPhoneNumber = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/Learning-App/User/user/phone?userId=${userId}`);
+                const response = await axios.get(
+                        `${USER_BASE_PATH}${GET_USER_PHONE}${QUESTION}${USER_ID}${userId}`
+                );
                 if (response.data.phoneNumber) {
                     setPhoneNumber(response.data.phoneNumber);
                 }
@@ -35,7 +45,9 @@ function TwoFactorAuthForm() {
             if (phoneNumber) { // רק אם יש מספר טלפון, שלח OTP
                 try {
                     const params = new URLSearchParams({ userId, phoneNumber });
-                    const response = await axios.post(`http://localhost:8080/Learning-App/User/send-otp?${params.toString()}`);
+                    const response = await axios.post(
+                        `${USER_BASE_PATH}${SEND_OTP}${QUESTION}${params.toString()}`
+                    );
 
                     if (!response.data.success) {
                         setError(response.data.errorCode || 'שגיאה בשליחת קוד אימות');
@@ -64,7 +76,9 @@ function TwoFactorAuthForm() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/User/verify-otp?${params.toString()}`
+                // `http://localhost:8080/Learning-App/User/verify-otp?${params.toString()}`
+                `${USER_BASE_PATH}${VERIFY_OTP}${QUESTION}${params.toString()}`
+
             );
             if (response.data.success) {
                 console.log("Response:", response.data.token);

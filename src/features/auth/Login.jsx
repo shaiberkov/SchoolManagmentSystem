@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaUser, FaLock } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {LOGIN, QUESTION, USER_BASE_PATH} from "../../constants/pages.constants.js";
 
 function Login() {
     const navigate = useNavigate();
@@ -31,7 +32,8 @@ function Login() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/User/login?${params.toString()}`
+                // `http://localhost:8080/Learning-App/User/login?${params.toString()}`
+                `${USER_BASE_PATH}${LOGIN}${QUESTION}${params.toString()}`
             );
             console.log("Response:", response.data);
             if (response.data.success) {

@@ -4,6 +4,12 @@ import axios from "axios";
 import WeeklySchedule from "../../components/WeeklySchedule.jsx";
 import Select from "react-select";
 import {UserContext} from "../../context/UserContext.jsx";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    AUTH_HEADER, GET_ALL_CLASSES_BY_SCHOOL_CODE,
+    QUESTION, SCHOOL_CODE,
+    SCHOOL_MANAGER_BASE_PATH, USER_ID
+} from "../../constants/pages.constants.js";
 
 function ClassScheduleViewerForManager() {
     const cookies = new Cookies();
@@ -19,8 +25,14 @@ function ClassScheduleViewerForManager() {
             if (user?.userId) {
                 try {
                         const classRes = await axios.get(
+                            `${SCHOOL_MANAGER_BASE_PATH}${GET_ALL_CLASSES_BY_SCHOOL_CODE}${QUESTION}${SCHOOL_CODE}${user.schoolCode}`,
+
                             `http://localhost:8080/Learning-App/School-Manager/get-all-classes-name-by-school-code?schoolCode=${user.schoolCode}`,
-                            { headers: { Authorization: `Bearer ${token}` } }
+                            { headers:
+                                    {
+                                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
+                            }
+                            }
                         );
 
                         if (classRes.data.success) {

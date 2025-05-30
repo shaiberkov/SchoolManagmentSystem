@@ -3,6 +3,15 @@ import axios from 'axios';
 import Cookies from "universal-cookie";
 import { UserContext } from "../../context/UserContext.jsx";
 import {FiLayers} from "react-icons/fi";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
+import {
+    AND,
+    AUTH_HEADER, GET_GRADES,
+    GET_TEACHER_DTO,
+    QUESTION, REMOVE_SCHOOL_GRADES, SCHOOL_CODE,
+    SCHOOL_MANAGER_BASE_PATH,
+    TEACHER_ID
+} from "../../constants/pages.constants.js";
 
 function RemoveSchoolGrades() {
     const [gradesList, setGradesList] = useState([]);
@@ -18,10 +27,10 @@ function RemoveSchoolGrades() {
                 try {
 
                     const gradesResponse = await axios.get(
-                        `http://localhost:8080/Learning-App/School-Manager/grades?schoolCode=${user.schoolCode}`,
+                        `${SCHOOL_MANAGER_BASE_PATH}${GET_GRADES}${QUESTION}${SCHOOL_CODE}${user.schoolCode}`,
                         {
                             headers: {
-                                Authorization: `Bearer ${token}`
+                                [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                             }
                         }
                     );
@@ -47,12 +56,11 @@ function RemoveSchoolGrades() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/remove-school-grades?schoolCode=${user.schoolCode}`,
+                `${SCHOOL_MANAGER_BASE_PATH}${REMOVE_SCHOOL_GRADES}${QUESTION}${SCHOOL_CODE}${user.schoolCode}`,
                 [selectedGrade],
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );

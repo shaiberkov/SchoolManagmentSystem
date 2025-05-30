@@ -6,6 +6,13 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import {getGreeting} from "../../Utils/Greeting.jsx";
 import EventForm from "../../components/EventForm.jsx";
+import {
+    AUTH_HEADER, GET_SCHOOL,
+    GET_TEACHER_TEACHING_SUBJECTS,
+    QUESTION,
+    SCHOOL_MANAGER_BASE_PATH, SCHOOL_MANAGER_ID, TEACHER_ID
+} from "../../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
 
 function SchoolManagerDashboard() {
     const [schoolData,setSchoolData]=useState({})
@@ -20,10 +27,10 @@ function SchoolManagerDashboard() {
         const fetchSchoolData = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/Learning-App/School-Manager/get-school?schoolManagerId=${user.userId}`,
+                    `${SCHOOL_MANAGER_BASE_PATH}${GET_SCHOOL}${QUESTION}${SCHOOL_MANAGER_ID}${user.userId}`,
                     {
                         headers: {
-                            Authorization: `Bearer ${token}`,
+                            [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                         },
                     }
                 );

@@ -1,8 +1,15 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import { UserContext } from '../../context/UserContext.jsx';
 import {FiTrash2} from "react-icons/fi";
+import {
+    AND,
+    ASSIGN_USER_AS_SCHOOL_TEACHER,
+    AUTH_HEADER,
+    QUESTION, REMOVE_TEACHER_FROM_SCHOOL, SCHOOL_CODE,
+    SCHOOL_MANAGER_BASE_PATH, USER_ID
+} from "../../constants/pages.constants.js";
+import {BEARER_PREFIX} from "../../constants/shared.constant.js";
 
 function RemoveTeacherFromSchool() {
     const [teacherId, setTeacherId] = useState('');
@@ -18,11 +25,11 @@ function RemoveTeacherFromSchool() {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/Learning-App/School-Manager/remove-teacher-from-school?userId=${teacherId}`,
+                `${SCHOOL_MANAGER_BASE_PATH}${REMOVE_TEACHER_FROM_SCHOOL}${QUESTION}${USER_ID}${teacherId}`,
                 {},
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        [AUTH_HEADER]: `${BEARER_PREFIX}${token}`
                     }
                 }
             );

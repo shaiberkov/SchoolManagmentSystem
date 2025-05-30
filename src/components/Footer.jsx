@@ -54,7 +54,6 @@ export default function Footer() {
                     </Link>
                 </nav>
 
-                {/* אייקונים חברתיים */}
                 <div className="flex justify-center gap-6 text-2xl">
                     <a
                         href="https://twitter.com"
@@ -85,7 +84,6 @@ export default function Footer() {
                     </a>
                 </div>
 
-                {/* זכויות יוצרים */}
                 <div className="text-center text-sm text-gray-500">
                     © כל הזכויות שמורות {new Date().getFullYear()}
                 </div>
