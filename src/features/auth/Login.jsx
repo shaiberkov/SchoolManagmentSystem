@@ -32,7 +32,6 @@ function Login() {
 
         try {
             const response = await axios.post(
-                // `http://localhost:8080/Learning-App/User/login?${params.toString()}`
                 `${USER_BASE_PATH}${LOGIN}${QUESTION}${params.toString()}`
             );
             console.log("Response:", response.data);
