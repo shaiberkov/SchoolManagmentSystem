@@ -58,18 +58,15 @@ function ClassScheduleViewerForManager() {
                 className="min-h-screen w-full flex flex-col items-center mt-20 justify-start bg-gradient-to-b from-teal-50 to-teal-100 px-4 py-8 sm:py-10"
                 dir="rtl"
             >
-                {/* כרטיס רחב ורספונסיבי */}
                 <div className="w-full max-w-4xl bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-6 sm:p-10 animate-fade-in">
                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 text-center">
                         צפייה במערכת שעות לפי כיתה
                     </h2>
 
-                    {/* תווית בחירת כיתה */}
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         בחר כיתה:
                     </label>
 
-                    {/* Select לבחירת כיתה */}
                     <Select
                         options={classOptions}
                         onChange={(sel) => setSelectedClassName(sel?.value || "")}
@@ -117,15 +114,12 @@ function ClassScheduleViewerForManager() {
                         }}
                     />
 
-
-                    {/* הודעת שגיאה */}
                     {message && (
                         <div className="mt-4 text-sm text-red-600 text-center animate-pulse">
                             {message}
                         </div>
                     )}
 
-                    {/* מערכת שעות */}
                     {selectedClassName && (
                         <div className="mt-10 overflow-x-auto">
                             <WeeklySchedule type="class" classRoomName={selectedClassName} />
