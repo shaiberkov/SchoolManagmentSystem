@@ -13,32 +13,33 @@ import {
 } from "../../constants/pages.constants.js";
 
 function TwoFactorAuthForm() {
-    const [phoneNumber, setPhoneNumber] = useState('');
+    // const [phoneNumber, setPhoneNumber] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [error, setError] = useState('');
     const location = useLocation();
     const userId = location.state?.userId;
+    const phoneNumber=location.state?.phoneNumber
     const navigate = useNavigate();
     const cookies = new Cookies();
 
-    useEffect(() => {
-        const fetchPhoneNumber = async () => {
-            try {
-                const response = await axios.get(
-                        `${USER_BASE_PATH}${GET_USER_PHONE}${QUESTION}${USER_ID}${userId}`
-                );
-                if (response.data.phoneNumber) {
-                    setPhoneNumber(response.data.phoneNumber);
-                }
-            } catch (error) {
-                console.error('Error fetching phone number:', error);
-                setError('שגיאה בשליפת מספר הטלפון');
-            }
-        };
-        if (userId) {
-            fetchPhoneNumber();
-        }
-    }, [userId]);
+    // useEffect(() => {
+    //     const fetchPhoneNumber = async () => {
+    //         try {
+    //             const response = await axios.get(
+    //                     `${USER_BASE_PATH}${GET_USER_PHONE}${QUESTION}${USER_ID}${userId}`
+    //             );
+    //             if (response.data.phoneNumber) {
+    //                 setPhoneNumber(response.data.phoneNumber);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching phone number:', error);
+    //             setError('שגיאה בשליפת מספר הטלפון');
+    //         }
+    //     };
+    //     if (userId) {
+    //         fetchPhoneNumber();
+    //     }
+    // }, [userId]);
 
     useEffect(() => {
         const sendOtp = async () => {
@@ -59,7 +60,7 @@ function TwoFactorAuthForm() {
             }
         };
         sendOtp();
-    }, [phoneNumber]);
+    }, []);
 
     const handleCodeChange = (event) => {
         setVerificationCode(event.target.value);

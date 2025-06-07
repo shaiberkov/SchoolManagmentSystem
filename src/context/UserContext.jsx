@@ -21,7 +21,7 @@ export const UserProvider = ({ children }) => {
     const cookies = new Cookies();
     const token = cookies.get('token');
     const location = useLocation();
-    const userIdRef = useRef(null);
+    // const userIdRef = useRef(null);
 
     const navigate=useNavigate()
 
@@ -49,7 +49,6 @@ export const UserProvider = ({ children }) => {
             console.log("🔍 בודק טוקן");
             try {
                 const response = await axios.get(
-                    // 'http://localhost:8080/Learning-App/validateToken/validateToken'
                     `${SESSION_BASE_PATH}${VALIDATE_TOKEN}`
                     ,
                     {
@@ -61,20 +60,20 @@ export const UserProvider = ({ children }) => {
                 );
 
                 if (response.data.valid) {
-                    const newUserId = response.data.userId;
-                    console.log("👁‍🗨 userIdRef.current:", userIdRef.current);
-                    console.log("👁‍🗨 newUserId:", newUserId);
-                    if (userIdRef.current === newUserId) {
-                        console.log("ℹ️ userId לא השתנה - לא מבצע setUser");
-                        return;
-                    }
+                    // const newUserId = response.data.userId;
+                    // console.log("👁‍🗨 userIdRef.current:", userIdRef.current);
+                    // console.log("👁‍🗨 newUserId:", newUserId);
+                    // if (userIdRef.current === newUserId) {
+                    //     console.log("ℹ️ userId לא השתנה - לא מבצע setUser");
+                    //     return;
+                    // }
                     setUser({
                         userId:response.data.userId,
                         role:response.data.role,
                         username:response.data.username,
                         schoolCode:response.data.schoolCode
                     });
-                    userIdRef.current = newUserId;
+                    // userIdRef.current = newUserId;
                     console.log(`✅ טוקן תקף - userId: ${response.data.userId}, role: ${response.data.role}, username: ${response.data.username},schoolCode:${response.data.schoolCode}`);
                 } else {
                     throw new Error('✖️ נתוני טוקן לא שלמים');

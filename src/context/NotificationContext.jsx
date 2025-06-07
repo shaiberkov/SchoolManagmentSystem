@@ -44,7 +44,7 @@ export function NotificationProvider({ children }) {
         return () => {
             eventSource.close();
         };
-    }, [user?.userId]);
+    }, [user]);
 
     return (
         <NotificationContext.Provider value={{ messages, tests }}>

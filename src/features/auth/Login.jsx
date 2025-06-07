@@ -34,9 +34,9 @@ function Login() {
             const response = await axios.post(
                 `${USER_BASE_PATH}${LOGIN}${QUESTION}${params.toString()}`
             );
-            console.log("Response:", response.data);
             if (response.data.success) {
-                navigate('/two-factor-auth', { state: { userId: formData.userId } });
+
+                navigate('/two-factor-auth', { state: { userId: formData.userId, phoneNumber: response.data.data } });
             } else {
                 setError(response.data.errorCode);
             }

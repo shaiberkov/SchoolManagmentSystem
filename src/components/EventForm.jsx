@@ -42,10 +42,9 @@ function EventForm() {
         };
 
         fetchEvents();
-    }, [user]);
+    }, [user?.userId]);
 
-    if (loading) return <p>טוען אירועים...</p>;
-    if (error) return <p>שגיאה: {error}</p>;
+
 
     return (
     <div
@@ -70,7 +69,7 @@ function EventForm() {
                             <div className="text-base font-semibold text-green-700">
                                 {event.eventName}
                             </div>
-                            <div className="text-sm text-gray-500">בעוד {event.eventInDays}</div>
+                            <div className="text-sm text-gray-500">בעוד {event.eventInDays} ימים </div>
                         </li>
                     ))}
                 </ul>

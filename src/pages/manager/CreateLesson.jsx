@@ -82,8 +82,9 @@ function CreateLesson() {
             );
             if(response.data.success){
                setTeacher(response.data.data);
-            }else{
                 setErrorMessage(response.data.errorCode)
+            }else{
+
             }
 
         } catch (error) {
