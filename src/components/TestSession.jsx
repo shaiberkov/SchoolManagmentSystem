@@ -35,6 +35,8 @@ const TestSession = ({ type }) => {
     const [testResults, setTestResults] = useState(null);
     const [progress, setProgress] = useState(0);
     const [showConfirm, setShowConfirm] = useState(false);
+    const [fetchTestLoader, setFetchTestLoader] = useState(true);
+    const [testResultLoader, setTestResultLoader] = useState(false);
 
     const [timeLeft, setTimeLeft] = useState(() => {
         let minutes = 0;
@@ -75,6 +77,7 @@ const TestSession = ({ type }) => {
                     );
                     setTestData(res.data.data);
                     setTestId(res.data.data.id);
+                    setFetchTestLoader(false);
                 } catch (err) {
                     setError(err);
                 }
@@ -102,6 +105,7 @@ const TestSession = ({ type }) => {
                         }
                     );
                     setTestData(res.data);
+                    setFetchTestLoader(false);
                 } catch (err) {
                     console.warn(err);
                 }
@@ -110,6 +114,7 @@ const TestSession = ({ type }) => {
     }, [user?.userId, type, TeacherTestId]);
 
     const submitTest = async () => {
+        setTestResultLoader(true)
         try {
             let url = '';
             if (type === 'practiceTest') {
@@ -124,7 +129,10 @@ const TestSession = ({ type }) => {
                     'Content-Type': 'application/json',
                 },
             });
-            if (res) setTestResults(res.data.data);
+            if (res){
+                setTestResults(res.data.data);
+                setTestResultLoader(false)
+            }
         } catch (err) {
             console.error(err);
             setError(err);
@@ -141,7 +149,79 @@ const TestSession = ({ type }) => {
     const formatTime = (s) =>
         `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
-    if (!testData || !testData.questions) return <div>טוען...</div>;
+    if(testResultLoader){
+        return (
+            <div className="flex flex-col justify-center items-center h-screen w-full px-4 animate-fadeIn">
+                <div className="relative w-24 h-24 sm:w-20 sm:h-20 mb-6">
+                    <div className="absolute inset-0 rounded-full border-[6px] border-green-400 border-t-transparent animate-spin shadow-green-300 shadow-xl" />
+                    <div className="absolute inset-3 bg-white rounded-full flex items-center justify-center">
+                        <svg
+                            className="w-8 h-8 sm:w-6 sm:h-6 text-green-600 animate-ping-slow"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 8v4l3 3"
+                            />
+                        </svg>
+                    </div>
+                </div>
+
+                <h2 className="text-green-800 text-2xl sm:text-xl font-bold text-center mb-2 animate-bounce">
+                    מחשב את התשובות שלך...
+                </h2>
+
+                <div className="flex space-x-1 mt-2">
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-bounce" />
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-bounce delay-150" />
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-bounce delay-300" />
+                </div>
+
+                <p className="text-gray-600 mt-4 text-sm sm:text-xs text-center max-w-xs animate-fadeIn delay-500">
+                    אנחנו מנתחים את התשובות שלך כדי להציג את התוצאה המדויקת ביותר
+                </p>
+            </div>
+        );
+
+    }
+    if (fetchTestLoader) {
+        return (
+            <div className="flex flex-col justify-center items-center h-screen w-full bg-transparent px-4 animate-fadeIn">
+                <div className="relative w-24 h-24 sm:w-20 sm:h-20 mb-6">
+                    <div className="absolute inset-0 rounded-full border-[6px] border-t-green-500 border-b-green-300 border-l-transparent border-r-transparent animate-spin shadow-lg shadow-green-300" />
+                    <div className="absolute inset-2 bg-white rounded-full flex items-center justify-center">
+                        <svg
+                            className="w-8 h-8 sm:w-6 sm:h-6 text-green-600 animate-pulse drop-shadow-md"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                        </svg>
+                    </div>
+                </div>
+
+                <h2 className="text-green-700 text-2xl sm:text-xl font-extrabold text-center animate-bounce">
+                    טוען את המבחן...
+                </h2>
+
+                <p className="text-gray-600 mt-4 text-sm sm:text-xs text-center max-w-xs animate-fadeIn delay-500">
+                    אנא המתן מספר שניות בזמן שהמערכת מכינה עבורך את המבחן
+                </p>
+            </div>
+        );
+    }
+
+
     const questions = testData.questions;
 
     return (
