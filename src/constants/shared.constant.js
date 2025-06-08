@@ -1,5 +1,3 @@
-import {PagesConstants} from "./pages.constants.js";
-
 export const SharedConstants = {
     SharedControllerConstants: {
         BEARER_PREFIX: 'Bearer ',
