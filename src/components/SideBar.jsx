@@ -4,6 +4,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {Link, Route, useNavigate} from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import logo from '../assets/logo.png';
 import Cookies from "universal-cookie";
 
 function SideBar() {
@@ -123,24 +124,40 @@ function SideBar() {
                 id="navbar"
                 className="fixed top-0 left-0 z-50 w-full flex flex-row justify-end bg-teal-600 px-4 sm:justify-between shadow-md bg-opacity-100"
             >
-                <ul className="breadcrumb flex-row items-center py-4 text-lg text-white sm:flex">
-                    <li className="inline">
-                        <a href="#"></a>
-                    </li>
-                    <li className="inline">
-                        <span></span>
-                    </li>
-                </ul>
+                <div className="w-full flex justify-start p-4">
+                    <ul className="flex items-center  text-lg text-white">
+                        <li>
+                            <img src={logo} alt="Logo" className="w-20 transition-transform duration-300 hover:cursor-pointer my-[-10px] hover:scale-120 h-auto"/>
+                        </li>
+                    </ul>
+                </div>
+
+                {/*<ul className="breadcrumb flex-row items-center text-lg text-white sm:flex">*/}
+                {/*    <li className="inline">*/}
+                {/*        <img src={logo} alt="Logo" className="w-12 h-auto"/>*/}
+                {/*    </li>*/}
+                {/*</ul>*/}
+
+                {/*<ul className="breadcrumb flex-row items-center py-4 text-lg text-white sm:flex">*/}
+                {/*    <li className="inline">*/}
+                {/*        <a href="#"></a>*/}
+                {/*    </li>*/}
+                {/*    <li className="inline">*/}
+                {/*        <span></span>*/}
+                {/*    </li>*/}
+                {/*</ul>*/}
 
                 {!token && (
                     <div className="flex justify-center py-2 gap-4 ">
-                        <button className="px-6 py-2 bg-blue-600 text-white text-lg font-semibold rounded-2xl shadow-lg hover:bg-blue-700 transition duration-300"
-                                onClick={ ()=>navigate("/register" )}
+                        <button
+                            className="px-6 py-2 bg-blue-600 text-white text-lg font-semibold rounded-2xl shadow-lg hover:bg-blue-700 transition duration-300"
+                            onClick={() => navigate("/register")}
                         >
                             הרשמה
                         </button>
-                        <button className="px-6 py-2 bg-green-600 text-white text-lg font-semibold rounded-2xl shadow-lg hover:bg-green-700 transition duration-300"
-                                onClick={()=>navigate("/login")}
+                        <button
+                            className="px-6 py-2 bg-green-600 text-white text-lg font-semibold rounded-2xl shadow-lg hover:bg-green-700 transition duration-300"
+                            onClick={() => navigate("/login")}
                         >
                             התחברות
                         </button>
@@ -148,7 +165,7 @@ function SideBar() {
                 )}
 
 
-                {user&& (
+                {user && (
                     <button
                         type="button"
                         onClick={() => setOpen(!open)}
