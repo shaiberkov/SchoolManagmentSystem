@@ -1,7 +1,7 @@
 
 
 
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {Link, Route, useNavigate} from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import logo from '../assets/logo.png';
@@ -36,6 +36,7 @@ function SideBar() {
             sidebar.style.top = `${navbar.clientHeight - 1}px`;
         }
     }, []);
+
 
     const getLinks = () => {
         if (!user) return [];
@@ -132,20 +133,7 @@ function SideBar() {
                     </ul>
                 </div>
 
-                {/*<ul className="breadcrumb flex-row items-center text-lg text-white sm:flex">*/}
-                {/*    <li className="inline">*/}
-                {/*        <img src={logo} alt="Logo" className="w-12 h-auto"/>*/}
-                {/*    </li>*/}
-                {/*</ul>*/}
 
-                {/*<ul className="breadcrumb flex-row items-center py-4 text-lg text-white sm:flex">*/}
-                {/*    <li className="inline">*/}
-                {/*        <a href="#"></a>*/}
-                {/*    </li>*/}
-                {/*    <li className="inline">*/}
-                {/*        <span></span>*/}
-                {/*    </li>*/}
-                {/*</ul>*/}
 
                 {!token && (
                     <div className="flex justify-center py-2 gap-4 ">
